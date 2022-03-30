@@ -1,6 +1,6 @@
 "use strict";
 
 module.exports = {
-  fakeLib: require("./lib/fakelib"),
+  fakeLib: require("./lib/test-helpers"),
   config: require("./config")
 };
