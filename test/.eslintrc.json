@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "../.eslintrc.json",
+    "../eslint-config/test-config.js"
+  ]
+}
