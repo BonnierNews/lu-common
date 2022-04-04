@@ -2807,7 +2807,7 @@ teeny-request@^7.0.0:
     uuid "^8.0.0"
 
 "test-data@file:./test-data":
-  version "0.0.0"
+  version "1.0.0"
 
 text-table@^0.2.0:
   version "0.2.0"
