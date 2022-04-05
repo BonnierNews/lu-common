@@ -4,7 +4,6 @@ const nock = require("nock");
 const config = require("exp-config");
 const path = require("path");
 const fs = require("fs");
-const {should} = require("chai");
 
 function init(url = config.proxyUrl) {
   let api = nock(url);
@@ -28,9 +27,7 @@ function init(url = config.proxyUrl) {
     }
     let actualBody;
     const {request} = testData;
-    if (request.baseUrl && request.baseUrl !== url) {
-      throw new Error(`Missmatching urls ${request.baseUrl} ${url}`);
-    }
+    if (request.baseUrl && request.baseUrl !== url) throw new Error(`Missmatching urls ${request.baseUrl} ${url}`);
     const mock = api[request.method](request.path, (body) => {
       actualBody = body;
       return true;
