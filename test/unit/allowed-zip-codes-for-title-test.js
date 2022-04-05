@@ -1,6 +1,6 @@
 "use strict";
 
-const allowedPrintZipCodesForTitle = require("../../lib/allowed-zip-codes-for-title");
+const {allowedPrintZipCodesForTitle} = require("../../lib/allowed-zip-codes-for-title");
 
 const scenarios = [
   {
