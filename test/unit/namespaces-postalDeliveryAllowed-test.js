@@ -1,6 +1,6 @@
 "use strict";
 
-const {postalDeliveryAllowed} = require("../../lib/lambdas/namespaces");
+const {postalDeliveryAllowed} = require("../../lib/namespaces");
 
 const scenarios = [
   {
