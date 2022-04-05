@@ -10,6 +10,18 @@ const scenarios = [
     text: "DN in Stockholm"
   },
   {
+    expected: true,
+    zipCode: "98765", // TODO: this is no real, change it in config and here
+    title: "dn",
+    text: "DN Premo addressed"
+  },
+  {
+    expected: false,
+    zipCode: "98765", // TODO: this is no real, change it in config and here
+    title: "expressen",
+    text: "Expressen Premo addressed"
+  },
+  {
     expected: false,
     zipCode: 11846,
     title: "dn",
