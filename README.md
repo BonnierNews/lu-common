@@ -13,6 +13,11 @@ git config --global diff.submodule log
 git config --global status.submoduleSummary true
 ```
 
+Everyone using lu-common as a submodule need to initialize their .gitmodules file in that repo (e.g. in lu-greenfield)
+```bash
+git submodule update --init --recursive
+```
+
 ## Usage (lu-greenfield)
 
 To use the submodule in a new project in [lu-greenfield](https://github.com/BonnierNews/lu-greenfield) do the following:
