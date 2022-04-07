@@ -11,15 +11,15 @@ const scenarios = [
   },
   {
     expected: true,
-    zipCode: "62332",
+    zipCode: "99999",
     title: "dn",
-    text: "DN additional"
+    text: "DN on Premo addressed"
   },
   {
     expected: false,
-    zipCode: "62332",
+    zipCode: "99999",
     title: "expressen",
-    text: "Expressen (on DN additional)"
+    text: "Expressen on Premo addressed"
   },
   {
     expected: false,
