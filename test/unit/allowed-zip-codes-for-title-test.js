@@ -11,13 +11,13 @@ const scenarios = [
   },
   {
     expected: true,
-    zipCode: "99999",
+    zipCode: "99999", // TODO: this is fake, test with a real when we have one
     title: "dn",
     text: "DN on Premo addressed"
   },
   {
     expected: false,
-    zipCode: "99999",
+    zipCode: "99999", // TODO: this is fake, test with a real when we have one
     title: "expressen",
     text: "Expressen on Premo addressed"
   },
