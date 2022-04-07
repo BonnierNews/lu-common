@@ -11,21 +11,27 @@ const scenarios = [
   },
   {
     expected: true,
-    zipCode: "98765", // TODO: this is no real, change it in config and here
+    zipCode: "62332",
     title: "dn",
-    text: "DN Premo addressed"
+    text: "DN additional"
   },
   {
     expected: false,
-    zipCode: "98765", // TODO: this is no real, change it in config and here
+    zipCode: "62332",
     title: "expressen",
-    text: "Expressen Premo addressed"
+    text: "Expressen (on DN additional)"
   },
   {
     expected: false,
     zipCode: 11846,
     title: "dn",
     text: "Numeric zipcode"
+  },
+  {
+    expected: false,
+    zipCode: "118 46",
+    title: "dn",
+    text: "Zipcode with space"
   },
   {
     expected: false,
