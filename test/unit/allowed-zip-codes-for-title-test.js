@@ -29,6 +29,12 @@ const scenarios = [
   },
   {
     expected: false,
+    zipCode: "118 46",
+    title: "dn",
+    text: "Zipcode with space"
+  },
+  {
+    expected: false,
     zipCode: "11846",
     title: "some-title",
     text: "Some title"
