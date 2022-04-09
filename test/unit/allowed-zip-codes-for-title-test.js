@@ -16,6 +16,18 @@ const scenarios = [
     text: "Numeric zipcode"
   },
   {
+    expected: true,
+    zipCode: "98596",
+    title: "dn",
+    text: "DN (DN specific postcode)"
+  },
+  {
+    expected: false,
+    zipCode: "98596",
+    title: "expressen",
+    text: "Expressen (DN specific postcode)"
+  },
+  {
     expected: false,
     zipCode: "11846",
     title: "some-title",
