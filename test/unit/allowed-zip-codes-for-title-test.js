@@ -76,3 +76,13 @@ describe("check if delivery allowed to zipcode", () => {
     });
   }
 });
+
+describe("check that we have unique values", () => {
+  describe("28733 appears only once for DN (available for both GT and Expressen", () => {
+    const targetZipCodes = allowedPrintZipCodesForTitle.dn.filter((zC) => zC === "28733");
+
+    it(`should only appear once`, () => {
+      targetZipCodes.length.should.eql(1);
+    });
+  });
+});
