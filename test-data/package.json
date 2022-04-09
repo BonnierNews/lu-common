@@ -4,9 +4,7 @@
   "description": "Test data for all the Data/Infra apps",
   "author": "",
   "license": "UNLICENCED",
-  "scripts": {
-  },
-  "devDependencies": {
-  },
+  "scripts": {},
+  "devDependencies": {},
   "dependencies": {}
 }
