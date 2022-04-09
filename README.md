@@ -62,6 +62,16 @@ ssh-keygen -t rsa -b 4096 -f/Users/<user-name>/.ssh/<repo>_rsa -C"Submodule acce
 ```
 - cross fingers
 
+## To update to latest version
+
+In the repo where it is used run the following, which will update all instances of all submodules in that repo.
+
+```bash
+git submodule update --init --recursive --remote
+```
+
+then run tests and so on, PR and deploy as usual.
+
 ## Future
 
 If we ever have multiple submodules then we'll need to modify the above yaml settings to just get the specific submodule. Probably it will work with something like `git submodule update --init --recursive ./customer-service-bff/common ./distribution-worker/common ./distribution-api/common` or something and then a whole other section (with separate ssh key) for the new submodule. May need to break that up into separate `git submodule update` commands for each subdirectory with the same submodule. Needs testing...
