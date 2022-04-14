@@ -102,7 +102,7 @@ describe("check if address is correct", () => {
     describe(s.text, () => {
       const {error: notValidAddress} = addressSchema.address.validate(s.address);
 
-      it(`is a ${s.expected ? "valid " : "invalid "} address`, () => {
+      it(`is a${s.expected ? " valid " : "n invalid "} address`, () => {
         Boolean(!notValidAddress).should.eql(Boolean(s.expected));
       });
     });
