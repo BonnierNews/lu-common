@@ -100,7 +100,7 @@ const scenarios = [
 describe("check if address is correct", () => {
   for (const s of scenarios) {
     describe(s.text, () => {
-      const {error: notValidAddress} = addressSchema.address.validate(s.address);
+      const {error: notValidAddress} = addressSchema.validate(s.address);
 
       it(`is a${s.expected ? " valid " : "n invalid "} address`, () => {
         Boolean(!notValidAddress).should.eql(Boolean(s.expected));
