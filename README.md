@@ -41,6 +41,10 @@ if [ ! -f ./common/package.json ]; then
   exit 1
 fi
 ```
+- add the following to `docker/Dockerfile` after the `WORKDIR /app` line see [customer-service-bff](https://github.com/BonnierNews/lu-greenfield/blob/master/customer-service-bff/docker/Dockerfile) for an example
+```bash
+COPY common/ ./common
+```
 
 ## Usage (other repos)
 
