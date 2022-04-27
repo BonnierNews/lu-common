@@ -15,7 +15,19 @@ const scenarios = [
       zipCode: "12345",
       city: "Teststaden",
       careOf: "Bestefar",
-      companyName: "AwesomeCompany AB"
+      companyName: "AwesomeCompany AB",
+      country: "SE"
+    }
+  },
+  {
+    text: "Valid foregin address",
+    expected: true,
+    address: {
+      streetName: "Awesome street in canada",
+      streetNumber: "1",
+      zipCode: "S0J 2Y0",
+      city: "Saskatchewan",
+      country: "CA"
     }
   },
   {
@@ -25,7 +37,8 @@ const scenarios = [
       streetName: "Testgatan",
       streetNumber: "1",
       zipCode: "12345",
-      city: "Teststaden"
+      city: "Teststaden",
+      country: "SE"
     }
   },
   {
@@ -34,7 +47,8 @@ const scenarios = [
     address: {
       streetName: "Testgatan",
       zipCode: "12345",
-      city: "Teststaden"
+      city: "Teststaden",
+      country: "SE"
     }
   },
   {
@@ -46,10 +60,11 @@ const scenarios = [
       stairCase: "A",
       stairs: "1",
       apartmentNumber: "1101",
-      zipCode: "1234511",
+      zipCode: "123456789",
       city: "Teststaden",
       careOf: "Bestefar",
-      companyName: "AwesomeCompany AB"
+      companyName: "AwesomeCompany AB",
+      country: "SE"
     }
   },
   {
@@ -64,7 +79,8 @@ const scenarios = [
       zipCode: "1337",
       city: "Teststaden",
       careOf: "Bestefar",
-      companyName: "AwesomeCompany AB"
+      companyName: "AwesomeCompany AB",
+      country: "SE"
     }
   },
   {
@@ -78,7 +94,8 @@ const scenarios = [
       zipCode: "12345",
       city: "Teststaden",
       careOf: "Bestefar",
-      companyName: "AwesomeCompany AB"
+      companyName: "AwesomeCompany AB",
+      country: "SE"
     }
   },
   {
@@ -92,7 +109,40 @@ const scenarios = [
       apartmentNumber: "1101",
       zipCode: "12345",
       careOf: "Bestefar",
-      companyName: "AwesomeCompany AB"
+      companyName: "AwesomeCompany AB",
+      country: "SE"
+    }
+  },
+  {
+    text: "Invalid address cause of invalid country",
+    expected: false,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      stairCase: "A",
+      stairs: "1",
+      apartmentNumber: "1101",
+      zipCode: "12345",
+      city: "Teststaden",
+      careOf: "Bestefar",
+      companyName: "AwesomeCompany AB",
+      country: "BLAH"
+    }
+  },
+  {
+    text: "Invalid address cause of invalid foregin zipcode",
+    expected: false,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      stairCase: "A",
+      stairs: "1",
+      apartmentNumber: "1101",
+      zipCode: "12",
+      city: "Teststaden",
+      careOf: "Bestefar",
+      companyName: "AwesomeCompany AB",
+      country: "US"
     }
   }
 ];
