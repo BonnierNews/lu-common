@@ -23,10 +23,10 @@ const scenarios = [
     text: "Valid foregin address",
     expected: true,
     address: {
-      streetName: "Awesome city of the states",
+      streetName: "Awesome street in canada",
       streetNumber: "1",
-      zipCode: "123A 12A",
-      city: "City of testing",
+      zipCode: "S0J 2Y0",
+      city: "Saskatchewan",
       country: "CA"
     }
   },
@@ -127,6 +127,22 @@ const scenarios = [
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
       country: "BLAH"
+    }
+  },
+  {
+    text: "Invalid address cause of invalid foregin zipcode",
+    expected: false,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      stairCase: "A",
+      stairs: "1",
+      apartmentNumber: "1101",
+      zipCode: "12",
+      city: "Teststaden",
+      careOf: "Bestefar",
+      companyName: "AwesomeCompany AB",
+      country: "US"
     }
   }
 ];
