@@ -91,6 +91,7 @@ const scenarios = [
   {
     text: "Invalid address default country address, bad zipCode",
     expected: false,
+    error: '"zipCode" failed validation because Postal code A123 is not valid for country SE',
     address: {
       streetName: "Testgatan",
       streetNumber: "1",
@@ -101,6 +102,7 @@ const scenarios = [
   {
     text: "Invalid address cause of zipCode to long",
     expected: false,
+    error: '"zipCode" failed validation because Postal code 123456789 is not valid for country SE',
     address: {
       streetName: "Testgatan",
       streetNumber: "1",
@@ -117,6 +119,7 @@ const scenarios = [
   {
     text: "Invalid address cause of zipCode to short",
     expected: false,
+    error: '"zipCode" failed validation because Postal code 1337 is not valid for country SE',
     address: {
       streetName: "Testgatan",
       streetNumber: "1",
@@ -133,6 +136,7 @@ const scenarios = [
   {
     text: "Invalid address cause of missing streetName",
     expected: false,
+    error: '"streetName" is required',
     address: {
       streetNumber: "1",
       stairCase: "A",
@@ -148,6 +152,7 @@ const scenarios = [
   {
     text: "Invalid address cause of missing city",
     expected: false,
+    error: '"city" is required',
     address: {
       streetName: "Testgatan",
       streetNumber: "1",
@@ -163,6 +168,7 @@ const scenarios = [
   {
     text: "Invalid address cause of invalid country",
     expected: false,
+    error: '"country" contains an invalid value',
     address: {
       streetName: "Testgatan",
       streetNumber: "1",
@@ -179,6 +185,7 @@ const scenarios = [
   {
     text: "Invalid address cause of invalid foregin zipcode",
     expected: false,
+    error: '"zipCode" failed validation because Postal code 12 is not valid for country US',
     address: {
       streetName: "Testgatan",
       streetNumber: "1",
@@ -202,6 +209,12 @@ describe("check if address is correct", () => {
       it(`is a${s.expected ? " valid " : "n invalid "} address`, () => {
         Boolean(!notValidAddress).should.eql(Boolean(s.expected));
       });
+
+      if (!s.expected) {
+        it(`should have the error message: '${s.error}'`, () => {
+          notValidAddress.details[0].message.should.eql(s.error);
+        });
+      }
     });
   }
 });
