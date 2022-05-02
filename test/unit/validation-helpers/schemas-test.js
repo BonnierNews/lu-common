@@ -42,6 +42,43 @@ const scenarios = [
     }
   },
   {
+    text: "Valid address with normal fields, normal spacing in swedish zipcode",
+    expected: true,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      zipCode: "123 45",
+      city: "Teststaden",
+      country: "SE"
+    }
+  },
+  {
+    text: "Valid address with normal fields, missing country so default to SE",
+    expected: true,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      zipCode: "12345",
+      city: "Teststaden"
+    }
+  },
+  {
+    text: "Valid address with normal fields, some null values",
+    expected: true,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      stairCase: null,
+      stairs: null,
+      apartmentNumber: null,
+      zipCode: "12345",
+      city: "Teststaden",
+      careOf: "Bestefar",
+      companyName: null,
+      country: null
+    }
+  },
+  {
     text: "Valid address with minimum fields",
     expected: true,
     address: {
@@ -49,6 +86,16 @@ const scenarios = [
       zipCode: "12345",
       city: "Teststaden",
       country: "SE"
+    }
+  },
+  {
+    text: "Invalid address default country address, bad zipCode",
+    expected: false,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      zipCode: "A123",
+      city: "Teststaden"
     }
   },
   {
