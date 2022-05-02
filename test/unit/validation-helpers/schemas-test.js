@@ -42,6 +42,17 @@ const scenarios = [
     }
   },
   {
+    text: "Valid address with normal fields, normal spacing in swedish zipcode",
+    expected: true,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      zipCode: "123 45",
+      city: "Teststaden",
+      country: "SE"
+    }
+  },
+  {
     text: "Valid address with normal fields, missing country so default to SE",
     expected: true,
     address: {
@@ -186,9 +197,10 @@ const scenarios = [
 describe("check if address is correct", () => {
   for (const s of scenarios) {
     describe(s.text, () => {
-      const {error: notValidAddress} = addressSchema.validate(s.address);
+      const {value, error: notValidAddress} = addressSchema.validate(s.address);
 
       it(`is a${s.expected ? " valid " : "n invalid "} address`, () => {
+        console.log("value :>> ", value.zipCode);
         Boolean(!notValidAddress).should.eql(Boolean(s.expected));
       });
     });
