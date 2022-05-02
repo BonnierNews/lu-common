@@ -42,6 +42,32 @@ const scenarios = [
     }
   },
   {
+    text: "Valid address with normal fields, missing country so default to SE",
+    expected: true,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      zipCode: "12345",
+      city: "Teststaden"
+    }
+  },
+  {
+    text: "Valid address with normal fields, some null values",
+    expected: true,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      stairCase: null,
+      stairs: null,
+      apartmentNumber: null,
+      zipCode: "12345",
+      city: "Teststaden",
+      careOf: "Bestefar",
+      companyName: null,
+      country: null
+    }
+  },
+  {
     text: "Valid address with minimum fields",
     expected: true,
     address: {
