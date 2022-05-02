@@ -78,6 +78,16 @@ const scenarios = [
     }
   },
   {
+    text: "Invalid address default country address, bad zipCode",
+    expected: false,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1",
+      zipCode: "A123",
+      city: "Teststaden"
+    }
+  },
+  {
     text: "Invalid address cause of zipCode to long",
     expected: false,
     address: {
