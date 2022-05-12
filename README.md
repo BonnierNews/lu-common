@@ -4,6 +4,14 @@
 
 Common repo with tools, config etc... designed for use in Data/Infra's repos
 
+When we make changes in this repo, we need to update all repos using this one, for now that is:
+```bash
+lu-greenfield
+bn-subscription-api
+public-subscription-api
+```
+To do that, create a new branch in each of the repos above and run the command found [here](https://github.com/BonnierNews/lu-common#to-update-to-latest-version), then commit and merge.
+
 ## Config
 
 Everyone using our repos should add the following config to their local git to make life much easier:
