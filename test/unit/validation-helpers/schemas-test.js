@@ -17,7 +17,7 @@ const scenarios = [
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
       country: "SE",
-      deliveryMethid: "POST"
+      deliveryMethod: "POST"
     }
   },
   {
