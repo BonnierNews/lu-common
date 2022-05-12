@@ -10,7 +10,8 @@ lu-greenfield
 bn-subscription-api
 public-subscription-api
 ```
-To do that, create a new branch in each of the repos above and run the command found [here](https://github.com/BonnierNews/lu-common#to-update-to-latest-version), then commit and merge.
+To do that, create a new branch in each of the repos above and run the command found [here](https://github.com/BonnierNews/lu-common#to-update-to-latest-version).
+Make sure all the tests go green before you commit and merge.
 
 ## Config
 
