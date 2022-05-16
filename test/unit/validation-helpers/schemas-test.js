@@ -76,7 +76,8 @@ const scenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: null,
-      country: null
+      country: null,
+      deliveryMethod: null
     }
   },
   {
