@@ -172,7 +172,7 @@ const scenarios = [
   {
     text: "Invalid address cause of invalid country",
     expected: false,
-    error: '"country" contains an invalid value',
+    error: '"country" must be one of',
     address: {
       streetName: "Testgatan",
       streetNumber: "1",
@@ -221,7 +221,7 @@ const scenarios = [
 describe("check if address is correct", () => {
   for (const s of scenarios) {
     describe(s.text, () => {
-      const {error: notValidAddress} = s.stripped
+      const {value, error: notValidAddress} = s.stripped
         ? s.strippedSchema.validate(s.address, {stripUnknown: true})
         : addressSchema.validate(s.address);
 
@@ -229,9 +229,15 @@ describe("check if address is correct", () => {
         Boolean(!notValidAddress).should.eql(Boolean(s.expected));
       });
 
+      if (Object.entries(value).length) {
+        it("should have a country assigned", () => {
+          Boolean(value.country).should.eql(true);
+        });
+      }
+
       if (!s.expected) {
         it(`should have the error message: '${s.error}'`, () => {
-          notValidAddress.details[0].message.should.eql(s.error);
+          notValidAddress.details[0].message.should.contain(s.error);
         });
       }
     });
