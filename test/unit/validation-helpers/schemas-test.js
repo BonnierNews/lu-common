@@ -2,6 +2,8 @@
 
 const {addressSchema} = require("../../../lib/validation-helpers/schemas");
 
+const stripSchemaTag = require("../../../lib/validation-helpers/strip-joi-schema-tags");
+
 const scenarios = [
   {
     text: "Valid address with all the fields",
@@ -200,13 +202,28 @@ const scenarios = [
       companyName: "AwesomeCompany AB",
       country: "US"
     }
+  },
+  {
+    text: "Invalid, address is empty",
+    expected: false,
+    error: '"streetName" is required',
+    address: {}
+  },
+  {
+    text: "Valid, stripped address is empty",
+    strippedSchema: stripSchemaTag(addressSchema, "test"),
+    expected: true,
+    stripped: true,
+    address: {}
   }
 ];
 
 describe("check if address is correct", () => {
   for (const s of scenarios) {
     describe(s.text, () => {
-      const {error: notValidAddress} = addressSchema.validate(s.address);
+      const {error: notValidAddress} = s.stripped
+        ? s.strippedSchema.validate(s.address, {stripUnknown: true})
+        : addressSchema.validate(s.address);
 
       it(`is a${s.expected ? " valid " : "n invalid "} address`, () => {
         Boolean(!notValidAddress).should.eql(Boolean(s.expected));
