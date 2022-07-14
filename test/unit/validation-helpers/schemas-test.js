@@ -1,6 +1,6 @@
 "use strict";
 
-const {addressSchema} = require("../../../lib/validation-helpers/schemas");
+const { addressSchema } = require("../../../lib/validation-helpers/schemas");
 
 const stripSchemaTag = require("../../../lib/validation-helpers/strip-joi-schema-tags");
 
@@ -19,8 +19,8 @@ const scenarios = [
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
       country: "SE",
-      deliveryMethod: "POST"
-    }
+      deliveryMethod: "POST",
+    },
   },
   {
     text: "Valid foregin address",
@@ -30,8 +30,8 @@ const scenarios = [
       streetNumber: "1",
       zipCode: "S0J 2Y0",
       city: "Saskatchewan",
-      country: "CA"
-    }
+      country: "CA",
+    },
   },
   {
     text: "Valid address with normal fields",
@@ -41,8 +41,8 @@ const scenarios = [
       streetNumber: "1",
       zipCode: "12345",
       city: "Teststaden",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Valid address with normal fields, normal spacing in swedish zipcode",
@@ -52,8 +52,8 @@ const scenarios = [
       streetNumber: "1",
       zipCode: "123 45",
       city: "Teststaden",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Valid address with normal fields, missing country so default to SE",
@@ -62,8 +62,8 @@ const scenarios = [
       streetName: "Testgatan",
       streetNumber: "1",
       zipCode: "12345",
-      city: "Teststaden"
-    }
+      city: "Teststaden",
+    },
   },
   {
     text: "Valid address with normal fields, some null values",
@@ -79,8 +79,8 @@ const scenarios = [
       careOf: "Bestefar",
       companyName: null,
       country: null,
-      deliveryMethod: null
-    }
+      deliveryMethod: null,
+    },
   },
   {
     text: "Valid address with minimum fields",
@@ -89,8 +89,8 @@ const scenarios = [
       streetName: "Testgatan",
       zipCode: "12345",
       city: "Teststaden",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Invalid address default country address, bad zipCode",
@@ -100,8 +100,8 @@ const scenarios = [
       streetName: "Testgatan",
       streetNumber: "1",
       zipCode: "A123",
-      city: "Teststaden"
-    }
+      city: "Teststaden",
+    },
   },
   {
     text: "Invalid address cause of zipCode to long",
@@ -117,8 +117,8 @@ const scenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Invalid address cause of zipCode to short",
@@ -134,8 +134,8 @@ const scenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Invalid address cause of missing streetName",
@@ -150,8 +150,8 @@ const scenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Invalid address cause of missing city",
@@ -166,8 +166,8 @@ const scenarios = [
       zipCode: "12345",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Invalid address cause of invalid country",
@@ -183,8 +183,8 @@ const scenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "BLAH"
-    }
+      country: "BLAH",
+    },
   },
   {
     text: "Invalid address cause of invalid foregin zipcode",
@@ -200,29 +200,29 @@ const scenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "US"
-    }
+      country: "US",
+    },
   },
   {
     text: "Invalid, address is empty",
     expected: false,
     error: '"streetName" is required',
-    address: {}
+    address: {},
   },
   {
     text: "Valid, stripped address is empty",
     strippedSchema: stripSchemaTag(addressSchema, "test"),
     expected: true,
     stripped: true,
-    address: {}
-  }
+    address: {},
+  },
 ];
 
 describe("check if address is correct", () => {
   for (const s of scenarios) {
     describe(s.text, () => {
-      const {value, error: notValidAddress} = s.stripped
-        ? s.strippedSchema.validate(s.address, {stripUnknown: true})
+      const { value, error: notValidAddress } = s.stripped
+        ? s.strippedSchema.validate(s.address, { stripUnknown: true })
         : addressSchema.validate(s.address);
 
       it(`is a${s.expected ? " valid " : "n invalid "} address`, () => {

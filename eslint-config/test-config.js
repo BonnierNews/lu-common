@@ -1,16 +1,12 @@
 "use strict";
 
 module.exports = {
-  env: {
-    mocha: true
-  },
+  env: { mocha: true },
   rules: {
     "new-cap": [
       2,
-      {
-        capIsNewExceptions: ["Feature", "Scenario", "Given", "When", "Then", "And", "But", "I", "System", "Describe"]
-      }
-    ]
+      { capIsNewExceptions: [ "Feature", "Scenario", "Given", "When", "Then", "And", "But", "I", "System", "Describe" ] },
+    ],
   },
   globals: {
     describe: false,
@@ -31,6 +27,6 @@ module.exports = {
     When: false,
     Then: false,
     And: false,
-    But: false
-  }
+    But: false,
+  },
 };

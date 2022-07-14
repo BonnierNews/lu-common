@@ -11,4 +11,4 @@ function objectArrayToJsonLines(content) {
   return `${content.map((row) => JSON.stringify(row)).join("\n")}\n`;
 }
 
-module.exports = {jsonLinesToObjectArray, objectArrayToJsonLines};
+module.exports = { jsonLinesToObjectArray, objectArrayToJsonLines };

@@ -1,18 +1,18 @@
 "use strict";
 
-const {postalDeliveryAllowed} = require("../../lib/namespaces");
+const { postalDeliveryAllowed } = require("../../lib/namespaces");
 
 const scenarios = [
   {
     expected: true,
     namespace: "dn",
-    text: "DN"
+    text: "DN",
   },
   {
     expected: false,
     namespace: "some-namespace",
-    text: "Some namespace"
-  }
+    text: "Some namespace",
+  },
 ];
 
 describe("check if postal delivery allowed", () => {

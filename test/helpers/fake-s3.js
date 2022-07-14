@@ -1,6 +1,6 @@
 "use strict";
 
-const {Readable} = require("stream");
+const { Readable } = require("stream");
 const es = require("event-stream");
 const sandbox = require("sinon").createSandbox();
 const assert = require("assert");
@@ -19,7 +19,7 @@ function write(target) {
   writeStreamStub.withArgs(target).returns({
     writeStream: writer,
     uploadPromise: new Promise((resolve) => resolve()),
-    path: target
+    path: target,
   });
 
   return writer;
@@ -36,7 +36,7 @@ function writeAndMakeReadable(target, opts = {}, times = 1) {
   writeStreamStub.withArgs(target).returns({
     writeStream: writer,
     uploadPromise: new Promise((resolve) => resolve()),
-    path: target
+    path: target,
   });
 
   return writer;
@@ -127,7 +127,7 @@ function listObjects(prefix, contents) {
   if (!listObjectsStub) {
     listObjectsStub = sandbox.stub(s3, "listObjectsAsync");
   }
-  listObjectsStub.withArgs(prefix).returns({Contents: contents});
+  listObjectsStub.withArgs(prefix).returns({ Contents: contents });
 }
 
 function listObjectsError(prefix, message = "s3 list objects error") {
@@ -161,5 +161,5 @@ module.exports = {
   existsMultipleCalls,
   readWithPathError,
   listObjects,
-  listObjectsError
+  listObjectsError,
 };

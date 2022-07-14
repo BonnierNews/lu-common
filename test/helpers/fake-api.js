@@ -26,7 +26,7 @@ function init(url = config.proxyUrl) {
       testData = require("test-data")(testData);
     }
     let actualBody;
-    const {request} = testData;
+    const { request } = testData;
     if (request.baseUrl && request.baseUrl !== url) throw new Error(`Missmatching urls ${request.baseUrl} ${url}`);
     const mock = api[request.method](request.path, (body) => {
       actualBody = body;
@@ -40,7 +40,7 @@ function init(url = config.proxyUrl) {
     }
 
     if (request.headers) {
-      for (const [key, val] of Object.entries(request.headers)) {
+      for (const [ key, val ] of Object.entries(request.headers)) {
         mock.matchHeader(key, val);
       }
     }
@@ -56,7 +56,7 @@ function init(url = config.proxyUrl) {
       },
       calledBody: () => {
         return actualBody;
-      }
+      },
     };
   }
 
@@ -95,7 +95,7 @@ function init(url = config.proxyUrl) {
     pendingMocks: api.pendingMocks.bind(api),
     post: api.post.bind(api),
     put: api.put.bind(api),
-    reset
+    reset,
   };
 }
 

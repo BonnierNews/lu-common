@@ -1,32 +1,32 @@
 "use strict";
 
-const {zipCodeRanges} = require("../../lib/zip-code-ranges");
+const { zipCodeRanges } = require("../../lib/zip-code-ranges");
 
 const scenarios = [
   {
     expected: false,
     zipCode: "11846",
     deliveryCompany: "tab",
-    text: "Stockholm zipcode is not TAB"
+    text: "Stockholm zipcode is not TAB",
   },
   {
     expected: true,
     zipCode: "84013",
     deliveryCompany: "tab",
-    text: "Torpshammar zipcode is TAB"
+    text: "Torpshammar zipcode is TAB",
   },
   {
     expected: false,
     zipCode: "84013",
     deliveryCompany: "nim",
-    text: "Unconfigured delivery company"
+    text: "Unconfigured delivery company",
   },
   {
     expected: false,
     zipCode: 84013,
     deliveryCompany: "tab",
-    text: "Numeric zipcode"
-  }
+    text: "Numeric zipcode",
+  },
 ];
 
 describe("check if zipcode specific to a delivery company", () => {

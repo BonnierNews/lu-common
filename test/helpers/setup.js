@@ -18,15 +18,13 @@ chai.use(chaiExclude);
 chai.config.truncateThreshold = 0;
 chai.config.includeStack = true;
 
-Object.assign(global, {
-  should: chai.should()
-});
+Object.assign(global, { should: chai.should() });
 
 process.on("unhandledRejection", (err) => {
   const config = require("exp-config");
   if (!config.boolean("silenceTestErrors")) {
     // eslint-disable-next-line no-console
-    console.log(`Caught rejection:}`);
+    console.log("Caught rejection:}");
     // eslint-disable-next-line no-console
     console.error(err);
   }

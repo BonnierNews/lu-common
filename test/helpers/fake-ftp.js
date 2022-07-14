@@ -87,5 +87,5 @@ module.exports = {
   reset,
   put,
   putMany,
-  putError
+  putError,
 };

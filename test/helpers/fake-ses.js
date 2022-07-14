@@ -49,4 +49,4 @@ function reset() {
   sandbox.restore();
 }
 
-module.exports = {sendEmail, sendRawEmail, reset, sent, sentRaw, sendRawEmailWithError};
+module.exports = { sendEmail, sendRawEmail, reset, sent, sentRaw, sendRawEmailWithError };
