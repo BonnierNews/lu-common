@@ -34,7 +34,7 @@ To use the submodule in a new project in [lu-greenfield](https://github.com/Bonn
 - add the submodule:
 ```bash
 cd <project directory>
-git submodule add https://github.com/BonnierNews/lu-common.git ./common
+git submodule add git@github.com:BonnierNews/lu-common ./common
 ```
 - add the following lines to `.ohoy/hooks/pre-deploy.sh` see [customer-service-bff](https://github.com/BonnierNews/lu-greenfield/blob/master/customer-service-bff/.ohoy/hooks/pre-deploy.sh) for an example
 ```bash
