@@ -1,8 +1,11 @@
 {
   "name": "lu-common",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">=16 <=18"
+  },
   "scripts": {
     "mocha": "mocha",
     "lint": "eslint .",
@@ -17,30 +20,30 @@
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
-    "@google-cloud/storage": "^5.18.3",
-    "aws-sdk": "^2.1106.0",
-    "basic-ftp": "^4.6.6",
+    "@google-cloud/storage": "^6.7.0",
+    "aws-sdk": "^2.1255.0",
+    "basic-ftp": "^5.0.2",
     "event-stream": "^4.0.1",
-    "exp-config": "^3.0.0",
-    "joi": "^17.6.0",
+    "exp-config": "^4.2.0",
+    "joi": "^17.7.0",
     "joi-postalcode": "^2.0.0",
     "moment": "^2.29.2",
     "pdfkit": "^0.13.0",
-    "ssh2-sftp-client": "^7.2.3"
+    "ssh2-sftp-client": "^9.0.4"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
+    "chai": "^4.3.7",
     "chai-exclude": "^2.0.3",
     "depcheck": "^1.4.0",
-    "eslint": "^8.0.1",
+    "eslint": "^8.27.0",
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "mocha": "^9.2.0",
+    "mocha": "^10.1.0",
     "mocha-cakes-2": "^3.3.0",
     "nock": "^13.0.11",
     "nyc": "^15.1.0",
     "prettier": "^2.1.1",
-    "sinon": "^10.0.0",
+    "sinon": "^14.0.2",
     "test-data": "file:./test-data"
   }
 }
