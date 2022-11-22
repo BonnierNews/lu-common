@@ -16,7 +16,7 @@ const streams = require("./lib/utils/streams");
 const schemas = require("./lib/validation-helpers/schemas");
 
 const afterHook = require("./test/helpers/after-hook");
-const fakeApi = require("./test/helpers/fake-api");
+const fakeApi = require("./test/helpers/fake-api")();
 const fakeFtp = require("./test/helpers/fake-ftp");
 const fakeGcs = require("./test/helpers/fake-gcs");
 const fakeS3 = require("./test/helpers/fake-s3");
