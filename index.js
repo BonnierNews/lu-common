@@ -3,6 +3,8 @@
 const namespaces = require("./lib/namespaces");
 const schemas = require("./lib/validation-helpers/schemas");
 
+const stripSchemaTag = require("./lib/validation-helpers/strip-joi-schema-tags");
+
 const email = require("./lib/utils/email");
 const ftp = require("./lib/utils/ftp");
 const gcs = require("./lib/utils/gcs");
@@ -45,5 +47,6 @@ module.exports = {
   fakeSes,
   fileUtils,
   messageHelper,
-  pdfReader
+  pdfReader,
+  stripSchemaTag
 };
