@@ -2,6 +2,7 @@
 
 const namespaces = require("./lib/namespaces");
 const schemas = require("./lib/validation-helpers/schemas");
+const countryCodes = require("./lib/validation-helpers/country-codes");
 
 const stripSchemaTag = require("./lib/validation-helpers/strip-joi-schema-tags");
 
@@ -48,5 +49,6 @@ module.exports = {
   fileUtils,
   messageHelper,
   pdfReader,
-  stripSchemaTag
+  stripSchemaTag,
+  countryCodes
 };
