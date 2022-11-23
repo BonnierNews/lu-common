@@ -1,6 +1,7 @@
 "use strict";
 
 const namespaces = require("./lib/namespaces");
+const schemas = require("./lib/validation-helpers/schemas");
 
 const email = require("./lib/utils/email");
 const ftp = require("./lib/utils/ftp");
@@ -13,10 +14,8 @@ const ses = require("./lib/utils/ses");
 const sftp = require("./lib/utils/sftp");
 const streams = require("./lib/utils/streams");
 
-const schemas = require("./lib/validation-helpers/schemas");
-
-const afterHook = require("./test/helpers/after-hook");
 const fakeApi = require("./test/helpers/fake-api");
+const afterHook = require("./test/helpers/after-hook");
 const fakeFtp = require("./test/helpers/fake-ftp");
 const fakeGcs = require("./test/helpers/fake-gcs");
 const fakeS3 = require("./test/helpers/fake-s3");
@@ -27,6 +26,7 @@ const pdfReader = require("./test/helpers/pdfReader");
 
 module.exports = {
   namespaces,
+  schemas,
   email,
   ftp,
   gcs,
@@ -37,9 +37,8 @@ module.exports = {
   ses,
   sftp,
   streams,
-  schemas,
-  afterHook,
   fakeApi,
+  afterHook,
   fakeFtp,
   fakeGcs,
   fakeS3,
