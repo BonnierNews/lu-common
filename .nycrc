@@ -2,8 +2,8 @@
   "reporter": [
     "text"
   ],
-  "statements": "58",
+  "statements": "57",
   "branches": "41",
   "functions": "33",
-  "lines": "60"
+  "lines": "59"
 }
