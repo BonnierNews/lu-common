@@ -2,8 +2,12 @@
   "reporter": [
     "text"
   ],
-  "statements": "57",
+  "exclude": [
+    "lib/utils",
+    "test/**"
+  ],
+  "statements": "58",
   "branches": "41",
   "functions": "33",
-  "lines": "59"
+  "lines": "60"
 }
