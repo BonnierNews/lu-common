@@ -17,7 +17,6 @@ const expectedExports = [
   "sftp",
   "streams",
   "fakeApi",
-  "afterHook",
   "fakeFtp",
   "fakeGcs",
   "fakeS3",
