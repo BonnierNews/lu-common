@@ -1,7 +1,7 @@
 "use strict";
 
-const config = require("exp-config");
 const nock = require("nock");
+const config = require("exp-config");
 const path = require("path");
 const fs = require("fs");
 
