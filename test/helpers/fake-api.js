@@ -33,7 +33,7 @@ function init(url = config.proxyUrl) {
       return true;
     });
 
-    if (times) mock.times(times);
+    if (times || testData.times) mock.times(times || testData.times);
 
     if (request.query) {
       mock.query(request.query);
