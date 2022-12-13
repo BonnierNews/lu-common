@@ -286,6 +286,17 @@ const distributionFeeScenarios = [
     distributionFee: {
       amount: "5000öre"
     }
+  },
+  {
+    text: "Invalid distributionFee, startDate is malformatted",
+    nandExpected: false,
+    xorEpected: false,
+    error:
+      '"startDate" with value "2022-foo-bar" fails to match the required pattern: /^(19\\d{2}|20\\d{2})-([0][1-9]|1[0-2])-([0][1-9]|[1-2]\\d|3[0-1])$/',
+    distributionFee: {
+      amount: 50000,
+      startDate: "2022-foo-bar"
+    }
   }
 ];
 
