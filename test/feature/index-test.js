@@ -25,7 +25,8 @@ const expectedExports = [
   "messageHelper",
   "pdfReader",
   "stripSchemaTag",
-  "countryCodes"
+  "countryCodes",
+  "formattingHelpers"
 ];
 
 describe("Exposed features", () => {
