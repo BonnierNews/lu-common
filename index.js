@@ -3,6 +3,7 @@
 const namespaces = require("./lib/namespaces");
 const schemas = require("./lib/validation-helpers/schemas");
 const countryCodes = require("./lib/validation-helpers/country-codes");
+const formattingHelpers = require("./lib/validation-helpers/formatting-helpers");
 
 const stripSchemaTag = require("./lib/validation-helpers/strip-joi-schema-tags");
 
@@ -27,26 +28,27 @@ const messageHelper = require("./test/helpers/message-helper");
 const pdfReader = require("./test/helpers/pdfReader");
 
 module.exports = {
-  namespaces,
-  schemas,
+  countryCodes,
   email,
-  ftp,
-  gcs,
-  iterators,
-  PDF,
-  pdfGenerator,
-  s3,
-  ses,
-  sftp,
-  streams,
   fakeApi,
   fakeFtp,
   fakeGcs,
   fakeS3,
   fakeSes,
   fileUtils,
+  formattingHelpers,
+  ftp,
+  gcs,
+  iterators,
   messageHelper,
+  namespaces,
+  PDF,
+  pdfGenerator,
   pdfReader,
-  stripSchemaTag,
-  countryCodes
+  schemas,
+  s3,
+  ses,
+  sftp,
+  streams,
+  stripSchemaTag
 };
