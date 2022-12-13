@@ -1,6 +1,10 @@
 "use strict";
 
-const {addressSchema, distributionFeeSchema} = require("../../../lib/validation-helpers/schemas");
+const {
+  addressSchema,
+  distributionFeeSchemaNand,
+  distributionFeeSchemaXor
+} = require("../../../lib/validation-helpers/schemas");
 
 const {
   addressScenarios,
@@ -35,16 +39,30 @@ describe("check if address is correct", () => {
 
 describe("check if distributionFee is correct", () => {
   for (const s of distributionFeeScenarios) {
-    describe(s.text, () => {
-      const {error} = distributionFeeSchema.validate(s.distributionFee);
+    describe(`${s.text || s.nandText} with nand schema`, () => {
+      const {error: nandError} = distributionFeeSchemaNand.validate(s.distributionFee);
 
-      it(`is a${s.expected ? " valid" : "n invalid"} distributionFee`, () => {
-        Boolean(!error).should.eql(Boolean(s.expected));
+      it(`is a${s.nandExpected ? " valid" : "n invalid"} distributionFee using nand schema`, () => {
+        Boolean(!nandError).should.eql(Boolean(s.nandExpected));
       });
 
-      if (!s.expected) {
-        it(`should have the error message: '${s.error}'`, () => {
-          error.details[0].message.should.contain(s.error);
+      if (!s.nandExpected) {
+        it(`should have the error message: '${s.error || s.nandError}'`, () => {
+          nandError.details[0].message.should.contain(s.error || s.nandError);
+        });
+      }
+    });
+
+    describe(`${s.text || s.xorText} with xor schema`, () => {
+      const {error: xorError} = distributionFeeSchemaXor.validate(s.distributionFee);
+
+      it(`is a${s.xorExpected ? " valid" : "n invalid"} distributionFee using xor schema`, () => {
+        Boolean(!xorError).should.eql(Boolean(s.xorExpected));
+      });
+
+      if (!s.xorExpected) {
+        it(`should have the error message: '${s.error || s.xorError}'`, () => {
+          xorError.details[0].message.should.contain(s.error || s.xorError);
         });
       }
     });

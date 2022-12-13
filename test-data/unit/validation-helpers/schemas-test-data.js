@@ -220,15 +220,19 @@ const addressScenarios = [
 
 const distributionFeeScenarios = [
   {
-    text: "Valid distributionFee with only amount",
-    expected: true,
+    nandText: "Valid distributionFee with only amount",
+    xorText: "Invalid distributionFee with only amount",
+    nandExpected: true,
+    xorExpected: false,
+    error: '"value" must contain at least one of [startDate, monthlyDelay]',
     distributionFee: {
       amount: 5000
     }
   },
   {
     text: "Valid distributionFee with startDate",
-    expected: true,
+    nandExpected: true,
+    xorExpected: true,
     distributionFee: {
       amount: 5000,
       startDate: "2022-12-13"
@@ -236,7 +240,8 @@ const distributionFeeScenarios = [
   },
   {
     text: "Valid distributionFee with montlyDelay",
-    expected: true,
+    nandExpected: true,
+    xorExpected: true,
     distributionFee: {
       amount: 5000,
       monthlyDelay: 18
@@ -244,8 +249,10 @@ const distributionFeeScenarios = [
   },
   {
     text: "Invalid distributionFee, both startDate and monthlyDelay exists",
-    expected: false,
-    error: '"startDate" is not allowed',
+    nandExpected: false,
+    xorExpected: false,
+    nandError: '"startDate" must not exist simultaneously with [monthlyDelay]',
+    xorError: '"value" contains a conflict between exclusive peers [startDate, monthlyDelay]',
     distributionFee: {
       amount: 5000,
       startDate: "2022-12-13",
@@ -254,7 +261,8 @@ const distributionFeeScenarios = [
   },
   {
     text: "Invalid distributionFee, amount doesn't exist",
-    expected: false,
+    nandExpected: false,
+    xorExpected: false,
     error: '"amount" is required',
     distributionFee: {
       monthlyDelay: 18
@@ -262,7 +270,8 @@ const distributionFeeScenarios = [
   },
   {
     text: "Invalid distributionFee, monthlyDelay is not a number",
-    expected: false,
+    nandExpected: false,
+    xorExpected: false,
     error: '"monthlyDelay" must be a number',
     distributionFee: {
       amount: 5000,
@@ -271,7 +280,8 @@ const distributionFeeScenarios = [
   },
   {
     text: "Invalid distributionFee, amount is not a number",
-    expected: false,
+    nandExpected: false,
+    xorEpected: false,
     error: '"amount" must be a number',
     distributionFee: {
       amount: "5000öre"
