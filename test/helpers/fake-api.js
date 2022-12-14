@@ -45,7 +45,7 @@ function init(url = config.proxyUrl) {
       }
     }
 
-    mock.reply(testData.statusCode || testData.status || 200, testData.body);
+    mock.reply(testData.statusCode || testData.status || 200, testData.body, testData.headers || undefined);
 
     return {
       hasExpectedBody: (body) => {
