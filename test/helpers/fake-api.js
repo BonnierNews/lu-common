@@ -83,6 +83,18 @@ function init(url = config.proxyUrl) {
     return JSON.parse(JSON.stringify(obj));
   }
 
+  function mountExternal(external) {
+    if (!external) {
+      throw new Error("Could not mount, provided object is empty or missing external property");
+    }
+    const mounts = [];
+    for (const value of Object.values(external)) {
+      mounts.push({mount: mount(value), external: value});
+    }
+
+    return mounts;
+  }
+
   return {
     clone,
     disableNetConnect,
@@ -96,7 +108,8 @@ function init(url = config.proxyUrl) {
     pendingMocks: api.pendingMocks.bind(api),
     post: api.post.bind(api),
     put: api.put.bind(api),
-    reset
+    reset,
+    mountExternal
   };
 }
 
