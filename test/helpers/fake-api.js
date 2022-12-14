@@ -14,8 +14,11 @@ function init(url = config.proxyUrl) {
     api = nock(url);
   }
 
-  function disableNetConnect() {
+  function disableNetConnect(disableLocalHost = false) {
     nock.disableNetConnect();
+    if (!disableLocalHost) {
+      nock.enableNetConnect(/(localhost|127\.0\.0\.1):\d+/);
+    }
   }
 
   function mount(testData, times) {
