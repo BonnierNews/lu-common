@@ -56,7 +56,8 @@ function init(url = config.proxyUrl) {
       },
       calledBody: () => {
         return actualBody;
-      }
+      },
+      postedBody: () => actualBody
     };
   }
 
