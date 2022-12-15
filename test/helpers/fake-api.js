@@ -31,7 +31,7 @@ function init(url = config.proxyUrl) {
     let actualBody;
     const {request} = testData;
     if (request.baseUrl && request.baseUrl !== url) throw new Error(`Missmatching urls ${request.baseUrl} ${url}`);
-    const mock = api[request.method](request.path, (body) => {
+    const mock = api[request.method.toLowerCase()](request.path, (body) => {
       actualBody = body;
       return true;
     });
