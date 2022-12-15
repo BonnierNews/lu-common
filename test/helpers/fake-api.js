@@ -4,6 +4,8 @@ const nock = require("nock");
 const config = require("exp-config");
 const path = require("path");
 const fs = require("fs");
+const stream = require("stream");
+const zlib = require("zlib");
 
 function init(url = config.proxyUrl) {
   let api = nock(url);
@@ -48,7 +50,15 @@ function init(url = config.proxyUrl) {
       }
     }
 
-    mock.reply(testData.statusCode || testData.status || 200, testData.body, testData.headers || undefined);
+    const statusCode = testData.statusCode ?? testData.status ?? 200;
+    if (testData.stream && testData.compress) {
+      mock.matchHeader("authorization", /Bearer.*/);
+      mock.reply(statusCode, stream.Readable.from([testData.body]).pipe(zlib.createGzip()));
+    } else if (testData.stream) {
+      mock.reply(statusCode, stream.Readable.from([testData.body]));
+    } else {
+      mock.reply(statusCode, testData.body, testData.headers || undefined);
+    }
 
     return {
       hasExpectedBody: (body) => {
