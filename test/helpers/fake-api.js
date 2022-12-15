@@ -106,11 +106,13 @@ function init(url = config.proxyUrl) {
     fakePrefixedResource,
     filteringPath: api.filteringPath.bind(api),
     get: api.get.bind(api),
+    post: api.post.bind(api),
+    put: api.put.bind(api),
+    delete: api.delete.bind(api),
+    patch: api.patch.bind(api),
     mount,
     mountFolder,
     pendingMocks: api.pendingMocks.bind(api),
-    post: api.post.bind(api),
-    put: api.put.bind(api),
     reset,
     mountExternal
   };
