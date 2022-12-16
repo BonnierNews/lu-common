@@ -52,10 +52,9 @@ function init(url = config.proxyUrl) {
 
     const statusCode = testData.statusCode ?? testData.status ?? 200;
     if (testData.stream && testData.compress) {
-      // mock.matchHeader("authorization", /Bearer.*/);
       mock.reply(statusCode, stream.Readable.from([testData.body]).pipe(zlib.createGzip()));
     } else if (testData.stream) {
-      mock.reply(statusCode, stream.Readable.from([testData.body]));
+      mock.reply(statusCode, stream.Readable.from([testData.body]), testData.headers);
     } else {
       mock.reply(statusCode, testData.body, testData.headers || undefined);
     }
