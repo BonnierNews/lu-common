@@ -123,6 +123,7 @@ function init(url = config.proxyUrl) {
     mount,
     mountFolder,
     pendingMocks: api.pendingMocks.bind(api),
+    matchHeader: api.matchHeader.bind(api),
     reset,
     mountExternal
   };
