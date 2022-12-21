@@ -6,7 +6,7 @@ const sandbox = require("sinon").createSandbox();
 const gcs = require("../../lib/utils/gcs");
 
 let writes = {};
-let writeStreamStub, existsStub, readStreamStub;
+let writeStreamStub, existsStub, readStreamStub, listStub;
 
 function write(target, opts = {times: 1}) {
   if (!writeStreamStub) {
@@ -71,6 +71,12 @@ function exists(target, fileExists) {
   return;
 }
 
+function list(path, files) {
+  if (!listStub) listStub = sandbox.stub(gcs, "list");
+
+  listStub.withArgs(path).returns(files);
+}
+
 function writeError(target, message = "gcs file stream error") {
   if (!writeStreamStub) {
     writeStreamStub = sandbox.stub(gcs, "createWriteStream");
@@ -97,5 +103,6 @@ module.exports = {
   written,
   exists,
   // existsMultiple,
-  read
+  read,
+  list
 };
