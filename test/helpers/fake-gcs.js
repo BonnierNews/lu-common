@@ -71,10 +71,16 @@ function exists(target, fileExists) {
   return;
 }
 
-function list(path, files) {
+function list(path, files = []) {
   if (!listStub) listStub = sandbox.stub(gcs, "list");
 
   listStub.withArgs(path).returns(files);
+}
+
+function listError(path, message = "gcs list error") {
+  if (!listStub) listStub = sandbox.stub(gcs, "list");
+
+  listStub.withArgs(path).throws(new Error(message));
 }
 
 function writeError(target, message = "gcs file stream error") {
@@ -93,6 +99,7 @@ function reset() {
   writeStreamStub = null;
   existsStub = null;
   readStreamStub = null;
+  listStub = null;
   sandbox.restore();
 }
 
@@ -104,5 +111,6 @@ module.exports = {
   exists,
   // existsMultiple,
   read,
-  list
+  list,
+  listError
 };
