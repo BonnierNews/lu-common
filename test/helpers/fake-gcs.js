@@ -51,6 +51,13 @@ function read(path, content, opts = {times: 1}) {
   }
 }
 
+function readError(target, message = "gcs file stream read error") {
+  if (!readStreamStub) {
+    readStreamStub = sandbox.stub(gcs, "createReadStream");
+  }
+  readStreamStub.withArgs(target).throws(new Error(message));
+}
+
 function exists(target, fileExists) {
   if (!existsStub) {
     existsStub = sandbox.stub(gcs, "exists");
@@ -111,6 +118,7 @@ module.exports = {
   exists,
   // existsMultiple,
   read,
+  readError,
   list,
   listError
 };
