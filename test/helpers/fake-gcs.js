@@ -1,7 +1,6 @@
 "use strict";
 
 const {Readable} = require("stream");
-const es = require("event-stream");
 const sandbox = require("sinon").createSandbox();
 const gcs = require("../../lib/utils/gcs");
 
@@ -12,11 +11,22 @@ function write(target, opts = {times: 1}) {
   if (!writeStreamStub) {
     writeStreamStub = sandbox.stub(gcs, "createWriteStream");
   }
-
-  const writer = es.wait((_, data) => {
+  const writer = async (iterator) => {
+    let data = "";
+    const buffer = [];
+    for await (const row of iterator) {
+      if (Buffer.isBuffer(row)) {
+        buffer.push(row);
+      } else {
+        data += row.toString(opts.encoding || "utf-8");
+      }
+    }
+    if (buffer.length) {
+      data = Buffer.concat(buffer);
+    }
     writes[target] = data;
     read(target, data, opts);
-  });
+  };
   writeStreamStub.withArgs(target).returns(writer);
 
   return writer;
