@@ -91,6 +91,14 @@ function init(url = config.proxyUrl) {
     return api.get(apiPath).times(times).reply(404, content);
   }
 
+  function fakeResource(content, times = 1) {
+    return fakeJsonResponse(`/${content.type}/${content.id}`, content, times);
+  }
+
+  function fakeResources() {
+    Array.prototype.forEach.call(arguments, fakeResource);
+  }
+
   function clone(obj) {
     return JSON.parse(JSON.stringify(obj));
   }
@@ -113,6 +121,8 @@ function init(url = config.proxyUrl) {
     fakeJsonResponse,
     fakeNotExisting,
     fakePrefixedResource,
+    fakeResources,
+    fakeResource,
     filteringPath: api.filteringPath.bind(api),
     get: api.get.bind(api),
     post: api.post.bind(api),
