@@ -4,6 +4,8 @@ const nock = require("nock");
 const config = require("exp-config");
 const path = require("path");
 const fs = require("fs");
+const stream = require("stream");
+const zlib = require("zlib");
 
 function init(url = config.proxyUrl) {
   let api = nock(url);
@@ -14,8 +16,11 @@ function init(url = config.proxyUrl) {
     api = nock(url);
   }
 
-  function disableNetConnect() {
+  function disableNetConnect(disableLocalHost = false) {
     nock.disableNetConnect();
+    if (!disableLocalHost) {
+      nock.enableNetConnect(/(localhost|127\.0\.0\.1):\d+/);
+    }
   }
 
   function mount(testData, times) {
@@ -28,7 +33,7 @@ function init(url = config.proxyUrl) {
     let actualBody;
     const {request} = testData;
     if (request.baseUrl && request.baseUrl !== url) throw new Error(`Missmatching urls ${request.baseUrl} ${url}`);
-    const mock = api[request.method](request.path, (body) => {
+    const mock = api[request.method.toLowerCase()](request.path, (body) => {
       actualBody = body;
       return true;
     });
@@ -45,7 +50,14 @@ function init(url = config.proxyUrl) {
       }
     }
 
-    mock.reply(testData.statusCode || testData.status || 200, testData.body);
+    const statusCode = testData.statusCode ?? testData.status ?? 200;
+    if (testData.stream && testData.compress) {
+      mock.reply(statusCode, stream.Readable.from([testData.body]).pipe(zlib.createGzip()));
+    } else if (testData.stream) {
+      mock.reply(statusCode, stream.Readable.from([testData.body]), testData.headers);
+    } else {
+      mock.reply(statusCode, testData.body, testData.headers || undefined);
+    }
 
     return {
       hasExpectedBody: (body) => {
@@ -56,7 +68,8 @@ function init(url = config.proxyUrl) {
       },
       calledBody: () => {
         return actualBody;
-      }
+      },
+      postedBody: () => actualBody
     };
   }
 
@@ -78,8 +91,28 @@ function init(url = config.proxyUrl) {
     return api.get(apiPath).times(times).reply(404, content);
   }
 
+  function fakeResource(content, times = 1) {
+    return fakeJsonResponse(`/${content.type}/${content.id}`, content, times);
+  }
+
+  function fakeResources() {
+    Array.prototype.forEach.call(arguments, fakeResource);
+  }
+
   function clone(obj) {
     return JSON.parse(JSON.stringify(obj));
+  }
+
+  function mountExternal(external) {
+    if (!external) {
+      throw new Error("Could not mount, provided object is empty or missing external property");
+    }
+
+    const mounts = Object.values(external).map((value) => {
+      return {mount: mount(value), external: value};
+    });
+
+    return mounts;
   }
 
   return {
@@ -88,14 +121,20 @@ function init(url = config.proxyUrl) {
     fakeJsonResponse,
     fakeNotExisting,
     fakePrefixedResource,
+    fakeResources,
+    fakeResource,
     filteringPath: api.filteringPath.bind(api),
     get: api.get.bind(api),
+    post: api.post.bind(api),
+    put: api.put.bind(api),
+    delete: api.delete.bind(api),
+    patch: api.patch.bind(api),
     mount,
     mountFolder,
     pendingMocks: api.pendingMocks.bind(api),
-    post: api.post.bind(api),
-    put: api.put.bind(api),
-    reset
+    matchHeader: api.matchHeader.bind(api),
+    reset,
+    mountExternal
   };
 }
 
