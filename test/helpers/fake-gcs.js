@@ -1,22 +1,32 @@
 "use strict";
 
 const {Readable} = require("stream");
-const es = require("event-stream");
 const sandbox = require("sinon").createSandbox();
 const gcs = require("../../lib/utils/gcs");
 
 let writes = {};
-let writeStreamStub, existsStub, readStreamStub;
+let writeStreamStub, existsStub, readStreamStub, listStub;
 
 function write(target, opts = {times: 1}) {
   if (!writeStreamStub) {
     writeStreamStub = sandbox.stub(gcs, "createWriteStream");
   }
-
-  const writer = es.wait((_, data) => {
+  const writer = async (iterator) => {
+    let data = "";
+    const buffer = [];
+    for await (const row of iterator) {
+      if (Buffer.isBuffer(row)) {
+        buffer.push(row);
+      } else {
+        data += row.toString(opts.encoding || "utf-8");
+      }
+    }
+    if (buffer.length) {
+      data = Buffer.concat(buffer);
+    }
     writes[target] = data;
     read(target, data, opts);
-  });
+  };
   writeStreamStub.withArgs(target).returns(writer);
 
   return writer;
@@ -51,6 +61,13 @@ function read(path, content, opts = {times: 1}) {
   }
 }
 
+function readError(target, message = "gcs file stream read error") {
+  if (!readStreamStub) {
+    readStreamStub = sandbox.stub(gcs, "createReadStream");
+  }
+  readStreamStub.withArgs(target).throws(new Error(message));
+}
+
 function exists(target, fileExists) {
   if (!existsStub) {
     existsStub = sandbox.stub(gcs, "exists");
@@ -71,6 +88,18 @@ function exists(target, fileExists) {
   return;
 }
 
+function list(path, files = []) {
+  if (!listStub) listStub = sandbox.stub(gcs, "list");
+
+  listStub.withArgs(path).returns(files);
+}
+
+function listError(path, message = "gcs list error") {
+  if (!listStub) listStub = sandbox.stub(gcs, "list");
+
+  listStub.withArgs(path).throws(new Error(message));
+}
+
 function writeError(target, message = "gcs file stream error") {
   if (!writeStreamStub) {
     writeStreamStub = sandbox.stub(gcs, "createWriteStream");
@@ -87,6 +116,7 @@ function reset() {
   writeStreamStub = null;
   existsStub = null;
   readStreamStub = null;
+  listStub = null;
   sandbox.restore();
 }
 
@@ -97,5 +127,8 @@ module.exports = {
   written,
   exists,
   // existsMultiple,
-  read
+  read,
+  readError,
+  list,
+  listError
 };
