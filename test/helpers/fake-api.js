@@ -107,10 +107,10 @@ function init(url = config.proxyUrl) {
     if (!external) {
       throw new Error("Could not mount, provided object is empty or missing external property");
     }
-    const mounts = [];
-    for (const value of Object.values(external)) {
-      mounts.push({mount: mount(value), external: value});
-    }
+
+    const mounts = Object.values(external).map((value) => {
+      return {mount: mount(value), external: value};
+    });
 
     return mounts;
   }
