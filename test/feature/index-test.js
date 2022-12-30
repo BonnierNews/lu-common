@@ -21,6 +21,7 @@ const expectedExports = [
   "fakeGcs",
   "fakeS3",
   "fakeSes",
+  "fakeSftp",
   "fileUtils",
   "messageHelper",
   "pdfReader",
