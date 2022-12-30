@@ -1,6 +1,6 @@
 "use strict";
 
-const {Readable} = require("stream");
+const {Readable, Transform} = require("stream");
 const es = require("event-stream");
 const sandbox = require("sinon").createSandbox();
 const assert = require("assert");
@@ -35,6 +35,32 @@ function writeAndMakeReadable(target, opts = {}, times = 1) {
   });
   writeStreamStub.withArgs(target).returns({
     writeStream: writer,
+    uploadPromise: new Promise((resolve) => resolve()),
+    path: target
+  });
+
+  return writer;
+}
+
+/**
+ * The V2 version of this function should be used when the production code uses stream.pipeline and not the /lib/util/streams.js functions
+ */
+function writeAndMakeReadableV2(target, opts = {}, times = 1) {
+  if (!writeStreamStub) {
+    writeStreamStub = sandbox.stub(s3, "s3FileStreamV2");
+  }
+
+  const writer = async (iterator) => {
+    let data = "";
+    for await (const row of iterator) {
+      data += row;
+    }
+    writes[target] = data;
+    readAsStream(target, data, opts, times);
+  };
+
+  writeStreamStub.withArgs(target).returns({
+    writeStream: Transform.from(writer), // make it an actual stream since the code depends on stream events,
     uploadPromise: new Promise((resolve) => resolve()),
     path: target
   });
@@ -148,13 +174,39 @@ function reset() {
   sandbox.restore();
 }
 
+/**
+ * The V2 version of this function should be used when the production code uses stream.pipeline and not the /lib/util/streams.js functions
+ */
+function writeV2(target) {
+  if (!writeStreamStub) {
+    writeStreamStub = sandbox.stub(s3, "s3FileStreamV2");
+  }
+  const writer = async (iterator) => {
+    let data = "";
+    for await (const row of iterator) {
+      data += row;
+    }
+    writes[target] = data;
+  };
+
+  writeStreamStub.withArgs(target).returns({
+    writeStream: Transform.from(writer), // make it an actual stream since the code depends on stream events
+    uploadPromise: new Promise((resolve) => resolve()),
+    path: target
+  });
+
+  return writer;
+}
+
 module.exports = {
   exists,
   existsError,
   readAsStream,
   readError,
   write,
+  writeV2,
   writeAndMakeReadable,
+  writeAndMakeReadableV2,
   writeError,
   written,
   reset,
