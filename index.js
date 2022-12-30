@@ -23,6 +23,7 @@ const fakeFtp = require("./test/helpers/fake-ftp");
 const fakeGcs = require("./test/helpers/fake-gcs");
 const fakeS3 = require("./test/helpers/fake-s3");
 const fakeSes = require("./test/helpers/fake-ses");
+const fakeSftp = require("./test/helpers/fake-sftp");
 const fileUtils = require("./test/helpers/file-utils");
 const messageHelper = require("./test/helpers/message-helper");
 const pdfReader = require("./test/helpers/pdfReader");
@@ -35,6 +36,7 @@ module.exports = {
   fakeGcs,
   fakeS3,
   fakeSes,
+  fakeSftp,
   fileUtils,
   formattingHelpers,
   ftp,
