@@ -8,7 +8,7 @@ const assert = require("assert");
 
 let writes = {};
 let removes = {};
-let stub;
+let stub, targetPath;
 const mockedPaths = {};
 let expectedExistPaths = {};
 
@@ -92,7 +92,10 @@ function put(expectedTargetPath) {
     return;
   };
   stub.put = (readStream, actualTarget) => {
-    assert(expectedTargetPath === actualTarget, `expected path ${expectedTargetPath} but got ${actualTarget}`);
+    targetPath = actualTarget;
+    if (expectedTargetPath) {
+      assert(expectedTargetPath === actualTarget, `expected path ${expectedTargetPath} but got ${actualTarget}`);
+    }
     return new Promise((resolve) => {
       const writer = es.wait((_, data) => {
         writes[actualTarget] = data;
@@ -274,10 +277,15 @@ function exists(expectedPath, fileExists) {
   };
 }
 
+function getTargetPath() {
+  return targetPath;
+}
+
 module.exports = {
   copy,
   getAsStream,
   getManyAsStream,
+  getTargetPath,
   connectionError,
   written,
   writtenAsBuffer,
