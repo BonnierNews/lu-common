@@ -27,6 +27,7 @@ const fakeSftp = require("./test/helpers/fake-sftp");
 const fileUtils = require("./test/helpers/file-utils");
 const messageHelper = require("./test/helpers/message-helper");
 const pdfReader = require("./test/helpers/pdfReader");
+const clone = require("./test/helpers/clone");
 
 module.exports = {
   countryCodes,
@@ -52,5 +53,6 @@ module.exports = {
   ses,
   sftp,
   streams,
-  stripSchemaTag
+  stripSchemaTag,
+  clone
 };
