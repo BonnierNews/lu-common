@@ -27,7 +27,8 @@ const expectedExports = [
   "pdfReader",
   "stripSchemaTag",
   "countryCodes",
-  "formattingHelpers"
+  "formattingHelpers",
+  "clone"
 ];
 
 describe("Exposed features", () => {
