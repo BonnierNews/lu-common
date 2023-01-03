@@ -29,7 +29,6 @@
     "joi-postalcode": "^2.0.0",
     "moment": "^2.29.2",
     "nock": "^13.0.11",
-    "path": "^0.12.7",
     "pdfkit": "^0.13.0",
     "sinon": "^15.0.0",
     "ssh2-sftp-client": "^7.2.3"
