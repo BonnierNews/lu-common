@@ -1,5 +1,7 @@
 "use strict";
 
+const {parse} = require("csv-parse/sync");
+
 function jsonLinesToObjectArray(content) {
   return content
     .split("\n")
@@ -11,4 +13,10 @@ function objectArrayToJsonLines(content) {
   return `${content.map((row) => JSON.stringify(row)).join("\n")}\n`;
 }
 
-module.exports = {jsonLinesToObjectArray, objectArrayToJsonLines};
+function csvToJsonLines(str) {
+  if (!str) return;
+  const objectArray = parse(str, {delimiter: ",", columns: true, relax_column_count: true}); // eslint-disable-line camelcase
+  return objectArrayToJsonLines(objectArray);
+}
+
+module.exports = {jsonLinesToObjectArray, objectArrayToJsonLines, csvToJsonLines};
