@@ -120,15 +120,48 @@ function reset() {
   sandbox.restore();
 }
 
+function readWithPathError(expectedPath, message = "gcs file stream read error") {
+  if (!readStreamStub) {
+    readStreamStub = sandbox.stub(gcs, "createReadStream");
+  }
+  const err = new Error(message);
+  err.rejected = true;
+  readStreamStub.withArgs(expectedPath).throws(err);
+}
+
+function existsMultipleCalls(expectedPath, fileExistsArr) {
+  if (!Array.isArray(fileExistsArr)) {
+    throw new Error("expected fileExistsArr to be an array");
+  }
+
+  if (!existsStub) {
+    existsStub = sandbox.stub(gcs, "exists");
+  }
+
+  const stub = existsStub.withArgs(expectedPath);
+  for (const i in fileExistsArr) {
+    stub.onCall(i).returns(fileExistsArr[i]);
+  }
+}
+
+function existsError(message = "gcs file stream exists error") {
+  if (!existsStub) {
+    existsStub = sandbox.stub(gcs, "exists");
+  }
+  existsStub.throws(new Error(message));
+}
+
 module.exports = {
   write,
   writeError,
   reset,
   written,
   exists,
-  // existsMultiple,
+  existsError,
+  existsMultipleCalls,
   read,
   readError,
+  readWithPathError,
   list,
   listError
 };
