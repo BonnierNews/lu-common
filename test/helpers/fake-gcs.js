@@ -91,7 +91,15 @@ function exists(target, fileExists) {
 function list(path, files = []) {
   if (!listStub) listStub = sandbox.stub(gcs, "list");
 
-  listStub.withArgs(path).returns(files);
+  const response = files.map((f) => {
+    const [bucket, key] = f.split("://");
+    return {
+      bucket,
+      name: key
+    };
+  });
+
+  listStub.withArgs(path).returns(response);
 }
 
 function listError(path, message = "gcs list error") {
