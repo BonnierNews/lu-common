@@ -4,6 +4,7 @@ const common = require("../../index");
 const expect = require("chai").expect;
 
 const expectedExports = [
+  "apiBodyHelper",
   "namespaces",
   "schemas",
   "email",
