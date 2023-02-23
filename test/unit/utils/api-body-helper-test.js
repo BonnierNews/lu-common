@@ -3,16 +3,16 @@
 const {createBackOfficeCaseBody} = require("../../../lib/helpers/api-body-helper");
 
 const description = "An order is in an unresovable state for the system",
-  namespace = "some-namespace",
+  namespace = "dn",
   subject = "Bad order";
 
 const backOfficeCaseBody = {
-  category: "Back Office",
+  category: "Övriga ärenden",
   description,
   namespace,
   origin: "Greenfield",
-  owner: "Back Office",
-  sourceQueue: "Back Office",
+  owner: "DNBO",
+  sourceQueue: "DNBO",
   subject
 };
 
