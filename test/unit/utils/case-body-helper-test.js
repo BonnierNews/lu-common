@@ -1,6 +1,6 @@
 "use strict";
 
-const {createBackOfficeCaseBody} = require("../../../lib/helpers/api-body-helper");
+const createBackOfficeCaseBody = require("../../../lib/helpers/case-body-helper");
 
 const description = "An order is in an unresovable state for the system",
   namespace = "dn",

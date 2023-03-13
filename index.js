@@ -7,7 +7,7 @@ const formattingHelpers = require("./lib/validation-helpers/formatting-helpers")
 
 const stripSchemaTag = require("./lib/validation-helpers/strip-joi-schema-tags");
 
-const apiBodyHelper = require("./lib/helpers/api-body-helper");
+const caseBodyHelper = require("./lib/helpers/case-body-helper");
 const email = require("./lib/utils/email");
 const ftp = require("./lib/utils/ftp");
 const gcs = require("./lib/utils/gcs");
@@ -31,7 +31,7 @@ const pdfReader = require("./test/helpers/pdfReader");
 const clone = require("./test/helpers/clone");
 
 module.exports = {
-  apiBodyHelper,
+  caseBodyHelper,
   countryCodes,
   email,
   fakeApi,
