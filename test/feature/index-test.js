@@ -5,6 +5,7 @@ const expect = require("chai").expect;
 
 const expectedExports = [
   "caseBodyHelper",
+  "codeHelper",
   "namespaces",
   "schemas",
   "email",
