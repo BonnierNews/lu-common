@@ -19,4 +19,8 @@ function csvToJsonLines(str) {
   return objectArrayToJsonLines(objectArray);
 }
 
-module.exports = {jsonLinesToObjectArray, objectArrayToJsonLines, csvToJsonLines};
+function modifyFile(file, func) {
+  return `${file.split("\n").filter(Boolean).map(JSON.parse).map(func).map(JSON.stringify).join("\n")}\n`;
+}
+
+module.exports = {jsonLinesToObjectArray, objectArrayToJsonLines, csvToJsonLines, modifyFile};
