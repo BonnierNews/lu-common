@@ -95,7 +95,7 @@ const addressScenarios = [
   {
     text: "Invalid address default country address, bad zipCode",
     expected: false,
-    error: '"zipCode" failed validation because Postal code A123 is not valid for country SE',
+    error: '"zipCode" failed validation because Postal code 123 is not valid for country SE',
     address: {
       streetName: "Testgatan",
       streetNumber: "1",
@@ -201,6 +201,22 @@ const addressScenarios = [
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
       country: "US"
+    }
+  },
+  {
+    text: "Valid address with invalid zipcode, extra letters get trimmed",
+    expected: true,
+    address: {
+      streetName: "Testulica",
+      streetNumber: "10",
+      stairCase: "A",
+      stairs: "1",
+      apartmentNumber: "1101",
+      zipCode: "36-100abc",
+      city: "Kolbuszowa",
+      careOf: "Besteojciec",
+      companyName: "Kompany Z.O.O",
+      country: "PL"
     }
   },
   {
