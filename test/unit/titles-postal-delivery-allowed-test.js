@@ -1,6 +1,6 @@
 "use strict";
 
-const {postalDeliveryAllowed} = require("../../lib/namespaces");
+const {postalDeliveryAllowed} = require("../../lib/titles");
 
 const scenarios = [
   {
