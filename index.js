@@ -1,6 +1,7 @@
 "use strict";
 
 const namespaces = require("./lib/namespaces");
+const titles = require("./lib/titles");
 const schemas = require("./lib/validation-helpers/schemas");
 const countryCodes = require("./lib/validation-helpers/country-codes");
 const formattingHelpers = require("./lib/validation-helpers/formatting-helpers");
@@ -49,6 +50,7 @@ module.exports = {
   iterators,
   messageHelper,
   namespaces,
+  titles,
   PDF,
   pdfGenerator,
   pdfReader,
