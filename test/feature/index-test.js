@@ -7,6 +7,7 @@ const expectedExports = [
   "caseBodyHelper",
   "codeHelper",
   "namespaces",
+  "titles",
   "schemas",
   "email",
   "ftp",
