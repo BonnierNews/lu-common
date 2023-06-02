@@ -21,6 +21,7 @@ const expectedExports = [
   "streams",
   "fakeApi",
   "fakeFtp",
+  "fakeGcpAuth",
   "fakeGcs",
   "fakeS3",
   "fakeSes",
