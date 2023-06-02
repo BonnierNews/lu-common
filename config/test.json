@@ -5,7 +5,11 @@
     "secretAccessKey": "REPLACED_BY_ENV"
   },
   "gcs": {
-    "bucket": "test-bucket"
+    "bucket": "test-bucket",
+    "credentials": {
+      "projectId": "greenfield-prod-xyz",
+      "keyFilename": "/secrets/gcs_credentials_keyfile"
+    }
   },
   "ses": {
     "accessKeyId": "REPLACED_BY_ENV",
