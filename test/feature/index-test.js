@@ -11,6 +11,7 @@ const expectedExports = [
   "schemas",
   "email",
   "ftp",
+  "gcpAuth",
   "gcs",
   "iterators",
   "PDF",
