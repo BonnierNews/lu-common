@@ -26,6 +26,7 @@
     "csv-parse": "^5.3.3",
     "event-stream": "^4.0.1",
     "exp-config": "^3.0.0",
+    "google-auth-library": "^8.7.0",
     "joi": "^17.6.0",
     "joi-postalcode": "^2.0.0",
     "moment": "^2.29.2",

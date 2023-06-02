@@ -23,6 +23,7 @@ const streams = require("./lib/utils/streams");
 
 const fakeApi = require("./test/helpers/fake-api");
 const fakeFtp = require("./test/helpers/fake-ftp");
+const fakeGcpAuth = require("./test/helpers/fake-gcp-auth");
 const fakeGcs = require("./test/helpers/fake-gcs");
 const fakeS3 = require("./test/helpers/fake-s3");
 const fakeSes = require("./test/helpers/fake-ses");
@@ -39,6 +40,7 @@ module.exports = {
   email,
   fakeApi,
   fakeFtp,
+  fakeGcpAuth,
   fakeGcs,
   fakeS3,
   fakeSes,
