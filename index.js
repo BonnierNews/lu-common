@@ -12,6 +12,7 @@ const caseBodyHelper = require("./lib/helpers/case-body-helper");
 const codeHelper = require("./lib/helpers/code-helper");
 const email = require("./lib/utils/email");
 const ftp = require("./lib/utils/ftp");
+const gcpAuth = require("./lib/utils/gcp-auth");
 const gcs = require("./lib/utils/gcs");
 const iterators = require("./lib/utils/iterators");
 const PDF = require("./lib/utils/pdf");
@@ -48,6 +49,7 @@ module.exports = {
   fileUtils,
   formattingHelpers,
   ftp,
+  gcpAuth,
   gcs,
   iterators,
   messageHelper,
