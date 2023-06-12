@@ -14,5 +14,13 @@
   "ses": {
     "accessKeyId": "REPLACED_BY_ENV",
     "secretAccessKey": "REPLACED_BY_ENV"
-  }
+  },
+  "proxyUrl": "http://api.example.com",
+  "gcpProxy": {
+    "url": "https://greenfield-test.bn.nr",
+    "audience": "test-audience.apps.googleusercontent.com"
+  },
+  "livesInGcp": [
+    "gcp-app"
+  ]
 }

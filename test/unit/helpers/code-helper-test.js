@@ -1,6 +1,7 @@
 "use strict";
 
-const {enumerate} = require("../../../lib/helpers/code-helper");
+const config = require("exp-config");
+const {enumerate, getUrl} = require("../../../lib/helpers/code-helper");
 
 describe("Enumerate an array", () => {
   describe("when looping on enumerate of array", () => {
@@ -16,6 +17,26 @@ describe("Enumerate an array", () => {
       result.b.should.eql(1);
       result.c.should.eql(2);
       result.d.should.eql(3);
+    });
+  });
+});
+
+describe("Get url based on where the application lives", () => {
+  describe("when getting an url with an application that lives in gcp", () => {
+    it("we should get the gcpProxy url", () => {
+      getUrl({path: "/gcp-app/some-path"}).should.eql(`${config.gcpProxy.url}/gcp-app/some-path`);
+    });
+  });
+  describe("when getting an url with an application that doesn't yet live in gcp", () => {
+    it("we hould get the normal proxyurl", () => {
+      getUrl({path: "/some-app/some-path"}).should.eql(`${config.proxyUrl}/some-app/some-path`);
+    });
+  });
+  describe("when getting an url with a sent in baseUrl", () => {
+    it("we should use the baseUrl that was sent in", () => {
+      getUrl({path: "/some-app/some-path", baseUrl: "http://some-base-url"}).should.eql(
+        "http://some-base-url/some-app/some-path"
+      );
     });
   });
 });
