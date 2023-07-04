@@ -42,11 +42,9 @@ function read(path, content, opts = {times: 1}) {
   for (let i = 0; i < opts.times; i++) {
     const stream = new Readable();
     stream._read = () => {};
-    // if (opts.format === "buffer") {
-    if (Buffer.isBuffer(content)) {
+    if (Buffer.isBuffer(content) || content.type === "Buffer") {
       stream.push(Buffer.from(content));
     } else {
-      // const encodedContent = iconv.encode(content, opts.encoding || "utf-8").toString();
       content
         .split("\n")
         .filter(Boolean)
