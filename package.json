@@ -52,6 +52,15 @@
   },
   "overrides": {
     "semver@6.3.1": "^7.5.2",
-    "make-dir@3.1.0": "^4.0.0"
+    "make-dir": "^4.0.0",
+    "nyc@^15.1.0": {
+      "make-dir": "^4.0.0"
+    },
+    "caching-transform": {
+      "make-dir": "^4.0.0"
+    },
+    "configstore@5.0.1": {
+      "make-dir": "^4.0.0"
+    }
   }
 }
