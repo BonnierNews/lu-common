@@ -51,7 +51,7 @@
     "test-data": "file:./test-data"
   },
   "overrides": {
-    "semver@<7.5.2": "^7.5.2",
-    "make-dir@<4.0.0": "^4.0.0"
+    "semver@6.3.1": "^7.5.2",
+    "make-dir@3.1.0": "^4.0.0"
   }
 }
