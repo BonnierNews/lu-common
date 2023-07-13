@@ -21,6 +21,10 @@
     "audience": "test-audience.apps.googleusercontent.com"
   },
   "livesInGcp": [
+    "gcp",
     "gcp-app"
-  ]
+  ],
+  "logging": {
+    "pretty": true
+  }
 }

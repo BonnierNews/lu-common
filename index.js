@@ -21,6 +21,7 @@ const s3 = require("./lib/utils/s3");
 const ses = require("./lib/utils/ses");
 const sftp = require("./lib/utils/sftp");
 const streams = require("./lib/utils/streams");
+const http = require("./lib/utils/http");
 
 const fakeApi = require("./test/helpers/fake-api");
 const fakeFtp = require("./test/helpers/fake-ftp");
@@ -51,6 +52,7 @@ module.exports = {
   ftp,
   gcpAuth,
   gcs,
+  http,
   iterators,
   messageHelper,
   namespaces,
