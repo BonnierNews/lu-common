@@ -13,6 +13,7 @@ const expectedExports = [
   "ftp",
   "gcpAuth",
   "gcs",
+  "http",
   "iterators",
   "PDF",
   "pdfGenerator",
