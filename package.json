@@ -1,6 +1,6 @@
 {
   "name": "lu-common",
-  "version": "3.7.3",
+  "version": "3.7.4",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -10,7 +10,7 @@
   "scripts": {
     "mocha": "mocha",
     "lint": "eslint .",
-    "test": "mocha --exit --reporter ${REPORTER:-spec} && eslint . --ext .js --cache && depcheck --ignores=\"prettier\"",
+    "test": "mocha --exit --reporter ${REPORTER:-spec} && eslint . --ext .js,.json --cache && depcheck --ignores=\"prettier\"",
     "format": "prettier **/*.js --write && eslint . --fix",
     "coverage": "c8 npm test",
     "check-coverage": "c8 check-coverage"
@@ -43,6 +43,7 @@
     "depcheck": "^1.4.0",
     "eslint": "^8.45.0",
     "eslint-config-exp": "^0.6.2",
+    "eslint-plugin-json": "^3.1.0",
     "mocha": "^10.2.0",
     "mocha-cakes-2": "^3.3.0",
     "prettier": "^3.0.0",
