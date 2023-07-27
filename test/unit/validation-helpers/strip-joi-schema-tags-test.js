@@ -11,21 +11,19 @@ describe("strip joi fields without tags", () => {
       b: joi.object().keys({
         a: joi.string().tag("white_list"),
         b: joi.string(),
-        c: joi.object().keys({
-          a: joi.number().tag("white_list")
-        })
-      })
+        c: joi.object().keys({ a: joi.number().tag("white_list") }),
+      }),
     });
 
     it("should remove keys fields without the tag 'white_list'", () => {
       const strippedSchema = stripper(schema, "white_list");
 
-      const o = {a: "a", b: {a: "a", b: "b", c: {a: 1}}};
+      const o = { a: "a", b: { a: "a", b: "b", c: { a: 1 } } };
 
-      const {value, error} = strippedSchema.validate(o, {stripUnknown: true});
+      const { value, error } = strippedSchema.validate(o, { stripUnknown: true });
 
       expect(error).to.eql(undefined);
-      value.should.eql({a: "a", b: {a: "a", c: {a: 1}}});
+      value.should.eql({ a: "a", b: { a: "a", c: { a: 1 } } });
     });
   });
 
@@ -35,23 +33,21 @@ describe("strip joi fields without tags", () => {
       b: joi.object().keys({
         a: joi.string().tag("white_list"),
         b: joi.string(),
-        c: joi.object().keys({
-          a: joi.number().tag("white_list")
-        })
+        c: joi.object().keys({ a: joi.number().tag("white_list") }),
       }),
       c: joi.array().tag("white_list"),
-      d: joi.array()
+      d: joi.array(),
     });
 
     it("should remove keys fields without the tag 'white_list'", () => {
       const strippedSchema = stripper(schema, "white_list");
 
-      const o = {a: "a", b: {a: "a", b: "b", c: {a: 1}}, c: ["a", "b"], d: [1, 2]};
+      const o = { a: "a", b: { a: "a", b: "b", c: { a: 1 } }, c: [ "a", "b" ], d: [ 1, 2 ] };
 
-      const {value, error} = strippedSchema.validate(o, {stripUnknown: true});
+      const { value, error } = strippedSchema.validate(o, { stripUnknown: true });
 
       expect(error).to.eql(undefined);
-      value.should.eql({a: "a", b: {a: "a", c: {a: 1}}, c: ["a", "b"]});
+      value.should.eql({ a: "a", b: { a: "a", c: { a: 1 } }, c: [ "a", "b" ] });
     });
   });
 });

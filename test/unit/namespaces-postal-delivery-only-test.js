@@ -1,18 +1,18 @@
 "use strict";
 
-const {postalDeliveryOnly} = require("../../lib/namespaces");
+const { postalDeliveryOnly } = require("../../lib/namespaces");
 
 const scenarios = [
   {
     expected: true,
     namespace: "paf",
-    text: "Privata Affärer"
+    text: "Privata Affärer",
   },
   {
     expected: false,
     namespace: "some-namespace",
-    text: "Some namespace"
-  }
+    text: "Some namespace",
+  },
 ];
 
 describe("check if postal delivery only", () => {

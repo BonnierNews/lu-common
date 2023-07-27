@@ -13,12 +13,12 @@ function parsedPDF(pdfJSON) {
     }, {});
     return {
       pageNumber: i++,
-      layout: [49.5, 52.618].includes(page.Height) ? "portrait" : "landscape",
+      layout: [ 49.5, 52.618 ].includes(page.Height) ? "portrait" : "landscape",
       page: Object.keys(pageRows).map((row) => {
-        return {rowNumber: j++, columns: pageRows[row]};
-      })
+        return { rowNumber: j++, columns: pageRows[row] };
+      }),
     };
   });
 }
 
-module.exports = {parsedPDF};
+module.exports = { parsedPDF };

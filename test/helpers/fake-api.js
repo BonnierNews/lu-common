@@ -31,7 +31,7 @@ function init(url = config.proxyUrl) {
       testData = require("test-data")(testData);
     }
     let actualBody;
-    const {request} = testData;
+    const { request } = testData;
     if (request.baseUrl && request.baseUrl !== url) throw new Error(`Missmatching urls ${request.baseUrl} ${url}`);
     const mock = api[request.method.toLowerCase()](request.path, (body) => {
       actualBody = body;
@@ -45,16 +45,16 @@ function init(url = config.proxyUrl) {
     }
 
     if (request.headers) {
-      for (const [key, val] of Object.entries(request.headers)) {
+      for (const [ key, val ] of Object.entries(request.headers)) {
         mock.matchHeader(key, val);
       }
     }
 
     const statusCode = testData.statusCode ?? testData.status ?? 200;
     if (testData.stream && testData.compress) {
-      mock.reply(statusCode, stream.Readable.from([testData.body]).pipe(zlib.createGzip()));
+      mock.reply(statusCode, stream.Readable.from([ testData.body ]).pipe(zlib.createGzip()));
     } else if (testData.stream) {
-      mock.reply(statusCode, stream.Readable.from([testData.body]), testData.headers);
+      mock.reply(statusCode, stream.Readable.from([ testData.body ]), testData.headers);
     } else {
       mock.reply(statusCode, testData.body, testData.headers || undefined);
     }
@@ -69,7 +69,7 @@ function init(url = config.proxyUrl) {
       calledBody: () => {
         return actualBody;
       },
-      postedBody: () => actualBody
+      postedBody: () => actualBody,
     };
   }
 
@@ -109,7 +109,7 @@ function init(url = config.proxyUrl) {
     }
 
     const mounts = Object.values(external).map((value) => {
-      return {mount: mount(value), external: value};
+      return { mount: mount(value), external: value };
     });
 
     return mounts;
@@ -134,7 +134,7 @@ function init(url = config.proxyUrl) {
     pendingMocks: api.pendingMocks.bind(api),
     matchHeader: api.matchHeader.bind(api),
     reset,
-    mountExternal
+    mountExternal,
   };
 }
 

@@ -1,16 +1,16 @@
 "use strict";
 
 const config = require("exp-config");
-const {enumerate, getUrl} = require("../../../lib/helpers/code-helper");
+const { enumerate, getUrl } = require("../../../lib/helpers/code-helper");
 
 describe("Enumerate an array", () => {
   describe("when looping on enumerate of array", () => {
     it("should send us back an index on each value", () => {
-      for (const [index, value] of enumerate([0, 1, 2, 3, 4, 5])) {
+      for (const [ index, value ] of enumerate([ 0, 1, 2, 3, 4, 5 ])) {
         value.should.eql(index);
       }
       const result = {};
-      for (const [index, value] of enumerate(["a", "b", "c", "d"])) {
+      for (const [ index, value ] of enumerate([ "a", "b", "c", "d" ])) {
         result[value] = index;
       }
       result.a.should.eql(0);
@@ -24,17 +24,17 @@ describe("Enumerate an array", () => {
 describe("Get url based on where the application lives", () => {
   describe("when getting an url with an application that lives in gcp", () => {
     it("we should get the gcpProxy url", () => {
-      getUrl({path: "/gcp-app/some-path"}).should.eql(`${config.gcpProxy.url}/gcp-app/some-path`);
+      getUrl({ path: "/gcp-app/some-path" }).should.eql(`${config.gcpProxy.url}/gcp-app/some-path`);
     });
   });
   describe("when getting an url with an application that doesn't yet live in gcp", () => {
     it("we hould get the normal proxyurl", () => {
-      getUrl({path: "/some-app/some-path"}).should.eql(`${config.proxyUrl}/some-app/some-path`);
+      getUrl({ path: "/some-app/some-path" }).should.eql(`${config.proxyUrl}/some-app/some-path`);
     });
   });
   describe("when getting an url with a sent in baseUrl", () => {
     it("we should use the baseUrl that was sent in", () => {
-      getUrl({path: "/some-app/some-path", baseUrl: "http://some-base-url"}).should.eql(
+      getUrl({ path: "/some-app/some-path", baseUrl: "http://some-base-url" }).should.eql(
         "http://some-base-url/some-app/some-path"
       );
     });
