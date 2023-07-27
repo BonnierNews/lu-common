@@ -1,13 +1,13 @@
 "use strict";
 
-const {Readable} = require("stream");
+const { Readable } = require("stream");
 const sandbox = require("sinon").createSandbox();
 const gcs = require("../../lib/utils/gcs");
 
 let writes = {};
 let writeStreamStub, existsStub, readStreamStub, listStub;
 
-function write(target, opts = {times: 1}) {
+function write(target, opts = { times: 1 }) {
   if (!writeStreamStub) {
     writeStreamStub = sandbox.stub(gcs, "createWriteStream");
   }
@@ -32,7 +32,7 @@ function write(target, opts = {times: 1}) {
   return writer;
 }
 
-function read(path, content, opts = {times: 1}) {
+function read(path, content, opts = { times: 1 }) {
   if (!readStreamStub) {
     readStreamStub = sandbox.stub(gcs, "createReadStream");
   }
@@ -90,10 +90,10 @@ function list(path, files = []) {
   if (!listStub) listStub = sandbox.stub(gcs, "list");
 
   const response = files.map((f) => {
-    const [bucket, key] = f.split("://");
+    const [ bucket, key ] = f.split("://");
     return {
       bucket,
-      name: key
+      name: key,
     };
   });
 
@@ -169,5 +169,5 @@ module.exports = {
   readError,
   readWithPathError,
   list,
-  listError
+  listError,
 };

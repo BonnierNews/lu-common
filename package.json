@@ -1,6 +1,6 @@
 {
   "name": "lu-common",
-  "version": "3.7.2",
+  "version": "3.7.3",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -10,12 +10,10 @@
   "scripts": {
     "mocha": "mocha",
     "lint": "eslint .",
-    "test": "mocha && eslint --ext js --ext json . --cache && depcheck --ignores=\"prettier\"",
+    "test": "mocha --exit --reporter ${REPORTER:-spec} && eslint . --ext .js --cache && depcheck --ignores=\"prettier\"",
     "format": "prettier **/*.js --write && eslint . --fix",
-    "prettier": "prettier \"**/*.{js,json,md}\"",
-    "prettier:apply": "npm run prettier -- --write",
-    "coverage": "nyc npm test",
-    "check-coverage": "nyc check-coverage"
+    "coverage": "c8 npm test",
+    "check-coverage": "c8 check-coverage"
   },
   "keywords": [],
   "author": "",
@@ -39,15 +37,14 @@
     "ssh2-sftp-client": "^7.2.3"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
+    "c8": "^8.0.1",
+    "chai": "^4.3.7",
     "chai-exclude": "^2.0.3",
     "depcheck": "^1.4.0",
-    "eslint": "^8.0.1",
-    "eslint-plugin-json": "^3.1.0",
-    "eslint-plugin-prettier": "^5.0.0",
+    "eslint": "^8.45.0",
+    "eslint-config-exp": "^0.6.2",
     "mocha": "^10.2.0",
     "mocha-cakes-2": "^3.3.0",
-    "nyc": "^15.1.0",
     "prettier": "^3.0.0",
     "sinon": "^15.0.0",
     "test-data": "file:./test-data"

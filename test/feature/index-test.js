@@ -34,7 +34,7 @@ const expectedExports = [
   "stripSchemaTag",
   "countryCodes",
   "formattingHelpers",
-  "clone"
+  "clone",
 ];
 
 describe("Exposed features", () => {
@@ -45,7 +45,7 @@ describe("Exposed features", () => {
   }
 
   describe("Importing default export", () => {
-    it(`The right stuff gets imported`, () => {
+    it("The right stuff gets imported", () => {
       const list = exports.filter((val) => !expectedExports.includes(val));
       const list2 = expectedExports.filter((val) => !exports.includes(val));
       expect(list.length).to.equal(0);

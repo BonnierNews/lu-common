@@ -66,5 +66,5 @@ module.exports = {
   sftp,
   streams,
   stripSchemaTag,
-  clone
+  clone,
 };

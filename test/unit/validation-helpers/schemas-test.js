@@ -3,19 +3,19 @@
 const {
   addressSchema,
   distributionFeeSchemaNand,
-  distributionFeeSchemaXor
+  distributionFeeSchemaXor,
 } = require("../../../lib/validation-helpers/schemas");
 
 const {
   addressScenarios,
-  distributionFeeScenarios
+  distributionFeeScenarios,
 } = require("../../../test-data/unit/validation-helpers/schemas-test-data");
 
 describe("check if address is correct", () => {
   for (const s of addressScenarios) {
     describe(s.text, () => {
-      const {value, error: notValidAddress} = s.stripped
-        ? s.strippedSchema.validate(s.address, {stripUnknown: true})
+      const { value, error: notValidAddress } = s.stripped
+        ? s.strippedSchema.validate(s.address, { stripUnknown: true })
         : addressSchema.validate(s.address);
 
       it(`is a${s.expected ? " valid " : "n invalid "} address`, () => {
@@ -40,7 +40,7 @@ describe("check if address is correct", () => {
 describe("check if distributionFee is correct", () => {
   for (const s of distributionFeeScenarios) {
     describe(`${s.text || s.nandText} with nand schema`, () => {
-      const {error: nandError} = distributionFeeSchemaNand.validate(s.distributionFee);
+      const { error: nandError } = distributionFeeSchemaNand.validate(s.distributionFee);
 
       it(`is a${s.nandExpected ? " valid" : "n invalid"} distributionFee using nand schema`, () => {
         Boolean(!nandError).should.eql(Boolean(s.nandExpected));
@@ -54,7 +54,7 @@ describe("check if distributionFee is correct", () => {
     });
 
     describe(`${s.text || s.xorText} with xor schema`, () => {
-      const {error: xorError} = distributionFeeSchemaXor.validate(s.distributionFee);
+      const { error: xorError } = distributionFeeSchemaXor.validate(s.distributionFee);
 
       it(`is a${s.xorExpected ? " valid" : "n invalid"} distributionFee using xor schema`, () => {
         Boolean(!xorError).should.eql(Boolean(s.xorExpected));

@@ -3,7 +3,7 @@
 const es = require("event-stream");
 const SftpClient = require("ssh2-sftp-client");
 const sandbox = require("sinon").createSandbox();
-const {Readable} = require("stream");
+const { Readable } = require("stream");
 const assert = require("assert");
 
 let writes = {};
@@ -28,7 +28,7 @@ function get(expectedPath, content) {
         return resolve(buffer);
       });
     }
-    const stream = Readable.from([content]);
+    const stream = Readable.from([ content ]);
     return stream.pipe(writeStream);
   };
 }
@@ -56,7 +56,7 @@ function getMany(expectedFiles) {
         return resolve(buffer);
       });
     }
-    const stream = Readable.from([expectedFiles[actualPath]]);
+    const stream = Readable.from([ expectedFiles[actualPath] ]);
     return stream.pipe(writeStream);
   };
 }
@@ -183,7 +183,7 @@ function listMany(expectedPaths) {
         `expected pattern ${path.expectedPattern} includes a '/', but that isn't supported by the real sftp client`
       );
     }
-    mockedPaths[path.expectedPath] = {expectedPattern: path.expectedPattern, files: path.files};
+    mockedPaths[path.expectedPath] = { expectedPattern: path.expectedPattern, files: path.files };
   });
   stub.list = (actualPath, actualPattern) => {
     assert(mockedPaths[actualPath], `expected paths ${Object.keys(mockedPaths)} but got ${actualPath}`);
@@ -297,5 +297,5 @@ module.exports = {
   putError,
   list,
   listMany,
-  exists
+  exists,
 };

@@ -1,29 +1,27 @@
 "use strict";
 
 module.exports = {
-  parserOptions: {
-    ecmaVersion: 2020
-  },
+  parserOptions: { ecmaVersion: 2020 },
   env: {
     node: true,
-    es6: true
+    es6: true,
   },
   extends: "eslint:recommended",
   rules: {
     "arrow-parens": 2,
     "arrow-spacing": 2,
-    "brace-style": [2, "1tbs", {allowSingleLine: false}],
+    "brace-style": [ 2, "1tbs", { allowSingleLine: false } ],
     "callback-return": 2,
     camelcase: 1,
     "comma-spacing": 1,
-    curly: [2, "multi-line"],
-    "dot-notation": [2, {allowKeywords: true}],
+    curly: [ 2, "multi-line" ],
+    "dot-notation": [ 2, { allowKeywords: true } ],
     "eol-last": 2,
     eqeqeq: 2,
     "handle-callback-err": 2,
-    "key-spacing": [1, {beforeColon: false, afterColon: true}],
+    "key-spacing": [ 1, { beforeColon: false, afterColon: true } ],
     "keyword-spacing": 1,
-    indent: [1, 2, {SwitchCase: 1, MemberExpression: 1}],
+    indent: [ 1, 2, { SwitchCase: 1, MemberExpression: 1 } ],
     "new-cap": 2,
     "new-parens": 1,
     "no-alert": 2,
@@ -35,7 +33,7 @@ module.exports = {
     "no-eval": 2,
     "no-extend-native": 2,
     "no-extra-bind": 2,
-    "no-extra-parens": [1, "functions"],
+    "no-extra-parens": [ 1, "functions" ],
     "no-implied-eval": 2,
     "no-iterator": 2,
     "no-label-var": 2,
@@ -64,29 +62,24 @@ module.exports = {
     "no-trailing-spaces": 1,
     "no-underscore-dangle": 0,
     "no-unused-expressions": 2,
-    "no-use-before-define": [2, "nofunc"],
+    "no-use-before-define": [ 2, "nofunc" ],
     "no-var": 2,
     "no-with": 2,
-    "object-curly-spacing": ["error", "never"],
+    "object-curly-spacing": [ "error", "never" ],
     "prefer-arrow-callback": 2,
-    "prefer-const": ["error", {destructuring: "all"}],
+    "prefer-const": [ "error", { destructuring: "all" } ],
     "prefer-template": 1,
-    quotes: [1, "double", {avoidEscape: true}],
-    semi: [2, "always"],
-    "semi-spacing": [1, {before: false, after: true}],
+    quotes: [ 1, "double", { avoidEscape: true } ],
+    semi: [ 2, "always" ],
+    "semi-spacing": [ 1, { before: false, after: true } ],
     "space-before-blocks": 1,
     "space-infix-ops": 1,
-    "space-unary-ops": [1, {words: true, nonwords: false}],
-    "space-in-parens": ["error", "never"],
-    strict: [2, "global"],
-    "template-curly-spacing": ["error", "never"],
-    yoda: [1, "never"],
-    "require-await": ["error"],
-    "no-restricted-modules": [
-      "warn",
-      {
-        patterns: ["test-data/*"]
-      }
-    ]
-  }
+    "space-unary-ops": [ 1, { words: true, nonwords: false } ],
+    "space-in-parens": [ "error", "never" ],
+    strict: [ 2, "global" ],
+    "template-curly-spacing": [ "error", "never" ],
+    yoda: [ 1, "never" ],
+    "require-await": [ "error" ],
+    "no-restricted-modules": [ "warn", { patterns: [ "test-data/*" ] } ],
+  },
 };

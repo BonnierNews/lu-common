@@ -2,7 +2,7 @@
 
 const stripSchemaTag = require("../../../lib/validation-helpers/strip-joi-schema-tags");
 
-const {addressSchema} = require("../../../lib/validation-helpers/schemas");
+const { addressSchema } = require("../../../lib/validation-helpers/schemas");
 
 const addressScenarios = [
   {
@@ -19,8 +19,8 @@ const addressScenarios = [
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
       country: "SE",
-      deliveryMethod: "POST"
-    }
+      deliveryMethod: "POST",
+    },
   },
   {
     text: "Valid foregin address",
@@ -30,8 +30,8 @@ const addressScenarios = [
       streetNumber: "1",
       zipCode: "S0J 2Y0",
       city: "Saskatchewan",
-      country: "CA"
-    }
+      country: "CA",
+    },
   },
   {
     text: "Valid address with normal fields",
@@ -41,8 +41,8 @@ const addressScenarios = [
       streetNumber: "1",
       zipCode: "12345",
       city: "Teststaden",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Valid address with normal fields, normal spacing in swedish zipcode",
@@ -52,8 +52,8 @@ const addressScenarios = [
       streetNumber: "1",
       zipCode: "123 45",
       city: "Teststaden",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Valid address with normal fields, missing country so default to SE",
@@ -62,8 +62,8 @@ const addressScenarios = [
       streetName: "Testgatan",
       streetNumber: "1",
       zipCode: "12345",
-      city: "Teststaden"
-    }
+      city: "Teststaden",
+    },
   },
   {
     text: "Valid address with normal fields, some null values",
@@ -79,8 +79,8 @@ const addressScenarios = [
       careOf: "Bestefar",
       companyName: null,
       country: null,
-      deliveryMethod: null
-    }
+      deliveryMethod: null,
+    },
   },
   {
     text: "Valid address with minimum fields",
@@ -89,8 +89,8 @@ const addressScenarios = [
       streetName: "Testgatan",
       zipCode: "12345",
       city: "Teststaden",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Invalid address default country address, bad zipCode",
@@ -100,8 +100,8 @@ const addressScenarios = [
       streetName: "Testgatan",
       streetNumber: "1",
       zipCode: "A123",
-      city: "Teststaden"
-    }
+      city: "Teststaden",
+    },
   },
   {
     text: "Invalid address cause of zipCode to long",
@@ -117,8 +117,8 @@ const addressScenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Invalid address cause of zipCode to short",
@@ -134,8 +134,8 @@ const addressScenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Invalid address cause of missing streetName",
@@ -150,8 +150,8 @@ const addressScenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Invalid address cause of missing city",
@@ -166,8 +166,8 @@ const addressScenarios = [
       zipCode: "12345",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "SE"
-    }
+      country: "SE",
+    },
   },
   {
     text: "Invalid address cause of invalid country",
@@ -183,8 +183,8 @@ const addressScenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "BLAH"
-    }
+      country: "BLAH",
+    },
   },
   {
     text: "Invalid address cause of invalid foregin zipcode",
@@ -200,8 +200,8 @@ const addressScenarios = [
       city: "Teststaden",
       careOf: "Bestefar",
       companyName: "AwesomeCompany AB",
-      country: "US"
-    }
+      country: "US",
+    },
   },
   {
     text: "Valid address with invalid zipcode, extra letters get trimmed",
@@ -216,22 +216,22 @@ const addressScenarios = [
       city: "Kolbuszowa",
       careOf: "Besteojciec",
       companyName: "Kompany Z.O.O",
-      country: "PL"
-    }
+      country: "PL",
+    },
   },
   {
     text: "Invalid, address is empty",
     expected: false,
     error: '"streetName" is required',
-    address: {}
+    address: {},
   },
   {
     text: "Valid, stripped address is empty",
     strippedSchema: stripSchemaTag(addressSchema, "test"),
     expected: true,
     stripped: true,
-    address: {}
-  }
+    address: {},
+  },
 ];
 
 const distributionFeeScenarios = [
@@ -241,9 +241,7 @@ const distributionFeeScenarios = [
     nandExpected: true,
     xorExpected: false,
     error: '"value" must contain at least one of [startDate, monthlyDelay]',
-    distributionFee: {
-      amount: 5000
-    }
+    distributionFee: { amount: 5000 },
   },
   {
     text: "Valid distributionFee with startDate",
@@ -251,8 +249,8 @@ const distributionFeeScenarios = [
     xorExpected: true,
     distributionFee: {
       amount: 5000,
-      startDate: "2022-12-13"
-    }
+      startDate: "2022-12-13",
+    },
   },
   {
     text: "Valid distributionFee with montlyDelay",
@@ -260,8 +258,8 @@ const distributionFeeScenarios = [
     xorExpected: true,
     distributionFee: {
       amount: 5000,
-      monthlyDelay: 18
-    }
+      monthlyDelay: 18,
+    },
   },
   {
     text: "Invalid distributionFee, both startDate and monthlyDelay exists",
@@ -272,17 +270,15 @@ const distributionFeeScenarios = [
     distributionFee: {
       amount: 5000,
       startDate: "2022-12-13",
-      monthlyDelay: 18
-    }
+      monthlyDelay: 18,
+    },
   },
   {
     text: "Invalid distributionFee, amount doesn't exist",
     nandExpected: false,
     xorExpected: false,
     error: '"amount" is required',
-    distributionFee: {
-      monthlyDelay: 18
-    }
+    distributionFee: { monthlyDelay: 18 },
   },
   {
     text: "Invalid distributionFee, monthlyDelay is not a number",
@@ -291,17 +287,15 @@ const distributionFeeScenarios = [
     error: '"monthlyDelay" must be a number',
     distributionFee: {
       amount: 5000,
-      monthlyDelay: "arton"
-    }
+      monthlyDelay: "arton",
+    },
   },
   {
     text: "Invalid distributionFee, amount is not a number",
     nandExpected: false,
     xorEpected: false,
     error: '"amount" must be a number',
-    distributionFee: {
-      amount: "5000öre"
-    }
+    distributionFee: { amount: "5000öre" },
   },
   {
     text: "Invalid distributionFee, startDate is malformatted",
@@ -311,12 +305,12 @@ const distributionFeeScenarios = [
       '"startDate" with value "2022-foo-bar" fails to match the required pattern: /^(19\\d{2}|20\\d{2})-([0][1-9]|1[0-2])-([0][1-9]|[1-2]\\d|3[0-1])$/',
     distributionFee: {
       amount: 50000,
-      startDate: "2022-foo-bar"
-    }
-  }
+      startDate: "2022-foo-bar",
+    },
+  },
 ];
 
 module.exports = {
   addressScenarios,
-  distributionFeeScenarios
+  distributionFeeScenarios,
 };

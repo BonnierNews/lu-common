@@ -13,7 +13,7 @@ const backOfficeCaseBody = {
   origin: "Greenfield",
   owner: "DNBO",
   sourceQueue: "DNBO",
-  subject
+  subject,
 };
 
 describe("create back office case body", () => {
