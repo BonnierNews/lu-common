@@ -27,14 +27,14 @@ describe("strip joi fields without tags", () => {
     });
   });
 
-  describe("nested", () => {
+  describe("nested, with more tags after nesting and an unknown flag", () => {
     const schema = joi.object({
       a: joi.string().required().tag("white_list"),
       b: joi.object().keys({
         a: joi.string().tag("white_list"),
         b: joi.string(),
         c: joi.object().keys({ a: joi.number().tag("white_list") }),
-      }),
+      }).unknown(true),
       c: joi.array().tag("white_list"),
       d: joi.array(),
     });
