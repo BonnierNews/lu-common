@@ -28,11 +28,12 @@ describe("create back office case body", () => {
   describe("when calling the create body with optional parameters", () => {
     it("should create the expected body with sent in parameters", () => {
       const deploymentName = "some-deployment",
-        externalReference = "some-id";
-      createBackOfficeCaseBody(subject, description, namespace, { deploymentName, externalReference }).should.eql({
+        externalReference = "some-id", eTaskId = "some-etask-id";
+      createBackOfficeCaseBody(subject, description, namespace, { deploymentName, externalReference, eTaskId }).should.eql({
         ...backOfficeCaseBody,
-        deploymentName: "some-deployment",
-        externalReference: "some-id",
+        deploymentName,
+        externalReference,
+        eTaskId,
       });
     });
   });
