@@ -49,12 +49,32 @@ describe("create back office case body", () => {
     });
   });
 
+  describe("when calling the create body with a contact with email", () => {
+    it("should create the expected body with sent in parameters", () => {
+      const contact = { firstName: "Joe", lastName: "Bloggs", email: "some@example.com" };
+      createBackOfficeCaseBody(subject, description, namespace, { contact }).should.eql({
+        ...backOfficeCaseBody,
+        contact,
+      });
+    });
+  });
+
+  describe("when calling the create body with a contact id", () => {
+    it("should create the expected body with sent in parameters", () => {
+      const contact = { id: "some-id" };
+      createBackOfficeCaseBody(subject, description, namespace, { contact }).should.eql({
+        ...backOfficeCaseBody,
+        contact,
+      });
+    });
+  });
+
   describe("when calling the create body with a badly formed contact", () => {
     it("should fail the joi validation", () => {
       try {
         createBackOfficeCaseBody(subject, description, namespace, { contact: { firstName: "Joe", lastName: "Bloggs" } });
       } catch (error) {
-        error.message.should.eql('"contact.email" is required');
+        error.message.should.eql('"contact" does not match any of the allowed types');
       }
     });
   });
