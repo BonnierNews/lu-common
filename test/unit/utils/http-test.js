@@ -159,7 +159,7 @@ describe("http", () => {
     const correlationId = "http-test-with-base-url";
     it("should allow url as param", async () => {
       nock("http://other-api.example.com").get("/some/path").reply(200, { ok: true });
-      const result = await http.get({ baseUrl: "http://other-api.example.com", path: "/some/path", correlationId , auth: "some-auth-string", timeout: 50, responseType: "json" });
+      const result = await http.get({ baseUrl: "http://other-api.example.com", path: "/some/path", correlationId, auth: "some-auth-string", timeout: 50, responseType: "json" });
       result.statusCode.should.eql(200);
       result.body.should.eql({ ok: true });
     });
