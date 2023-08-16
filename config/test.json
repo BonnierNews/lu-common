@@ -16,6 +16,7 @@
     "secretAccessKey": "REPLACED_BY_ENV"
   },
   "proxyUrl": "http://api.example.com",
+  "awsProxyUrl": "http://api.example-aws.com",
   "gcpProxy": {
     "url": "https://greenfield-test.bn.nr",
     "audience": "test-audience.apps.googleusercontent.com"
@@ -24,6 +25,7 @@
     "gcp",
     "gcp-app"
   ],
+  "livesIn": "GCP",
   "logging": {
     "pretty": true
   }
