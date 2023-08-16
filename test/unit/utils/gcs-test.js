@@ -5,8 +5,10 @@ const { getCredentials } = require("../../../lib/utils/gcs");
 
 describe("gcs", () => {
   it("should return whole credentials object for AWS", () => {
+    config.livesIn = "AWS";
     const credentials = getCredentials();
     credentials.should.eql(config.gcs.credentials);
+    config.livesIn = "GCP";
   });
 
   it("should credentials object without keyFilename for GCP", () => {

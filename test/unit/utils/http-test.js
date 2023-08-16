@@ -1,11 +1,12 @@
 "use strict";
 
+const config = require("exp-config");
 const nock = require("nock");
 const fakeApi = require("../../helpers/fake-api")();
-const gcpFakeApi = require("../../helpers/fake-api")(require("exp-config").gcpProxy.url);
+const awsFakeApi = require("../../helpers/fake-api")(config.awsProxyUrl);
+const gcpFakeApi = require("../../helpers/fake-api")(config.gcpProxy.url);
 const http = require("../../../lib/utils/http");
 const fakeGcpAuth = require("../../helpers/fake-gcp-auth");
-const config = require("exp-config");
 
 describe("http", () => {
   describe("asserted", () => {
@@ -348,11 +349,29 @@ describe("http", () => {
     });
   });
 
+  describe("lives in GCP calling AWS", () => {
+    before(() => {
+      config.livesIn = "GCP";
+    });
+    after(() => {
+      config.livesIn = "GCP";
+    });
+    const correlationId = "http-test-asserted";
+
+    it("should do get-requests", async () => {
+      awsFakeApi.get("/some/path").reply(200, { ok: true });
+      const result = await http.asserted.get({ path: "/some/path", correlationId });
+      result.should.eql({ ok: true });
+    });
+  });
+
   describe("lives in AWS", () => {
-    config.livesIn = "AWS";
+    before(() => {
+      config.livesIn = "AWS";
+    });
     beforeEach(fakeGcpAuth.authenticated);
     after(() => {
-      delete config.livesIn;
+      config.livesIn = "GCP";
       fakeGcpAuth.reset();
     });
     const correlationId = "http-test-asserted";
