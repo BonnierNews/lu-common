@@ -353,9 +353,6 @@ describe("http", () => {
     before(() => {
       config.livesIn = "GCP";
     });
-    after(() => {
-      config.livesIn = "GCP";
-    });
     const correlationId = "http-test-asserted";
 
     it("should do get-requests", async () => {
