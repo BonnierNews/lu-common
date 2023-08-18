@@ -5,11 +5,23 @@ const nock = require("nock");
 const fakeApi = require("../../helpers/fake-api")();
 const awsFakeApi = require("../../helpers/fake-api")(config.awsProxyUrl);
 const gcpFakeApi = require("../../helpers/fake-api")(config.gcpProxy.url);
+const credentialsFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.credentials.cloudRunUrl);
 const http = require("../../../lib/utils/http");
 const fakeGcpAuth = require("../../helpers/fake-gcp-auth");
 
 describe("http", () => {
+  beforeEach(() => {
+    fakeApi.reset();
+    awsFakeApi.reset();
+    gcpFakeApi.reset();
+    credentialsFakeApi.reset();
+    fakeGcpAuth.reset();
+  });
   describe("asserted", () => {
+    before(() => {
+      // Mock that we live in aws and use the aws proxy
+      config.livesIn = "";
+    });
     const correlationId = "http-test-asserted";
 
     it("should do get-requests", async () => {
@@ -259,6 +271,81 @@ describe("http", () => {
       it("should throw on 404", (done) => {
         gcpFakeApi[method.toLowerCase()]("/gcp/some/path").reply(404, { ok: true });
         http.asserted[method.toLowerCase()]({ path: "/gcp/some/path", correlationId })
+          .then(() => done("should not come here"))
+          .catch(() => done());
+      });
+    });
+  });
+
+  describe("gcp with sent-in gcpConfig", () => {
+    before(fakeGcpAuth.reset);
+    beforeEach(fakeGcpAuth.authenticated);
+    after(fakeGcpAuth.reset);
+    const correlationId = "http-test-asserted";
+    const gcpConfig = config.gcpConfigs.credentials;
+
+    it("should do get-requests", async () => {
+      credentialsFakeApi.get("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      const result = await http.get({ path: "/credentials/some/path", gcpConfig, correlationId });
+      result.body.should.eql({ ok: true });
+    });
+
+    it("should fail on 500", (done) => {
+      credentialsFakeApi.get("/credentials/some/path").reply(500, { ok: false }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      http.asserted
+        .get({ path: "/credentials/some/path", gcpConfig, correlationId })
+        .then(() => done("should not come here"))
+        .catch(() => done());
+    });
+
+    it("should throw on 404", (done) => {
+      credentialsFakeApi.get("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      http.asserted
+        .get({ path: "/credentials/some/path", gcpConfig, correlationId })
+        .then(() => done("should not come here"))
+        .catch(() => done());
+    });
+
+    it("should do delete-requests", async () => {
+      credentialsFakeApi.delete("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      const result = await http.asserted.del({ path: "/credentials/some/path", gcpConfig, correlationId });
+      result.should.eql({ ok: true });
+    });
+
+    [ "PATCH", "POST", "PUT" ].forEach((method) => {
+      it(`should do ${method}-requests`, async () => {
+        credentialsFakeApi[method.toLowerCase()]("/credentials/some/path", (body) => {
+          body.should.eql({ correlationId });
+          return true;
+        }).reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+        const result = await http.asserted[method.toLowerCase()]({
+          path: "/credentials/some/path",
+          gcpConfig,
+          correlationId,
+          body: { correlationId },
+        });
+        result.should.eql({ ok: true });
+      });
+
+      [ 200, 201, 204, 301, 302 ].forEach((code) => {
+        it(`should not fail on ${code}`, async () => {
+          credentialsFakeApi[method.toLowerCase()]("/credentials/some/path", (body) => {
+            body.should.eql({ correlationId });
+            return true;
+          }).reply(code, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+          const result = await http.asserted[method.toLowerCase()]({
+            path: "/credentials/some/path",
+            gcpConfig,
+            correlationId,
+            body: { correlationId },
+          });
+          result.should.eql({ ok: true });
+        });
+      });
+
+      it("should throw on 404", (done) => {
+        credentialsFakeApi[method.toLowerCase()]("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+        http.asserted[method.toLowerCase()]({ path: "/credentials/some/path", gcpConfig, correlationId })
           .then(() => done("should not come here"))
           .catch(() => done());
       });

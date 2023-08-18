@@ -15,10 +15,10 @@ function init() {
 
 function authenticated() {
   init();
-  stub.getIdTokenClient = () => {
+  stub.getIdTokenClient = (audience) => {
     return {
       getRequestHeaders: () => {
-        return { Authorization: "Bearer some-gcp-token" };
+        return { Authorization: `Bearer ${audience}` };
       },
     };
   };

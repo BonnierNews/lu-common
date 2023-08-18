@@ -15,6 +15,13 @@
     "accessKeyId": "REPLACED_BY_ENV",
     "secretAccessKey": "REPLACED_BY_ENV"
   },
+  "gcpConfigs": {
+    "credentials": {
+      "url": "https://bn-credentials-test.bnu.bn.nr",
+      "audience": "credentials-test-audience",
+      "cloudRunUrl": "https://bn-credentials-test.app.run"
+    }
+  },
   "proxyUrl": "http://api.example.com",
   "awsProxyUrl": "http://api.example-aws.com",
   "gcpProxy": {
@@ -22,6 +29,7 @@
     "audience": "test-audience.apps.googleusercontent.com"
   },
   "livesInGcp": [
+    "credentials",
     "gcp",
     "gcp-app"
   ],
