@@ -6,6 +6,7 @@ const fakeApi = require("../../helpers/fake-api")();
 const awsFakeApi = require("../../helpers/fake-api")(config.awsProxyUrl);
 const gcpFakeApi = require("../../helpers/fake-api")(config.gcpProxy.url);
 const credentialsFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.credentials.cloudRunUrl);
+const credentialsLoadBalancerFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.credentials.url);
 const http = require("../../../lib/utils/http");
 const fakeGcpAuth = require("../../helpers/fake-gcp-auth");
 
@@ -15,12 +16,16 @@ describe("http", () => {
     awsFakeApi.reset();
     gcpFakeApi.reset();
     credentialsFakeApi.reset();
+    credentialsLoadBalancerFakeApi.reset();
     fakeGcpAuth.reset();
   });
   describe("asserted", () => {
     before(() => {
       // Mock that we live in aws and use the aws proxy
-      config.livesIn = "";
+      config.livesIn = "AWS";
+    });
+    after(() => {
+      delete config.livesIn;
     });
     const correlationId = "http-test-asserted";
 
@@ -277,11 +282,16 @@ describe("http", () => {
     });
   });
 
-  describe("gcp with sent-in gcpConfig", () => {
-    before(fakeGcpAuth.reset);
+  describe("call other teams gcp with cloudrun url because we live in GCP, with sent-in gcpConfig", () => {
+    before(() => {
+      config.livesIn = "GCP";
+    });
     beforeEach(fakeGcpAuth.authenticated);
-    after(fakeGcpAuth.reset);
-    const correlationId = "http-test-asserted";
+    after(() => {
+      fakeGcpAuth.reset();
+      delete config.livesIn;
+    });
+    const correlationId = "http-gcp-config";
     const gcpConfig = config.gcpConfigs.credentials;
 
     it("should do get-requests", async () => {
@@ -352,11 +362,30 @@ describe("http", () => {
     });
   });
 
-  describe("lives in GCP", () => {
-    config.livesIn = "GCP";
+  describe("call other teams gcp with audience, because we don't live in GCP, with sent-in gcpConfig", () => {
+    before(() => {
+      config.livesIn = "NOT-GCP";
+      fakeGcpAuth.authenticated();
+      credentialsLoadBalancerFakeApi.reset();
+    });
     beforeEach(fakeGcpAuth.authenticated);
     after(() => {
+      fakeGcpAuth.reset();
       delete config.livesIn;
+    });
+    const correlationId = "http-gcp-config";
+    const gcpConfig = config.gcpConfigs.credentials;
+
+    it("should do get-requests", async () => {
+      credentialsLoadBalancerFakeApi.get("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
+      const result = await http.get({ path: "/credentials/some/path", gcpConfig, correlationId });
+      result.body.should.eql({ ok: true });
+    });
+  });
+
+  describe("lives in GCP", () => {
+    beforeEach(fakeGcpAuth.authenticated);
+    after(() => {
       fakeGcpAuth.reset();
     });
     const correlationId = "http-test-asserted";

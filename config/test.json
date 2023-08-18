@@ -33,7 +33,6 @@
     "gcp",
     "gcp-app"
   ],
-  "livesIn": "GCP",
   "logging": {
     "pretty": true
   }
