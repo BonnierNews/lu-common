@@ -7,7 +7,7 @@ const fs = require("fs");
 const stream = require("stream");
 const zlib = require("zlib");
 
-function init(url = config.proxyUrl) {
+function init(url = config.livesIn === "GCP" ? config.awsProxyUrl : config.proxyUrl) {
   let api = nock(url);
 
   function reset() {
