@@ -1,6 +1,6 @@
 {
   "name": "lu-common",
-  "version": "3.8.5",
+  "version": "3.8.6",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -34,7 +34,8 @@
     "nock": "^13.0.11",
     "pdfkit": "^0.13.0",
     "sinon": "^15.0.0",
-    "ssh2-sftp-client": "^7.2.3"
+    "ssh2-sftp-client": "^7.2.3",
+    "urlencode": "^1.1.0"
   },
   "devDependencies": {
     "c8": "^8.0.1",
