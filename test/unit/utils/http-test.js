@@ -9,6 +9,7 @@ const credentialsFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.c
 const credentialsLoadBalancerFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.credentials.url);
 const http = require("../../../lib/utils/http");
 const fakeGcpAuth = require("../../helpers/fake-gcp-auth");
+const urlencode = require("urlencode");
 
 describe("http", () => {
   beforeEach(() => {
@@ -121,6 +122,19 @@ describe("http", () => {
       result.body.should.eql({ ok: true });
 
       const next = await http.get({ path: "/some/path?q=some-query", correlationId });
+      next.statusCode.should.eql(200);
+      next.body.should.eql({ ok: true });
+    });
+
+    it("should handle paramsSerializer", async () => {
+      const realQuery = { q: "söme/qüèry" };
+      fakeApi.get("/some/path?q=s%C3%B6me%2Fq%C3%BC%C3%A8ry").reply(200, { ok: true });
+      const result = await http.get({ path: "/some/path", correlationId, qs: realQuery });
+      result.statusCode.should.eql(200);
+      result.body.should.eql({ ok: true });
+
+      fakeApi.get("/some/path?%71=%73%F6%6D%65%2F%71%FC%E8%72%79").reply(200, { ok: true });
+      const next = await http.get({ path: "/some/path", correlationId, qs: realQuery, paramsSerializer: { encode: (val) => urlencode(val, "iso-8859-1") } });
       next.statusCode.should.eql(200);
       next.body.should.eql({ ok: true });
     });
