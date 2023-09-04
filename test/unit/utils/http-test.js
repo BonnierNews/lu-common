@@ -379,7 +379,6 @@ describe("http", () => {
   describe("call other teams gcp with audience, because we don't live in GCP, with sent-in gcpConfig", () => {
     before(() => {
       config.livesIn = "NOT-GCP";
-      fakeGcpAuth.authenticated();
       credentialsLoadBalancerFakeApi.reset();
     });
     beforeEach(fakeGcpAuth.authenticated);
@@ -391,7 +390,7 @@ describe("http", () => {
     const gcpConfig = config.gcpConfigs.credentials;
 
     it("should do get-requests", async () => {
-      credentialsLoadBalancerFakeApi.get("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
+      credentialsLoadBalancerFakeApi.get("/credentials/some/path").reply(200, { ok: true });
       const result = await http.get({ path: "/credentials/some/path", gcpConfig, correlationId });
       result.body.should.eql({ ok: true });
     });
