@@ -29,7 +29,7 @@ describe("isCommonNamespace (paf toggled off)", () => {
   });
 });
 
-describe("isCommonNamespace (paf toggled on)", () => {
+describe("isCommonNamespace", () => {
   expectedNamespaces.forEach((namespace) => {
     it(`should confirm '${namespace}' as part of common namespace`, () => {
       const result = isCommonNamespace(namespace);
