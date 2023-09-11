@@ -1,7 +1,7 @@
 "use strict";
 
 const { isCommonNamespace, getCommonNamespaces } = require("../../lib/namespaces");
-// FIXME: get rid of expectedNamespacesOld once paf have migrated
+// FIXME: get rid of expectedNamespacesOld + related test once paf have migrated
 const expectedNamespaces = [ "bnlo", "dn", "expressen", "paf" ];
 const expectedNamespacesOld = [ "bnlo", "dn", "expressen" ];
 
