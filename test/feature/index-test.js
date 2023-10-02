@@ -1,10 +1,9 @@
 "use strict";
 
 const common = require("../../index");
-const expect = require("chai").expect;
 const fs = require("fs");
 const path = require("path");
-
+// TODO: SIVA export toggle?
 const paths = [ "lib", "lib/helpers", "lib/utils", "lib/validation-helpers", "test/helpers" ];
 const allExports = [];
 for (const basePath of paths) {
@@ -12,8 +11,8 @@ for (const basePath of paths) {
   fs.readdirSync(normalizedPath).forEach((file) => {
     const filePath = path.join(normalizedPath, file);
     const stats = fs.statSync(filePath);
+    // TODO: SIVA traverse subdirectories too, instead of specifying them explicitly
     if (stats.isDirectory()) return; // don't traverse subdirectories
-    console.log("file :>> ", file);
     let importName;
     switch (file) {
       case "pdf.js":
@@ -26,46 +25,9 @@ for (const basePath of paths) {
         importName = toCamelCase(file.replace(".js", ""));
         break;
     }
-    console.log("importName :>> ", importName);
     allExports.push(importName);
   });
 }
-console.log("allExports :>> ", allExports);
-
-const expectedExports = [
-  "caseBodyHelper",
-  "codeHelper",
-  "namespaces",
-  "titles",
-  "schemas",
-  "email",
-  "ftp",
-  "gcpAuth",
-  "gcs",
-  "http",
-  "swedishBankday",
-  "iterators",
-  "PDF",
-  "pdfGenerator",
-  "s3",
-  "ses",
-  "sftp",
-  "streams",
-  "fakeApi",
-  "fakeFtp",
-  "fakeGcpAuth",
-  "fakeGcs",
-  "fakeS3",
-  "fakeSes",
-  "fakeSftp",
-  "fileUtils",
-  "messageHelper",
-  "pdfReader",
-  "stripSchemaTag",
-  "countryCodes",
-  "formattingHelpers",
-  "clone",
-];
 
 describe("Exposed features", () => {
   const exports = [];
