@@ -22,6 +22,7 @@ const ses = require("./lib/utils/ses");
 const sftp = require("./lib/utils/sftp");
 const streams = require("./lib/utils/streams");
 const http = require("./lib/utils/http");
+const swedishBankday = require("./lib/utils/swedish-bankday");
 
 const fakeApi = require("./test/helpers/fake-api");
 const fakeFtp = require("./test/helpers/fake-ftp");
@@ -53,6 +54,7 @@ module.exports = {
   gcpAuth,
   gcs,
   http,
+  swedishBankday,
   iterators,
   messageHelper,
   namespaces,
