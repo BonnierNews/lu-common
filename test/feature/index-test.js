@@ -1,14 +1,21 @@
 "use strict";
 
 const common = require("../../index");
-const expect = require("chai").expect;
+const fs = require("fs");
+const path = require("path");
+
+const paths = [ "lib", "test/helpers" ];
+const allExports = [];
+for (const basePath of paths) {
+  allExports.push(...getPathExports(basePath));
+}
 
 const expectedExports = [
+  // helpers
   "caseBodyHelper",
   "codeHelper",
-  "namespaces",
-  "titles",
-  "schemas",
+  "toggle",
+  // utils
   "email",
   "ftp",
   "gcpAuth",
@@ -21,6 +28,17 @@ const expectedExports = [
   "ses",
   "sftp",
   "streams",
+  "swedishBankday",
+  // validation helpers
+  "countryCodes",
+  "formattingHelpers",
+  "schemas",
+  "stripSchemaTag",
+  // other
+  "namespaces",
+  "titles",
+  // test helpers
+  "clone",
   "fakeApi",
   "fakeFtp",
   "fakeGcpAuth",
@@ -31,25 +49,56 @@ const expectedExports = [
   "fileUtils",
   "messageHelper",
   "pdfReader",
-  "stripSchemaTag",
-  "countryCodes",
-  "formattingHelpers",
-  "clone",
 ];
 
 describe("Exposed features", () => {
-  const exports = [];
-
+  const exposedExports = [];
   for (const c in common) {
-    exports.push(c.toString());
+    exposedExports.push(c.toString());
   }
 
-  describe("Importing default export", () => {
-    it("The right stuff gets imported", () => {
-      const list = exports.filter((val) => !expectedExports.includes(val));
-      const list2 = expectedExports.filter((val) => !exports.includes(val));
-      expect(list.length).to.equal(0);
-      expect(list2.length).to.equal(0);
-    });
+  describe("everything we expect to export is exposed", () => {
+    for (const expectedExport of expectedExports) {
+      it(`${expectedExport} should be exposed`, () => {
+        exposedExports.should.include(expectedExport);
+      });
+    }
+  });
+
+  describe("everything we expose is expected", () => {
+    for (const exposedExport of exposedExports) {
+      it(`${exposedExport} is supposed to be exposed`, () => {
+        expectedExports.should.include(exposedExport);
+      });
+    }
+  });
+
+  describe("everything exported by modules is exposed in lu-common", () => {
+    for (const expectedExport of allExports) {
+      it(`should export ${expectedExport}`, () => {
+        exposedExports.should.include(expectedExport);
+      });
+    }
   });
 });
+
+function toCamelCase(fileName) {
+  return fileName.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+}
+
+function getPathExports(basePath) {
+  const exports = [];
+  const normalizedPath = path.join(__dirname, "..", "..", basePath);
+  fs.readdirSync(normalizedPath).forEach((file) => {
+    const filePath = path.join(normalizedPath, file);
+    const stats = fs.statSync(filePath);
+
+    // get all exports from subdirectories too
+    if (stats.isDirectory()) exports.push(...getPathExports(path.join(basePath, file)));
+    else {
+      const importName = file === "pdf.js" ? "PDF" : toCamelCase(file.replace(".js", ""));
+      exports.push(importName);
+    }
+  });
+  return exports;
+}

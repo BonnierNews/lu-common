@@ -35,5 +35,8 @@
   ],
   "logging": {
     "pretty": true
+  },
+  "toggle": {
+    "pafInCommonNamespaces": true
   }
 }
