@@ -3,50 +3,80 @@
 const common = require("../../index");
 const fs = require("fs");
 const path = require("path");
-// TODO: SIVA export toggle?
-const paths = [ "lib", "lib/helpers", "lib/utils", "lib/validation-helpers", "test/helpers" ];
+
+const paths = [ "lib", "test/helpers" ];
 const allExports = [];
 for (const basePath of paths) {
-  const normalizedPath = path.join(__dirname, "..", "..", basePath);
-  fs.readdirSync(normalizedPath).forEach((file) => {
-    const filePath = path.join(normalizedPath, file);
-    const stats = fs.statSync(filePath);
-    // TODO: SIVA traverse subdirectories too, instead of specifying them explicitly
-    if (stats.isDirectory()) return; // don't traverse subdirectories
-    let importName;
-    switch (file) {
-      case "pdf.js":
-        importName = "PDF";
-        break;
-      case "strip-joi-schema-tags.js":
-        importName = "stripSchemaTag";
-        break;
-      default:
-        importName = toCamelCase(file.replace(".js", ""));
-        break;
-    }
-    allExports.push(importName);
-  });
+  allExports.push(...getPathExports(basePath));
 }
 
+const expectedExports = [
+  // helpers
+  "caseBodyHelper",
+  "codeHelper",
+  "toggle",
+  // utils
+  "email",
+  "ftp",
+  "gcpAuth",
+  "gcs",
+  "http",
+  "iterators",
+  "PDF",
+  "pdfGenerator",
+  "s3",
+  "ses",
+  "sftp",
+  "streams",
+  "swedishBankday",
+  // validation helpers
+  "countryCodes",
+  "formattingHelpers",
+  "schemas",
+  "stripSchemaTag",
+  // other
+  "namespaces",
+  "titles",
+  // test helpers
+  "clone",
+  "fakeApi",
+  "fakeFtp",
+  "fakeGcpAuth",
+  "fakeGcs",
+  "fakeS3",
+  "fakeSes",
+  "fakeSftp",
+  "fileUtils",
+  "messageHelper",
+  "pdfReader",
+];
+
 describe("Exposed features", () => {
-  const exports = [];
+  const exposedExports = [];
   for (const c in common) {
-    exports.push(c.toString());
+    exposedExports.push(c.toString());
   }
 
-  describe("everything exported as lu-common is actually exported", () => {
-    for (const actualExport of exports) {
-      it(`should export ${actualExport}`, () => {
-        allExports.should.include(actualExport);
+  describe("everything we expect to export is exposed", () => {
+    for (const expectedExport of expectedExports) {
+      it(`${expectedExport} should be exposed`, () => {
+        exposedExports.should.include(expectedExport);
       });
     }
   });
 
-  describe("everything exported is exposed as lu-common", () => {
+  describe("everything we expose is expected", () => {
+    for (const exposedExport of exposedExports) {
+      it(`${exposedExport} is supposed to be exposed`, () => {
+        expectedExports.should.include(exposedExport);
+      });
+    }
+  });
+
+  describe("everything exported by modules is exposed in lu-common", () => {
     for (const expectedExport of allExports) {
       it(`should export ${expectedExport}`, () => {
-        exports.should.include(expectedExport);
+        exposedExports.should.include(expectedExport);
       });
     }
   });
@@ -54,4 +84,21 @@ describe("Exposed features", () => {
 
 function toCamelCase(fileName) {
   return fileName.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+}
+
+function getPathExports(basePath) {
+  const exports = [];
+  const normalizedPath = path.join(__dirname, "..", "..", basePath);
+  fs.readdirSync(normalizedPath).forEach((file) => {
+    const filePath = path.join(normalizedPath, file);
+    const stats = fs.statSync(filePath);
+
+    // get all exports from subdirectories too
+    if (stats.isDirectory()) exports.push(...getPathExports(path.join(basePath, file)));
+    else {
+      const importName = file === "pdf.js" ? "PDF" : toCamelCase(file.replace(".js", ""));
+      exports.push(importName);
+    }
+  });
+  return exports;
 }

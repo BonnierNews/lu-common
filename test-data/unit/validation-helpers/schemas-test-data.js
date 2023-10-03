@@ -1,6 +1,6 @@
 "use strict";
 
-const stripSchemaTag = require("../../../lib/validation-helpers/strip-joi-schema-tags");
+const stripSchemaTag = require("../../../lib/validation-helpers/strip-schema-tag");
 
 const { addressSchema } = require("../../../lib/validation-helpers/schemas");
 

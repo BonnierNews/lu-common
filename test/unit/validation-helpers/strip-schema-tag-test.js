@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 const joi = require("joi");
-const stripper = require("../../../lib/validation-helpers/strip-joi-schema-tags");
+const stripper = require("../../../lib/validation-helpers/strip-schema-tag");
 
 describe("strip joi fields without tags", () => {
   describe("nested", () => {
