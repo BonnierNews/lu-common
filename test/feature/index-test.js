@@ -51,6 +51,8 @@ const expectedExports = [
   "pdfReader",
   "json",
   "userId",
+  "parseUserIdParts",
+  "parseUserId",
 ];
 
 describe("Exposed features", () => {

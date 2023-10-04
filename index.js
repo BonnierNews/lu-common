@@ -86,4 +86,6 @@ module.exports = {
   pdfReader,
   json,
   userId,
+  parseUserId: userId.parseUserId,
+  parseUserIdParts: userId.parseUserIdParts,
 };
