@@ -23,7 +23,6 @@ const expectedExports = [
   "http",
   "iterators",
   "json",
-  "userId",
   "parseUserIdParts",
   "parseUserId",
   "PDF",
@@ -33,6 +32,7 @@ const expectedExports = [
   "sftp",
   "streams",
   "swedishBankday",
+  "userId",
   // validation helpers
   "countryCodes",
   "formattingHelpers",
