@@ -57,6 +57,9 @@ module.exports = {
   gcs,
   http,
   iterators,
+  json,
+  parseUserId: userId.parseUserId,
+  parseUserIdParts: userId.parseUserIdParts,
   PDF,
   pdfGenerator,
   s3,
@@ -64,6 +67,7 @@ module.exports = {
   sftp,
   streams,
   swedishBankday,
+  userId,
   // validation helpers
   countryCodes,
   formattingHelpers,
@@ -84,8 +88,4 @@ module.exports = {
   fileUtils,
   messageHelper,
   pdfReader,
-  json,
-  userId,
-  parseUserId: userId.parseUserId,
-  parseUserIdParts: userId.parseUserIdParts,
 };
