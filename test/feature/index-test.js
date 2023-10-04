@@ -49,6 +49,8 @@ const expectedExports = [
   "fileUtils",
   "messageHelper",
   "pdfReader",
+  "json",
+  "userId",
 ];
 
 describe("Exposed features", () => {
