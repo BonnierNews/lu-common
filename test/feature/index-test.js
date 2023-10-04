@@ -22,6 +22,10 @@ const expectedExports = [
   "gcs",
   "http",
   "iterators",
+  "json",
+  "userId",
+  "parseUserIdParts",
+  "parseUserId",
   "PDF",
   "pdfGenerator",
   "s3",
@@ -49,10 +53,6 @@ const expectedExports = [
   "fileUtils",
   "messageHelper",
   "pdfReader",
-  "json",
-  "userId",
-  "parseUserIdParts",
-  "parseUserId",
 ];
 
 describe("Exposed features", () => {
