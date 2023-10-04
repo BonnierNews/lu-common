@@ -22,6 +22,9 @@ const expectedExports = [
   "gcs",
   "http",
   "iterators",
+  "json",
+  "parseUserIdParts",
+  "parseUserId",
   "PDF",
   "pdfGenerator",
   "s3",
@@ -29,6 +32,7 @@ const expectedExports = [
   "sftp",
   "streams",
   "swedishBankday",
+  "userId",
   // validation helpers
   "countryCodes",
   "formattingHelpers",

@@ -19,6 +19,8 @@ const ses = require("./lib/utils/ses");
 const sftp = require("./lib/utils/sftp");
 const streams = require("./lib/utils/streams");
 const swedishBankday = require("./lib/utils/swedish-bankday");
+const json = require("./lib/utils/json");
+const userId = require("./lib/utils/userId");
 
 // validation helpers
 const countryCodes = require("./lib/validation-helpers/country-codes");
@@ -55,6 +57,9 @@ module.exports = {
   gcs,
   http,
   iterators,
+  json,
+  parseUserId: userId.parseUserId,
+  parseUserIdParts: userId.parseUserIdParts,
   PDF,
   pdfGenerator,
   s3,
@@ -62,6 +67,7 @@ module.exports = {
   sftp,
   streams,
   swedishBankday,
+  userId,
   // validation helpers
   countryCodes,
   formattingHelpers,
