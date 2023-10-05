@@ -21,6 +21,7 @@ const streams = require("./lib/utils/streams");
 const swedishBankday = require("./lib/utils/swedish-bankday");
 const json = require("./lib/utils/json");
 const userId = require("./lib/utils/userId");
+const { parseUserId, parseUserIdParts } = userId;
 
 // validation helpers
 const countryCodes = require("./lib/validation-helpers/country-codes");
@@ -58,8 +59,8 @@ module.exports = {
   http,
   iterators,
   json,
-  parseUserId: userId.parseUserId,
-  parseUserIdParts: userId.parseUserIdParts,
+  parseUserId,
+  parseUserIdParts,
   PDF,
   pdfGenerator,
   s3,
