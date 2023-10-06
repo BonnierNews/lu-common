@@ -32,6 +32,7 @@ const expectedExports = [
   "sftp",
   "streams",
   "swedishBankday",
+  "trimmer",
   "userId",
   // validation helpers
   "countryCodes",

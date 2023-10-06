@@ -19,6 +19,7 @@ const ses = require("./lib/utils/ses");
 const sftp = require("./lib/utils/sftp");
 const streams = require("./lib/utils/streams");
 const swedishBankday = require("./lib/utils/swedish-bankday");
+const trimmer = require("./lib/utils/trimmer");
 const json = require("./lib/utils/json");
 const userId = require("./lib/utils/userId");
 const { parseUserId, parseUserIdParts } = userId;
@@ -68,6 +69,7 @@ module.exports = {
   sftp,
   streams,
   swedishBankday,
+  trimmer,
   userId,
   // validation helpers
   countryCodes,
