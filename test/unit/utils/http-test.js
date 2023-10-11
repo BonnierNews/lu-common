@@ -216,6 +216,26 @@ describe("http", () => {
     });
   });
 
+  describe("get as stream with opts", () => {
+    const data = [ "1", "2", "3" ];
+    const correlationId = "http-test-with-base-url";
+    it("should return a stream", async () => {
+      fakeApi.get("/some/path").reply(200, data.join("\n"));
+      const result = await http.getAsStream({
+        path: "/some/path",
+        opts: { decompress: false },
+        correlationId,
+      });
+      const receivedData = [];
+      result.on("data", (d) => {
+        receivedData.push(d);
+      });
+      result.on("end", () => {
+        receivedData.toString().should.eql(data.join("\n"));
+      });
+    });
+  });
+
   describe("asserted gcp", () => {
     beforeEach(fakeGcpAuth.authenticated);
     after(fakeGcpAuth.reset);
