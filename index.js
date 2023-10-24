@@ -7,6 +7,7 @@ const toggle = require("./lib/helpers/toggle");
 
 // utils
 const email = require("./lib/utils/email");
+const formatAmount = require("./lib/utils/format-amount");
 const ftp = require("./lib/utils/ftp");
 const gcpAuth = require("./lib/utils/gcp-auth");
 const gcs = require("./lib/utils/gcs");
@@ -53,6 +54,7 @@ module.exports = {
   toggle,
   // utils
   email,
+  formatAmount,
   ftp,
   gcpAuth,
   gcs,

@@ -17,6 +17,7 @@ const expectedExports = [
   "toggle",
   // utils
   "email",
+  "formatAmount",
   "ftp",
   "gcpAuth",
   "gcs",
