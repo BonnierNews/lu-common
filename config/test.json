@@ -37,6 +37,8 @@
     "pretty": true
   },
   "toggle": {
-    "diInCommonNamespaces": true
+    "diInCommonNamespaces": true,
+    "bbmInCommonNamespaces": true,
+    "bbmNewsInCommonNamespaces": true
   }
 }
