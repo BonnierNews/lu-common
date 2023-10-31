@@ -7,7 +7,7 @@ const fs = require("fs");
 const stream = require("stream");
 const zlib = require("zlib");
 
-function init(url = config.livesIn === "GCP" ? config.awsProxyUrl : config.proxyUrl) {
+function init(url = config.livesIn === "GCP" ? config.gcpProxy.url : (config.proxyUrl || config.awsProxyUrl)) {
   let api = nock(url);
 
   function reset() {
@@ -49,6 +49,8 @@ function init(url = config.livesIn === "GCP" ? config.awsProxyUrl : config.proxy
         mock.matchHeader(key, val);
       }
     }
+
+    if (url === config.gcpProxy?.url) mock.matchHeader("Authorization", /Bearer .*/);
 
     const statusCode = testData.statusCode ?? testData.status ?? 200;
     if (testData.stream && testData.compress) {
@@ -124,11 +126,21 @@ function init(url = config.livesIn === "GCP" ? config.awsProxyUrl : config.proxy
     fakeResources,
     fakeResource,
     filteringPath: api.filteringPath.bind(api),
-    get: api.get.bind(api),
-    post: api.post.bind(api),
-    put: api.put.bind(api),
-    delete: api.delete.bind(api),
-    patch: api.patch.bind(api),
+    get: url === config.gcpProxy?.url
+      ? api.matchHeader("Authorization", /Bearer .*/).get.bind(api)
+      : api.get.bind(api),
+    post: url === config.gcpProxy?.url
+      ? api.matchHeader("Authorization", /Bearer .*/).post.bind(api)
+      : api.post.bind(api),
+    put: url === config.gcpProxy?.url
+      ? api.matchHeader("Authorization", /Bearer .*/).put.bind(api)
+      : api.put.bind(api),
+    delete: url === config.gcpProxy?.url
+      ? api.matchHeader("Authorization", /Bearer .*/).delete.bind(api)
+      : api.delete.bind(api),
+    patch: url === config.gcpProxy?.url
+      ? api.matchHeader("Authorization", /Bearer .*/).patch.bind(api)
+      : api.patch.bind(api),
     mount,
     mountFolder,
     pendingMocks: api.pendingMocks.bind(api),
