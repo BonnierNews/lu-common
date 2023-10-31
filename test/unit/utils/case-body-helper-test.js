@@ -12,9 +12,9 @@ const backOfficeCaseBody = {
   description,
   namespace,
   origin: "Greenfield",
-  owner: "DNBO",
+  owner: undefined,
   priority: "Medium",
-  sourceQueue: "DNBO",
+  sourceQueue: undefined,
   subject,
 };
 
