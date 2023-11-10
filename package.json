@@ -33,7 +33,7 @@
     "moment": "^2.29.4",
     "nock": "^13.3.8",
     "pdfkit": "^0.14.0",
-    "sinon": "^15.0.0",
+    "sinon": "^17.0.1",
     "ssh2-sftp-client": "^7.2.3",
     "swedish-holidays": "^1.1.2",
     "urlencode": "^1.1.0"
@@ -49,7 +49,7 @@
     "mocha": "^10.2.0",
     "mocha-cakes-2": "^3.3.0",
     "prettier": "^3.0.3",
-    "sinon": "^15.0.0",
+    "sinon": "^17.0.1",
     "test-data": "file:./test-data"
   },
   "overrides": {
