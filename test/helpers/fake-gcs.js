@@ -92,7 +92,7 @@ function list(path, files = []) {
   const response = files.map((f) => {
     const [ bucket, key ] = f.split("://");
     return {
-      bucket,
+      bucket: { id: bucket },
       name: key,
     };
   });
