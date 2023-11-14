@@ -88,12 +88,14 @@ function exists(target, fileExists) {
 
 function list(path, files = []) {
   if (!listStub) listStub = sandbox.stub(gcs, "list");
+  const fullPath = path.split("/");
+  const bucket = fullPath[2];
+  const directory = fullPath.slice(3).join("/");
 
-  const response = files.map((f) => {
-    const [ bucket, key ] = f.split("://");
+  const response = files.map((name) => {
     return {
       bucket: { id: bucket },
-      name: key,
+      name: directory + name,
     };
   });
 

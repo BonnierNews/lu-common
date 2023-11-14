@@ -7,8 +7,8 @@
   "gcs": {
     "bucket": "test-bucket",
     "credentials": {
-      "projectId": "greenfield-prod-xyz",
-      "keyFilename": "/secrets/gcs_credentials_keyfile"
+      "projectId": "some-project-1234",
+      "keyFilename": "/etc/fake-keyfile.json"
     }
   },
   "ses": {
