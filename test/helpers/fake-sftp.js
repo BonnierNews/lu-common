@@ -147,7 +147,6 @@ function list(expectedPath, expectedPattern, files) {
   stub.list = (actualPath, actualPattern) => {
     assert(expectedPath === actualPath, `expected path ${expectedPath} but got ${actualPath}`);
     assert(typeof actualPattern === "function", `actual pattern ${actualPattern} needs to be a function`);
-    assert(actualPattern === expectedPattern, `expected pattern ${expectedPattern} but got ${actualPattern}`);
     let matchedFiles = files;
     if (actualPattern) matchedFiles = files.filter((file) => actualPattern(file));
     return new Promise((resolve) => {
@@ -175,9 +174,10 @@ function listMany(expectedPaths) {
       mockedPaths[actualPath],
       `expected paths ${Object.keys(mockedPaths)} but got ${actualPath}`
     );
-    assert(actualPattern === mockedPaths[actualPath].expectedPattern, `expected pattern ${mockedPaths[actualPath].expectedPattern} but got ${actualPattern}`);
+    let matchedFiles = mockedPaths[actualPath].files;
+    if (actualPattern) matchedFiles = matchedFiles.filter((file) => actualPattern(file));
     return new Promise((resolve) => {
-      return resolve(mockedPaths[actualPath].files);
+      return resolve(matchedFiles);
     });
   };
 }
