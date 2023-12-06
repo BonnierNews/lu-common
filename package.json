@@ -1,6 +1,6 @@
 {
   "name": "lu-common",
-  "version": "6.1.0",
+  "version": "7.0.0",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -19,41 +19,36 @@
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
-    "@google-cloud/storage": "^5.18.3",
-    "aws-sdk": "^2.1106.0",
-    "axios": "^1.6.1",
-    "basic-ftp": "^4.6.6",
+    "@google-cloud/storage": "^7.7.0",
+    "aws-sdk": "^2.1512.0",
+    "axios": "^1.6.2",
+    "basic-ftp": "^5.0.3",
     "csv-parse": "^5.5.2",
     "event-stream": "^4.0.1",
     "exp-config": "^4.2.1",
-    "google-auth-library": "^8.7.0",
+    "google-auth-library": "^9.4.1",
     "joi": "^17.11.0",
     "joi-postalcode": "^2.0.0",
     "lu-logger": "github:BonnierNews/lu-logger#semver:~7.0.2",
     "moment": "^2.29.4",
-    "nock": "^13.3.8",
+    "nock": "^13.4.0",
     "pdfkit": "^0.14.0",
     "sinon": "^17.0.1",
     "ssh2-sftp-client": "^9.1.0",
     "swedish-holidays": "^1.1.2",
-    "urlencode": "^1.1.0"
+    "urlencode": "^2.0.0"
   },
   "devDependencies": {
+    "@bonniernews/eslint-config": "^1.0.1",
     "c8": "^8.0.1",
     "chai": "^4.3.10",
     "chai-exclude": "^2.1.0",
     "depcheck": "^1.4.7",
-    "eslint": "^8.53.0",
-    "eslint-config-exp": "^0.8.3",
+    "eslint": "^8.55.0",
     "eslint-plugin-json": "^3.1.0",
     "mocha": "^10.2.0",
     "mocha-cakes-2": "^3.3.0",
-    "prettier": "^3.0.3",
-    "sinon": "^17.0.1",
+    "prettier": "^3.1.0",
     "test-data": "file:./test-data"
-  },
-  "overrides": {
-    "semver@6.3.1": "^7.5.2",
-    "make-dir": "^4.0.0"
   }
 }
