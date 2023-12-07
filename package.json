@@ -29,7 +29,7 @@
     "google-auth-library": "^9.4.1",
     "joi": "^17.11.0",
     "joi-postalcode": "^2.0.0",
-    "lu-logger": "github:BonnierNews/lu-logger#semver:~7.0.2",
+    "lu-logger": "github:BonnierNews/lu-logger#semver:^7.1.1",
     "moment": "^2.29.4",
     "nock": "^13.4.0",
     "pdfkit": "^0.14.0",
