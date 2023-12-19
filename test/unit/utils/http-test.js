@@ -134,7 +134,7 @@ describe("http", () => {
       result.body.should.eql({ ok: true });
 
       fakeApi.get("/some/path?%71=%73%F6%6D%65%2F%71%FC%E8%72%79").reply(200, { ok: true });
-      const next = await http.get({ path: "/some/path", correlationId, qs: realQuery, paramsSerializer: { encode: (val) => urlencode(val, "iso-8859-1") } });
+      const next = await http.get({ path: "/some/path", correlationId, qs: realQuery, paramsSerializer: { encode: (val) => urlencode.encode(val, "iso-8859-1") } });
       next.statusCode.should.eql(200);
       next.body.should.eql({ ok: true });
     });
