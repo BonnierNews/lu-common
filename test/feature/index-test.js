@@ -43,17 +43,8 @@ const expectedExports = [
   "namespaces",
   "titles",
   // test helpers
-  "clone",
-  "fakeApi",
-  "fakeFtp",
-  "fakeGcpAuth",
-  "fakeGcs",
   "fakeS3",
   "fakeSes",
-  "fakeSftp",
-  "fileUtils",
-  "messageHelper",
-  "pdfReader",
 ];
 
 describe("Exposed features", () => {

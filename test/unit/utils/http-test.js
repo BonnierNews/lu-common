@@ -1,15 +1,17 @@
 "use strict";
-
+// TODO: SIVA first convert to ES6 module
+// TODO: SIVA then finish getting all tests to work, using lu-test instead of local functions
 const config = require("exp-config");
 const nock = require("nock");
-const fakeApi = require("../../helpers/fake-api")();
-const awsFakeApi = require("../../helpers/fake-api")(config.awsProxyUrl);
-const gcpFakeApi = require("../../helpers/fake-api")(config.gcpProxy.url);
-const credentialsFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.credentials.cloudRunUrl);
-const credentialsLoadBalancerFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.credentials.url);
 const http = require("../../../lib/utils/http");
-const fakeGcpAuth = require("../../helpers/fake-gcp-auth");
+const { fakeGcpAuth, fakeApi: fakeApiInit } = require("@bonniernews/lu-test");
 const urlencode = require("urlencode");
+
+const fakeApi = fakeApiInit();
+const awsFakeApi = fakeApiInit(config.awsProxyUrl);
+const gcpFakeApi = fakeApiInit(config.gcpProxy.url);
+const credentialsFakeApi = fakeApiInit(config.gcpConfigs.credentials.cloudRunUrl);
+const credentialsLoadBalancerFakeApi = fakeApiInit(config.gcpConfigs.credentials.url);
 
 describe("http", () => {
   beforeEach(() => {
