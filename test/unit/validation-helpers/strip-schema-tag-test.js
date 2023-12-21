@@ -1,8 +1,7 @@
-"use strict";
+import { expect } from "chai";
+import joi from "joi";
 
-const expect = require("chai").expect;
-const joi = require("joi");
-const stripper = require("../../../lib/validation-helpers/strip-schema-tag");
+import stripper from "../../../lib/validation-helpers/strip-schema-tag.js";
 
 describe("strip joi fields without tags", () => {
   describe("nested", () => {

@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": ">=16",
-    "yarn": "please use npm"
+    "node": ">=16"
   },
+  "type": "module",
   "scripts": {
     "mocha": "mocha",
     "lint": "eslint .",
     "test": "mocha --exit --reporter ${REPORTER:-spec} && eslint . --ext .js,.json --cache && depcheck --ignores=\"prettier\"",
-    "format": "prettier **/*.js --write && eslint . --fix",
+    "format": "prettier {,**/,**/**,**/**/**}*.{js,json,md} --write && eslint . --fix",
     "coverage": "c8 npm test",
     "check-coverage": "c8 check-coverage"
   },
@@ -29,7 +29,7 @@
     "google-auth-library": "^9.4.1",
     "joi": "^17.11.0",
     "joi-postalcode": "^2.0.0",
-    "lu-logger": "github:BonnierNews/lu-logger#semver:^7.1.1",
+    "lu-logger": "github:BonnierNews/lu-logger#semver:^7.3.0",
     "moment": "^2.29.4",
     "nock": "^13.4.0",
     "pdfkit": "^0.14.0",

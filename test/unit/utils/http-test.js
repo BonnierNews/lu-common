@@ -1,11 +1,9 @@
-"use strict";
-// TODO: SIVA first convert to ES6 module
-// TODO: SIVA then finish getting all tests to work, using lu-test instead of local functions
-const config = require("exp-config");
-const nock = require("nock");
-const http = require("../../../lib/utils/http");
-const { fakeGcpAuth, fakeApi: fakeApiInit } = require("@bonniernews/lu-test");
-const urlencode = require("urlencode");
+import config from "exp-config";
+import nock from "nock";
+import urlencode from "urlencode";
+import { fakeGcpAuth, fakeApi as fakeApiInit } from "@bonniernews/lu-test";
+
+import http from "../../../lib/utils/http.js";
 
 const fakeApi = fakeApiInit();
 const awsFakeApi = fakeApiInit(config.awsProxyUrl);
@@ -22,6 +20,7 @@ describe("http", () => {
     credentialsLoadBalancerFakeApi.reset();
     fakeGcpAuth.reset();
   });
+
   describe("asserted", () => {
     before(() => {
       // Mock that we live in aws and use the aws proxy
@@ -136,7 +135,7 @@ describe("http", () => {
       result.body.should.eql({ ok: true });
 
       fakeApi.get("/some/path?%71=%73%F6%6D%65%2F%71%FC%E8%72%79").reply(200, { ok: true });
-      const next = await http.get({ path: "/some/path", correlationId, qs: realQuery, paramsSerializer: { encode: (val) => urlencode.encode(val, "iso-8859-1") } });
+      const next = await http.get({ path: "/some/path", correlationId, qs: realQuery, paramsSerializer: { encode: (val) => urlencode(val, "iso-8859-1") } });
       next.statusCode.should.eql(200);
       next.body.should.eql({ ok: true });
     });

@@ -1,6 +1,4 @@
-"use strict";
-
-const { postalDeliveryAllowed } = require("../../lib/titles");
+import { postalDeliveryAllowed } from "../../lib/titles.js";
 
 const scenarios = [
   {

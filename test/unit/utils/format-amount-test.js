@@ -1,8 +1,6 @@
-"use strict";
+import { expect } from "chai";
 
-const expect = require("chai").expect;
-
-const { toZuora, fromZuora } = require("../../../lib/utils/format-amount");
+import { toZuora, fromZuora } from "../../../lib/utils/format-amount.js";
 
 const scenarios = [
   { gfFormat: 10000, zuoraFormat: 100.00 },

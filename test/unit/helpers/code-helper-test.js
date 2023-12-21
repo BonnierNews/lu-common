@@ -1,7 +1,6 @@
-"use strict";
+import config from "exp-config";
 
-const config = require("exp-config");
-const { enumerate, getUrl } = require("../../../lib/helpers/code-helper");
+import { enumerate, getUrl } from "../../../lib/helpers/code-helper.js";
 
 describe("Enumerate an array", () => {
   describe("when looping on enumerate of array", () => {

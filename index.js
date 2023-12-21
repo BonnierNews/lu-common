@@ -1,44 +1,39 @@
-"use strict";
-
 // helpers
-const caseBodyHelper = require("./lib/helpers/case-body-helper");
-const codeHelper = require("./lib/helpers/code-helper");
-const toggle = require("./lib/helpers/toggle");
-
+import caseBodyHelper from "./lib/helpers/case-body-helper.js";
+import * as codeHelper from "./lib/helpers/code-helper.js";
+import toggle from "./lib/helpers/toggle.js";
 // utils
-const email = require("./lib/utils/email");
-const formatAmount = require("./lib/utils/format-amount");
-const ftp = require("./lib/utils/ftp");
-const gcpAuth = require("./lib/utils/gcp-auth");
-const gcs = require("./lib/utils/gcs");
-const http = require("./lib/utils/http");
-const iterators = require("./lib/utils/iterators");
-const PDF = require("./lib/utils/pdf");
-const pdfGenerator = require("./lib/utils/pdfGenerator");
-const s3 = require("./lib/utils/s3");
-const ses = require("./lib/utils/ses");
-const sftp = require("./lib/utils/sftp");
-const streams = require("./lib/utils/streams");
-const swedishBankday = require("./lib/utils/swedish-bankday");
-const json = require("./lib/utils/json");
-const userId = require("./lib/utils/userId");
+import email from "./lib/utils/email.js";
+import * as formatAmount from "./lib/utils/format-amount.js";
+import * as ftp from "./lib/utils/ftp.js";
+import * as gcpAuth from "./lib/utils/gcp-auth.js";
+import * as gcs from "./lib/utils/gcs.js";
+import http from "./lib/utils/http.js";
+import * as iterators from "./lib/utils/iterators.js";
+import PDF from "./lib/utils/pdf.js";
+import * as pdfGenerator from "./lib/utils/pdfGenerator.js";
+import * as s3 from "./lib/utils/s3.js";
+import * as ses from "./lib/utils/ses.js";
+import * as sftp from "./lib/utils/sftp.js";
+import * as streams from "./lib/utils/streams.js";
+import * as swedishBankday from "./lib/utils/swedish-bankday.js";
+import * as json from "./lib/utils/json.js";
+import * as userId from "./lib/utils/userId.js";
+// validation helpers
+import countryCodes from "./lib/validation-helpers/country-codes.js";
+import * as formattingHelpers from "./lib/validation-helpers/formatting-helpers.js";
+import * as schemas from "./lib/validation-helpers/schemas.js";
+import stripSchemaTag from "./lib/validation-helpers/strip-schema-tag.js";
+// other
+import * as namespaces from "./lib/namespaces.js";
+import * as titles from "./lib/titles.js";
+// test helpers
+import * as fakeS3 from "./test/helpers/fake-s3.js";
+import * as fakeSes from "./test/helpers/fake-ses.js";
+
 const { parseUserId, parseUserIdParts } = userId;
 
-// validation helpers
-const countryCodes = require("./lib/validation-helpers/country-codes");
-const formattingHelpers = require("./lib/validation-helpers/formatting-helpers");
-const schemas = require("./lib/validation-helpers/schemas");
-const stripSchemaTag = require("./lib/validation-helpers/strip-schema-tag");
-
-// other
-const namespaces = require("./lib/namespaces");
-const titles = require("./lib/titles");
-
-// test helpers
-const fakeS3 = require("./test/helpers/fake-s3");
-const fakeSes = require("./test/helpers/fake-ses");
-
-module.exports = {
+export {
   // helpers
   caseBodyHelper,
   codeHelper,
