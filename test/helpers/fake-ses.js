@@ -1,7 +1,8 @@
-"use strict";
+import { createSandbox } from "sinon";
 
-const sandbox = require("sinon").createSandbox();
-const ses = require("../../lib/utils/ses");
+import * as ses from "../../lib/utils/ses.js";
+
+const sandbox = createSandbox();
 
 let sendEmailStub, sendRawEmailStub;
 const sent = [];
@@ -49,4 +50,4 @@ function reset() {
   sandbox.restore();
 }
 
-module.exports = { sendEmail, sendRawEmail, reset, sent, sentRaw, sendRawEmailWithError };
+export { sendEmail, sendRawEmail, reset, sent, sentRaw, sendRawEmailWithError };

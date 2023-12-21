@@ -1,8 +1,9 @@
-"use strict";
+import { Readable } from "stream";
+import { createSandbox } from "sinon";
 
-const { Readable } = require("stream");
-const sandbox = require("sinon").createSandbox();
-const gcs = require("../../lib/utils/gcs");
+import * as gcs from "../../lib/utils/gcs.js";
+
+const sandbox = createSandbox();
 
 let writes = {};
 let writeStreamStub, existsStub, readStreamStub, listStub;
@@ -159,7 +160,7 @@ function existsError(message = "gcs file stream exists error") {
   existsStub.throws(new Error(message));
 }
 
-module.exports = {
+export {
   write,
   writeError,
   reset,

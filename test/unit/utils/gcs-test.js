@@ -1,7 +1,6 @@
-"use strict";
+import config from "exp-config";
 
-const config = require("exp-config");
-const { getCredentials } = require("../../../lib/utils/gcs");
+import { getCredentials } from "../../../lib/utils/gcs.js";
 
 describe("gcs", () => {
   it("should return whole credentials object for AWS", () => {

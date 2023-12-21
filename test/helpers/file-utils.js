@@ -1,6 +1,4 @@
-"use strict";
-
-const { parse } = require("csv-parse/sync");
+import { parse } from "csv-parse/sync"; // eslint-disable-line import/no-unresolved
 
 function jsonLinesToObjectArray(content) {
   return content
@@ -23,4 +21,4 @@ function modifyFile(file, func) {
   return `${file.split("\n").filter(Boolean).map(JSON.parse).map(func).map(JSON.stringify).join("\n")}\n`;
 }
 
-module.exports = { jsonLinesToObjectArray, objectArrayToJsonLines, csvToJsonLines, modifyFile };
+export { jsonLinesToObjectArray, objectArrayToJsonLines, csvToJsonLines, modifyFile };

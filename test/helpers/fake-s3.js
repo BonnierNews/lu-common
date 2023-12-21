@@ -1,10 +1,12 @@
-"use strict";
+import { Readable, Transform } from "stream";
+import es from "event-stream";
+import { createSandbox } from "sinon";
+import assert from "assert";
 
-const { Readable, Transform } = require("stream");
-const es = require("event-stream");
-const sandbox = require("sinon").createSandbox();
-const assert = require("assert");
-const s3 = require("../../lib/utils/s3");
+import * as s3 from "../../lib/utils/s3.js";
+
+const sandbox = createSandbox();
+
 let writes = {};
 
 let readStreamStub, writeStreamStub, existsStub, listObjectsStub;
@@ -198,7 +200,7 @@ function writeV2(target) {
   return writer;
 }
 
-module.exports = {
+export {
   exists,
   existsError,
   readAsStream,

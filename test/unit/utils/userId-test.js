@@ -1,8 +1,6 @@
-"use strict";
+import { expect } from "chai";
 
-const expect = require("chai").expect;
-
-const { parseUserId, parseUserIdParts } = require("../../../lib/utils/userId");
+import { parseUserId, parseUserIdParts } from "../../../lib/utils/userId.js";
 
 describe("parseUserId", () => {
   it("should parse userId", () => {

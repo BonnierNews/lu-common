@@ -1,15 +1,16 @@
-"use strict";
+import config from "exp-config";
+import nock from "nock";
+import urlencode from "urlencode";
 
-const config = require("exp-config");
-const nock = require("nock");
-const fakeApi = require("../../helpers/fake-api")();
-const awsFakeApi = require("../../helpers/fake-api")(config.awsProxyUrl);
-const gcpFakeApi = require("../../helpers/fake-api")(config.gcpProxy.url);
-const credentialsFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.credentials.cloudRunUrl);
-const credentialsLoadBalancerFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.credentials.url);
-const http = require("../../../lib/utils/http");
-const fakeGcpAuth = require("../../helpers/fake-gcp-auth");
-const urlencode = require("urlencode");
+import fakeApiInit from "../../helpers/fake-api.js";
+import http from "../../../lib/utils/http.js";
+import * as fakeGcpAuth from "../../helpers/fake-gcp-auth.js";
+
+const fakeApi = fakeApiInit();
+const awsFakeApi = fakeApiInit(config.awsProxyUrl);
+const gcpFakeApi = fakeApiInit(config.gcpProxy.url);
+const credentialsFakeApi = fakeApiInit(config.gcpConfigs.credentials.cloudRunUrl);
+const credentialsLoadBalancerFakeApi = fakeApiInit(config.gcpConfigs.credentials.url);
 
 describe("http", () => {
   beforeEach(() => {
@@ -20,6 +21,7 @@ describe("http", () => {
     credentialsLoadBalancerFakeApi.reset();
     fakeGcpAuth.reset();
   });
+  // skip AWS tests, the whole GCS/AWS thing will be removed soon
   describe("asserted", () => {
     before(() => {
       // Mock that we live in aws and use the aws proxy
@@ -134,7 +136,7 @@ describe("http", () => {
       result.body.should.eql({ ok: true });
 
       fakeApi.get("/some/path?%71=%73%F6%6D%65%2F%71%FC%E8%72%79").reply(200, { ok: true });
-      const next = await http.get({ path: "/some/path", correlationId, qs: realQuery, paramsSerializer: { encode: (val) => urlencode.encode(val, "iso-8859-1") } });
+      const next = await http.get({ path: "/some/path", correlationId, qs: realQuery, paramsSerializer: { encode: (val) => urlencode(val, "iso-8859-1") } });
       next.statusCode.should.eql(200);
       next.body.should.eql({ ok: true });
     });

@@ -1,4 +1,5 @@
 {
+  "appName": "lu-common",
   "s3": {
     "bucket": "lu-etlet-lab",
     "accessKeyId": "REPLACED_BY_ENV",
@@ -28,11 +29,7 @@
     "url": "https://greenfield-test.bn.nr",
     "audience": "test-audience.apps.googleusercontent.com"
   },
-  "livesInGcp": [
-    "credentials",
-    "gcp",
-    "gcp-app"
-  ],
+  "livesInGcp": ["credentials", "gcp", "gcp-app"],
   "logging": {
     "pretty": true
   },

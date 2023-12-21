@@ -3,11 +3,11 @@
     "text"
   ],
   "exclude": [
-    "test",
+    "test/helpers",
     "test-data"
   ],
-  "statements": "54",
-  "branches": "91",
-  "functions": "38",
-  "lines": "54"
+  "statements": "71",
+  "branches": "97",
+  "functions": "40",
+  "lines": "71"
 }

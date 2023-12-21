@@ -1,9 +1,9 @@
-"use strict";
+import es from "event-stream";
+import ftp from "basic-ftp";
+import assert from "assert";
+import { createSandbox } from "sinon";
 
-const es = require("event-stream");
-const ftp = require("basic-ftp");
-const sandbox = require("sinon").createSandbox();
-const assert = require("assert");
+const sandbox = createSandbox();
 
 let writes = {};
 let stub;
@@ -81,11 +81,4 @@ function reset() {
   stub = null;
 }
 
-module.exports = {
-  connectionError,
-  written,
-  reset,
-  put,
-  putMany,
-  putError,
-};
+export { connectionError, written, reset, put, putMany, putError };
