@@ -1,6 +1,4 @@
-"use strict";
-
-const { isCommonNamespace, getCommonNamespaces } = require("../../lib/namespaces");
+import { isCommonNamespace, getCommonNamespaces } from "../../lib/namespaces.js";
 // FIXME: get rid of expectedNamespacesNoDi, expectedNamespacesNoBbm, expectedNamespacesNoBbmNews + related test once di and bbm have migrated
 const expectedNamespaces = [
   "bbm-aktuellhallbarhet",

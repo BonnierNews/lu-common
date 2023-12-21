@@ -1,15 +1,5 @@
-"use strict";
-
-const {
-  addressSchema,
-  distributionFeeSchemaNand,
-  distributionFeeSchemaXor,
-} = require("../../../lib/validation-helpers/schemas");
-
-const {
-  addressScenarios,
-  distributionFeeScenarios,
-} = require("../../../test-data/unit/validation-helpers/schemas-test-data");
+import { addressSchema, distributionFeeSchemaNand, distributionFeeSchemaXor } from "../../../lib/validation-helpers/schemas.js";
+import { addressScenarios, distributionFeeScenarios } from "../../../test-data/unit/validation-helpers/schemas-test-data.js";
 
 describe("check if address is correct", () => {
   for (const s of addressScenarios) {

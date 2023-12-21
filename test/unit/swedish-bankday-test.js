@@ -1,8 +1,6 @@
-"use strict";
+import { expect } from "chai";
 
-const expect = require("chai").expect;
-
-const swedishBankday = require("../../lib/utils/swedish-bankday");
+import * as swedishBankday from "../../lib/utils/swedish-bankday.js";
 
 describe("isBankDay", () => {
   it("should handle weekdays", () => {

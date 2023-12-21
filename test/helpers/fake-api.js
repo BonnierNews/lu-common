@@ -1,13 +1,13 @@
-"use strict";
+import nock from "nock";
+import config from "exp-config";
+import path from "path";
+import fs from "fs";
+import stream from "stream";
+import zlib from "zlib";
 
-const nock = require("nock");
-const config = require("exp-config");
-const path = require("path");
-const fs = require("fs");
-const stream = require("stream");
-const zlib = require("zlib");
+const proxyUrl = config.livesIn === "GCP" ? config.gcpProxy?.url : config.proxyUrl || config.awsProxyUrl;
 
-function init(url = config.livesIn === "GCP" ? config.gcpProxy.url : (config.proxyUrl || config.awsProxyUrl)) {
+function init(url = proxyUrl) {
   let api = nock(url);
 
   function reset() {
@@ -126,21 +126,18 @@ function init(url = config.livesIn === "GCP" ? config.gcpProxy.url : (config.pro
     fakeResources,
     fakeResource,
     filteringPath: api.filteringPath.bind(api),
-    get: url === config.gcpProxy?.url
-      ? api.matchHeader("Authorization", /Bearer .*/).get.bind(api)
-      : api.get.bind(api),
-    post: url === config.gcpProxy?.url
-      ? api.matchHeader("Authorization", /Bearer .*/).post.bind(api)
-      : api.post.bind(api),
-    put: url === config.gcpProxy?.url
-      ? api.matchHeader("Authorization", /Bearer .*/).put.bind(api)
-      : api.put.bind(api),
-    delete: url === config.gcpProxy?.url
-      ? api.matchHeader("Authorization", /Bearer .*/).delete.bind(api)
-      : api.delete.bind(api),
-    patch: url === config.gcpProxy?.url
-      ? api.matchHeader("Authorization", /Bearer .*/).patch.bind(api)
-      : api.patch.bind(api),
+    get: url === config.gcpProxy?.url ? api.matchHeader("Authorization", /Bearer .*/).get.bind(api) : api.get.bind(api),
+    post:
+      url === config.gcpProxy?.url ? api.matchHeader("Authorization", /Bearer .*/).post.bind(api) : api.post.bind(api),
+    put: url === config.gcpProxy?.url ? api.matchHeader("Authorization", /Bearer .*/).put.bind(api) : api.put.bind(api),
+    delete:
+      url === config.gcpProxy?.url
+        ? api.matchHeader("Authorization", /Bearer .*/).delete.bind(api)
+        : api.delete.bind(api),
+    patch:
+      url === config.gcpProxy?.url
+        ? api.matchHeader("Authorization", /Bearer .*/).patch.bind(api)
+        : api.patch.bind(api),
     mount,
     mountFolder,
     pendingMocks: api.pendingMocks.bind(api),
@@ -150,4 +147,4 @@ function init(url = config.livesIn === "GCP" ? config.gcpProxy.url : (config.pro
   };
 }
 
-module.exports = init;
+export default init;

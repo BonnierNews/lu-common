@@ -1,6 +1,4 @@
-"use strict";
-
-const { modifyFile } = require("../helpers/file-utils");
+import { modifyFile } from "../helpers/file-utils.js";
 
 describe("modify file", () => {
   it("should modify a file", () => {

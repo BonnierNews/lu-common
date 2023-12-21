@@ -1,8 +1,5 @@
-"use strict";
-
-const { createSandbox } = require("sinon");
-
-const GoogleAuth = require("google-auth-library");
+import { createSandbox } from "sinon";
+import GoogleAuth from "google-auth-library";
 
 const sandbox = createSandbox();
 
@@ -24,10 +21,9 @@ function authenticated() {
   };
 }
 
-module.exports = {
-  reset: () => {
-    sandbox.restore();
-    stub = null;
-  },
-  authenticated,
+const reset = () => {
+  sandbox.restore();
+  stub = null;
 };
+
+export { reset, authenticated };

@@ -1,10 +1,10 @@
-"use strict";
+import es from "event-stream";
+import SftpClient from "ssh2-sftp-client";
+import { createSandbox } from "sinon";
+import { Readable } from "stream";
+import assert from "assert";
 
-const es = require("event-stream");
-const SftpClient = require("ssh2-sftp-client");
-const sandbox = require("sinon").createSandbox();
-const { Readable } = require("stream");
-const assert = require("assert");
+const sandbox = createSandbox();
 
 let writes = {};
 let removes = {};
@@ -162,7 +162,10 @@ function listMany(expectedPaths) {
   };
   expectedPaths.map((path) => {
     if (path.expectedPattern) {
-      assert(typeof path.expectedPattern === "function", `expected pattern ${path.expectedPattern} needs to be a function`);
+      assert(
+        typeof path.expectedPattern === "function",
+        `expected pattern ${path.expectedPattern} needs to be a function`
+      );
     }
     mockedPaths[path.expectedPath] = {
       expectedPattern: path.expectedPattern,
@@ -170,10 +173,7 @@ function listMany(expectedPaths) {
     };
   });
   stub.list = (actualPath, actualPattern) => {
-    assert(
-      mockedPaths[actualPath],
-      `expected paths ${Object.keys(mockedPaths)} but got ${actualPath}`
-    );
+    assert(mockedPaths[actualPath], `expected paths ${Object.keys(mockedPaths)} but got ${actualPath}`);
     let matchedFiles = mockedPaths[actualPath].files;
     if (actualPattern) matchedFiles = matchedFiles.filter((file) => actualPattern(file));
     return new Promise((resolve) => {
@@ -250,7 +250,7 @@ function getTargetPath() {
   return targetPath;
 }
 
-module.exports = {
+export {
   copy,
   getAsStream,
   getManyAsStream,

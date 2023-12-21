@@ -1,8 +1,8 @@
-"use strict";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
 
-const common = require("../../index");
-const fs = require("fs");
-const path = require("path");
+import * as common from "../../index.js";
 
 const paths = [ "lib", "test/helpers" ];
 const allExports = [];
@@ -92,18 +92,18 @@ function toCamelCase(fileName) {
 }
 
 function getPathExports(basePath) {
-  const exports = [];
-  const normalizedPath = path.join(__dirname, "..", "..", basePath);
+  const pathExports = [];
+  const normalizedPath = path.join(fileURLToPath(import.meta.url), "..", "..", "..", basePath);
   fs.readdirSync(normalizedPath).forEach((file) => {
     const filePath = path.join(normalizedPath, file);
     const stats = fs.statSync(filePath);
 
     // get all exports from subdirectories too
-    if (stats.isDirectory()) exports.push(...getPathExports(path.join(basePath, file)));
+    if (stats.isDirectory()) pathExports.push(...getPathExports(path.join(basePath, file)));
     else {
       const importName = file === "pdf.js" ? "PDF" : toCamelCase(file.replace(".js", ""));
-      exports.push(importName);
+      pathExports.push(importName);
     }
   });
-  return exports;
+  return pathExports;
 }
