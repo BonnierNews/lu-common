@@ -3,9 +3,6 @@
     "text",
     "html"
   ],
-  "exclude": [
-    "test-data"
-  ],
   "statements": "71",
   "branches": "97",
   "functions": "40",
