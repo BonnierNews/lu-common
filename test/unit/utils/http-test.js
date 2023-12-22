@@ -2,18 +2,17 @@ import config from "exp-config";
 import nock from "nock";
 import urlencode from "urlencode";
 
-import clone from "../../helpers/clone.js";
 import fakeApiInit from "../../helpers/fake-api.js";
 import http from "../../../lib/utils/http.js";
 import * as fakeGcpAuth from "../../helpers/fake-gcp-auth.js";
 
 const fakeApi = fakeApiInit();
-const credentialsLoadBalancerFakeApi = fakeApiInit(config.gcpConfigs.credentials.url);
+const credentialsFakeApi = fakeApiInit(config.gcpConfigs.credentials.url);
 
 describe("http", () => {
   beforeEach(() => {
     fakeApi.reset();
-    credentialsLoadBalancerFakeApi.reset();
+    credentialsFakeApi.reset();
     fakeGcpAuth.reset();
   });
 
@@ -241,13 +240,13 @@ describe("http", () => {
     const gcpConfig = config.gcpConfigs.credentials;
 
     it("should do get-requests", async () => {
-      credentialsLoadBalancerFakeApi.get("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
+      credentialsFakeApi.get("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       const result = await http.get({ path: "/credentials/some/path", gcpConfig, correlationId });
       result.body.should.eql({ ok: true });
     });
 
     it("should fail on 500", (done) => {
-      credentialsLoadBalancerFakeApi.get("/credentials/some/path").reply(500, { ok: false }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
+      credentialsFakeApi.get("/credentials/some/path").reply(500, { ok: false }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       http.asserted
         .get({ path: "/credentials/some/path", gcpConfig, correlationId })
         .then(() => done("should not come here"))
@@ -255,7 +254,7 @@ describe("http", () => {
     });
 
     it("should throw on 404", (done) => {
-      credentialsLoadBalancerFakeApi.get("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
+      credentialsFakeApi.get("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       http.asserted
         .get({ path: "/credentials/some/path", gcpConfig, correlationId })
         .then(() => done("should not come here"))
@@ -263,14 +262,14 @@ describe("http", () => {
     });
 
     it("should do delete-requests", async () => {
-      credentialsLoadBalancerFakeApi.delete("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
+      credentialsFakeApi.delete("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       const result = await http.asserted.del({ path: "/credentials/some/path", gcpConfig, correlationId });
       result.should.eql({ ok: true });
     });
 
     [ "PATCH", "POST", "PUT" ].forEach((method) => {
       it(`should do ${method}-requests`, async () => {
-        credentialsLoadBalancerFakeApi[method.toLowerCase()]("/credentials/some/path", (body) => {
+        credentialsFakeApi[method.toLowerCase()]("/credentials/some/path", (body) => {
           body.should.eql({ correlationId });
           return true;
         }).reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
@@ -285,7 +284,7 @@ describe("http", () => {
 
       [ 200, 201, 204, 301, 302 ].forEach((code) => {
         it(`should not fail on ${code}`, async () => {
-          credentialsLoadBalancerFakeApi[method.toLowerCase()]("/credentials/some/path", (body) => {
+          credentialsFakeApi[method.toLowerCase()]("/credentials/some/path", (body) => {
             body.should.eql({ correlationId });
             return true;
           }).reply(code, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
@@ -300,7 +299,7 @@ describe("http", () => {
       });
 
       it("should throw on 404", (done) => {
-        credentialsLoadBalancerFakeApi[method.toLowerCase()]("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
+        credentialsFakeApi[method.toLowerCase()]("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
         http.asserted[method.toLowerCase()]({ path: "/credentials/some/path", gcpConfig, correlationId })
           .then(() => done("should not come here"))
           .catch(() => done());
