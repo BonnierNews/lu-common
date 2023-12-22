@@ -33,7 +33,6 @@
     "moment": "^2.29.4",
     "nock": "^13.4.0",
     "sinon": "^17.0.1",
-    "ssh2-sftp-client": "^9.1.0",
     "swedish-holidays": "^1.1.2",
     "urlencode": "^2.0.0"
   },
