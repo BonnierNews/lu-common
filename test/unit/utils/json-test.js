@@ -1,6 +1,6 @@
 import testData from "test-data";
 
-import { importJson } from "../../lib/utils/json.js";
+import { importJson } from "../../../lib/utils/json.js";
 
 const expectedJson = await testData("unit/utils/import-json", "json");
 
