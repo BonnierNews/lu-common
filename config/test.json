@@ -18,8 +18,7 @@
   "gcpConfigs": {
     "credentials": {
       "url": "https://bn-credentials-test.bnu.bn.nr",
-      "audience": "credentials-test-audience",
-      "cloudRunUrl": "https://bn-credentials-test.app.run"
+      "audience": "credentials-test-audience"
     }
   },
   "gcpProxy": {
