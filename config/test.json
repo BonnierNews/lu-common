@@ -11,6 +11,12 @@
       "projectId": "some-project-1234"
     }
   },
+  "gcsDataLake": {
+    "bucket": "test-data-lake-bucket",
+    "credentials": {
+      "projectId": "some-other-project-5678"
+    }
+  },
   "ses": {
     "accessKeyId": "REPLACED_BY_ENV",
     "secretAccessKey": "REPLACED_BY_ENV"
@@ -25,8 +31,19 @@
     "url": "https://greenfield-test.bn.nr",
     "audience": "test-audience.apps.googleusercontent.com"
   },
+  "ftpConfig": {
+    "host": "some-ftp-server",
+    "user": "some-user",
+    "password": "some-password",
+    "port": 21,
+    "secure": false
+  },
   "logging": {
-    "pretty": true
+    "pretty": true,
+    "log": "file",
+    "logLevel": "debug",
+    "logJson": false,
+    "truncateLog": true
   },
   "toggle": {
     "diInCommonNamespaces": true,

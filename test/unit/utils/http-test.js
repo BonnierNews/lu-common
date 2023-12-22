@@ -1,10 +1,9 @@
 import config from "exp-config";
 import nock from "nock";
 import urlencode from "urlencode";
+import { fakeGcpAuth, fakeApi as fakeApiInit } from "@bonniernews/lu-test";
 
-import fakeApiInit from "../../helpers/fake-api.js";
 import http from "../../../lib/utils/http.js";
-import * as fakeGcpAuth from "../../helpers/fake-gcp-auth.js";
 
 const fakeApi = fakeApiInit();
 const credentialsFakeApi = fakeApiInit(config.gcpConfigs.credentials.url);
@@ -108,6 +107,13 @@ describe("http", () => {
       result.body.should.eql({ ok: true });
     });
 
+    it("should do get-requests with another content type", async () => {
+      fakeApi.get("/some/path").reply(200, "Ok", { "Content-type": "text/plain" });
+      const result = await http.get({ path: "/some/path", correlationId });
+      result.statusCode.should.eql(200);
+      result.body.should.eql("Ok");
+    });
+
     it("should do get-requests with query-string", async () => {
       fakeApi.get("/some/path").query({ q: "some-query" }).times(2).reply(200, { ok: true });
       const result = await http.get({ path: "/some/path", correlationId, qs: { q: "some-query" } });
@@ -188,6 +194,12 @@ describe("http", () => {
       result.statusCode.should.eql(200);
       result.body.should.eql({ ok: true });
     });
+    it("should allow basic auth", async () => {
+      nock("http://other-api.example.com").get("/some/path").reply(200, { ok: true });
+      const result = await http.get({ baseUrl: "http://other-api.example.com", path: "/some/path", correlationId, auth: { user: "some-user", pass: "some-password" }, timeout: 50, responseType: "json" });
+      result.statusCode.should.eql(200);
+      result.body.should.eql({ ok: true });
+    });
   });
 
   describe("get as stream", () => {
@@ -221,6 +233,7 @@ describe("http", () => {
       const result = await http.getAsStream({
         path: "/some/path",
         opts: { decompress: false },
+        timeout: 2000,
         correlationId,
       });
       const receivedData = [];
@@ -304,6 +317,50 @@ describe("http", () => {
           .then(() => done("should not come here"))
           .catch(() => done());
       });
+    });
+  });
+
+  describe("http errors", () => {
+    beforeEach(fakeGcpAuth.authenticated);
+    after(fakeGcpAuth.reset);
+    const correlationId = "http-test-errors";
+
+    it("should fail when server not found", (done) => {
+      // this get will result in a getaddrinfo ENOTFOUND
+      http.get({ path: "/some/path", correlationId })
+        .then(() => done("should not come here"))
+        .catch(() => done());
+    });
+
+    it("should fail when axios throws an error", (done) => {
+      fakeApi.get("/some/path").reply(400, { ok: false });
+      http.get({
+        path: "/some/path",
+        correlationId,
+        opts: {
+          validateStatus: function (status) {
+            return status === 200;
+          },
+        },
+      })
+        .then(() => done("should not come here"))
+        .catch(() => done());
+    });
+
+    it("should fail when axios throws an error with asserted", (done) => {
+      fakeApi.get("/some/path").reply(500, { ok: false });
+      http.asserted
+        .get({
+          path: "/some/path",
+          correlationId,
+          opts: {
+            validateStatus: function (status) {
+              return status === 200;
+            },
+          },
+        })
+        .then(() => done("should not come here"))
+        .catch(() => done());
     });
   });
 

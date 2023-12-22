@@ -25,17 +25,8 @@ import stripSchemaTag from "./lib/validation-helpers/strip-schema-tag.js";
 import * as namespaces from "./lib/namespaces.js";
 import * as titles from "./lib/titles.js";
 // test helpers
-import clone from "./test/helpers/clone.js";
-import fakeApi from "./test/helpers/fake-api.js";
-import * as fakeFtp from "./test/helpers/fake-ftp.js";
-import * as fakeGcpAuth from "./test/helpers/fake-gcp-auth.js";
-import * as fakeGcs from "./test/helpers/fake-gcs.js";
 import * as fakeS3 from "./test/helpers/fake-s3.js";
 import * as fakeSes from "./test/helpers/fake-ses.js";
-import * as fakeSftp from "./test/helpers/fake-sftp.js";
-import * as fileUtils from "./test/helpers/file-utils.js";
-import * as messageHelper from "./test/helpers/message-helper.js";
-import * as pdfReader from "./test/helpers/pdfReader.js";
 
 const { parseUserId, parseUserIdParts } = userId;
 
@@ -69,15 +60,6 @@ export {
   namespaces,
   titles,
   // test helpers
-  clone,
-  fakeApi,
-  fakeFtp,
-  fakeGcpAuth,
-  fakeGcs,
   fakeS3,
   fakeSes,
-  fakeSftp,
-  fileUtils,
-  messageHelper,
-  pdfReader,
 };

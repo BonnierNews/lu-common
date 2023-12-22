@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import * as swedishBankday from "../../lib/utils/swedish-bankday.js";
+import * as swedishBankday from "../../../lib/utils/swedish-bankday.js";
 
 describe("isBankDay", () => {
   it("should handle weekdays", () => {
