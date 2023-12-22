@@ -12,7 +12,6 @@ import http from "./lib/utils/http.js";
 import * as iterators from "./lib/utils/iterators.js";
 import * as s3 from "./lib/utils/s3.js";
 import * as ses from "./lib/utils/ses.js";
-import * as sftp from "./lib/utils/sftp.js";
 import * as streams from "./lib/utils/streams.js";
 import * as swedishBankday from "./lib/utils/swedish-bankday.js";
 import * as json from "./lib/utils/json.js";
@@ -58,7 +57,6 @@ export {
   parseUserIdParts,
   s3,
   ses,
-  sftp,
   streams,
   swedishBankday,
   userId,
