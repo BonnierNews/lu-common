@@ -1,6 +1,17 @@
 import config from "exp-config";
 
-import { getCredentials } from "../../../lib/utils/gcs.js";
+import {
+  createReadStream,
+  createWriteStream,
+  exists,
+  getCredentials,
+  toLakeDate,
+  lakeUri,
+  parseUri,
+  list,
+  metadata,
+  toPath,
+} from "../../../lib/utils/gcs.js";
 
 describe("gcs", () => {
   it("should credentials object", () => {
