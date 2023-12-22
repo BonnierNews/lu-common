@@ -5,7 +5,7 @@ import fs from "fs";
 import stream from "stream";
 import zlib from "zlib";
 
-const proxyUrl = config.livesIn === "GCP" ? config.gcpProxy?.url : config.proxyUrl || config.awsProxyUrl;
+const proxyUrl = config.gcpProxy.url;
 
 function init(url = proxyUrl) {
   let api = nock(url);
