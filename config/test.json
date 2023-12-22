@@ -8,8 +8,7 @@
   "gcs": {
     "bucket": "test-bucket",
     "credentials": {
-      "projectId": "some-project-1234",
-      "keyFilename": "/etc/fake-keyfile.json"
+      "projectId": "some-project-1234"
     }
   },
   "ses": {
@@ -19,8 +18,7 @@
   "gcpConfigs": {
     "credentials": {
       "url": "https://bn-credentials-test.bnu.bn.nr",
-      "audience": "credentials-test-audience",
-      "cloudRunUrl": "https://bn-credentials-test.app.run"
+      "audience": "credentials-test-audience"
     }
   },
   "gcpProxy": {

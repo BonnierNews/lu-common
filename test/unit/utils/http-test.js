@@ -1,25 +1,23 @@
 import config from "exp-config";
 import nock from "nock";
 import urlencode from "urlencode";
-import { fakeGcpAuth, fakeApi as fakeApiInit, clone } from "@bonniernews/lu-test";
+import { fakeGcpAuth, fakeApi as fakeApiInit } from "@bonniernews/lu-test";
 
 import http from "../../../lib/utils/http.js";
 
 const fakeApi = fakeApiInit();
-const credentialsFakeApi = fakeApiInit(config.gcpConfigs.credentials.cloudRunUrl);
-const credentialsLoadBalancerFakeApi = fakeApiInit(config.gcpConfigs.credentials.url);
+const credentialsFakeApi = fakeApiInit(config.gcpConfigs.credentials.url);
 
 describe("http", () => {
   beforeEach(() => {
     fakeApi.reset();
     credentialsFakeApi.reset();
-    credentialsLoadBalancerFakeApi.reset();
     fakeGcpAuth.reset();
   });
 
   describe("asserted", () => {
     beforeEach(fakeGcpAuth.authenticated);
-    after(fakeGcpAuth.reset);
+    afterEach(fakeGcpAuth.reset);
     const correlationId = "http-test-asserted";
 
     it("should do get-requests", async () => {
@@ -99,7 +97,7 @@ describe("http", () => {
 
   describe("with results", () => {
     beforeEach(fakeGcpAuth.authenticated);
-    after(fakeGcpAuth.reset);
+    afterEach(fakeGcpAuth.reset);
     const correlationId = "http-test-verbs";
 
     it("should do get-requests", async () => {
@@ -199,7 +197,7 @@ describe("http", () => {
 
   describe("get as stream", () => {
     beforeEach(fakeGcpAuth.authenticated);
-    after(fakeGcpAuth.reset);
+    afterEach(fakeGcpAuth.reset);
     const data = [ "1", "2", "3" ];
     const correlationId = "http-test-with-base-url";
     it("should return a stream", async () => {
@@ -220,7 +218,7 @@ describe("http", () => {
 
   describe("get as stream with opts", () => {
     beforeEach(fakeGcpAuth.authenticated);
-    after(fakeGcpAuth.reset);
+    afterEach(fakeGcpAuth.reset);
     const data = [ "1", "2", "3" ];
     const correlationId = "http-test-with-base-url";
     it("should return a stream", async () => {
@@ -241,20 +239,20 @@ describe("http", () => {
     });
   });
 
-  describe("call other teams gcp with cloudrun url because we live in GCP, with sent-in gcpConfig", () => {
+  describe("call other teams gcp with audience because we live in GCP, with sent-in gcpConfig", () => {
     beforeEach(fakeGcpAuth.authenticated);
     after(fakeGcpAuth.reset);
     const correlationId = "http-gcp-config";
     const gcpConfig = config.gcpConfigs.credentials;
 
     it("should do get-requests", async () => {
-      credentialsFakeApi.get("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      credentialsFakeApi.get("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       const result = await http.get({ path: "/credentials/some/path", gcpConfig, correlationId });
       result.body.should.eql({ ok: true });
     });
 
     it("should fail on 500", (done) => {
-      credentialsFakeApi.get("/credentials/some/path").reply(500, { ok: false }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      credentialsFakeApi.get("/credentials/some/path").reply(500, { ok: false }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       http.asserted
         .get({ path: "/credentials/some/path", gcpConfig, correlationId })
         .then(() => done("should not come here"))
@@ -262,7 +260,7 @@ describe("http", () => {
     });
 
     it("should throw on 404", (done) => {
-      credentialsFakeApi.get("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      credentialsFakeApi.get("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       http.asserted
         .get({ path: "/credentials/some/path", gcpConfig, correlationId })
         .then(() => done("should not come here"))
@@ -270,7 +268,7 @@ describe("http", () => {
     });
 
     it("should do delete-requests", async () => {
-      credentialsFakeApi.delete("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      credentialsFakeApi.delete("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       const result = await http.asserted.del({ path: "/credentials/some/path", gcpConfig, correlationId });
       result.should.eql({ ok: true });
     });
@@ -280,7 +278,7 @@ describe("http", () => {
         credentialsFakeApi[method.toLowerCase()]("/credentials/some/path", (body) => {
           body.should.eql({ correlationId });
           return true;
-        }).reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+        }).reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
         const result = await http.asserted[method.toLowerCase()]({
           path: "/credentials/some/path",
           gcpConfig,
@@ -295,7 +293,7 @@ describe("http", () => {
           credentialsFakeApi[method.toLowerCase()]("/credentials/some/path", (body) => {
             body.should.eql({ correlationId });
             return true;
-          }).reply(code, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+          }).reply(code, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
           const result = await http.asserted[method.toLowerCase()]({
             path: "/credentials/some/path",
             gcpConfig,
@@ -307,26 +305,11 @@ describe("http", () => {
       });
 
       it("should throw on 404", (done) => {
-        credentialsFakeApi[method.toLowerCase()]("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+        credentialsFakeApi[method.toLowerCase()]("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
         http.asserted[method.toLowerCase()]({ path: "/credentials/some/path", gcpConfig, correlationId })
           .then(() => done("should not come here"))
           .catch(() => done());
       });
-    });
-  });
-
-  describe("call other teams gcp with audience, old style, before everything was in GCP, with sent-in gcpConfig", () => {
-    before(credentialsLoadBalancerFakeApi.reset);
-    beforeEach(fakeGcpAuth.authenticated);
-    after(fakeGcpAuth.reset);
-    const correlationId = "http-gcp-config";
-    const gcpConfig = clone(config.gcpConfigs.credentials);
-    delete gcpConfig.cloudRunUrl;
-
-    it("should do get-requests", async () => {
-      credentialsLoadBalancerFakeApi.get("/credentials/some/path").reply(200, { ok: true });
-      const result = await http.get({ path: "/credentials/some/path", gcpConfig, correlationId });
-      result.body.should.eql({ ok: true });
     });
   });
 
