@@ -90,7 +90,7 @@ function getPathExports(basePath) {
     // get all exports from subdirectories too
     if (stats.isDirectory()) pathExports.push(...getPathExports(path.join(basePath, file)));
     else {
-      const importName = file === "pdf.js" ? "PDF" : toCamelCase(file.replace(".js", ""));
+      const importName = toCamelCase(file.replace(".js", ""));
       pathExports.push(importName);
     }
   });
