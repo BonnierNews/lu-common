@@ -107,6 +107,13 @@ describe("http", () => {
       result.body.should.eql({ ok: true });
     });
 
+    it("should do get-requests with another content type", async () => {
+      fakeApi.get("/some/path").reply(200, "Ok", { "Content-type": "text/plain" });
+      const result = await http.get({ path: "/some/path", correlationId });
+      result.statusCode.should.eql(200);
+      result.body.should.eql("Ok");
+    });
+
     it("should do get-requests with query-string", async () => {
       fakeApi.get("/some/path").query({ q: "some-query" }).times(2).reply(200, { ok: true });
       const result = await http.get({ path: "/some/path", correlationId, qs: { q: "some-query" } });
