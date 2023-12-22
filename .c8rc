@@ -1,13 +1,11 @@
 {
   "reporter": [
-    "text"
+    "text",
+    "html"
   ],
-  "exclude": [
-    "test/helpers",
-    "test-data"
-  ],
-  "statements": "67",
-  "branches": "97",
-  "functions": "40",
-  "lines": "67"
+  "all": true,
+  "statements": "100",
+  "branches": "100",
+  "functions": "100",
+  "lines": "100"
 }
