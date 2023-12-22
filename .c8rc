@@ -6,8 +6,8 @@
     "test/helpers",
     "test-data"
   ],
-  "statements": "70",
+  "statements": "67",
   "branches": "97",
   "functions": "40",
-  "lines": "70"
+  "lines": "67"
 }

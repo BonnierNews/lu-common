@@ -8,8 +8,7 @@
   "gcs": {
     "bucket": "test-bucket",
     "credentials": {
-      "projectId": "some-project-1234",
-      "keyFilename": "/etc/fake-keyfile.json"
+      "projectId": "some-project-1234"
     }
   },
   "ses": {
@@ -22,13 +21,10 @@
       "audience": "credentials-test-audience"
     }
   },
-  "proxyUrl": "http://api.example.com",
-  "awsProxyUrl": "http://api.example-aws.com",
   "gcpProxy": {
     "url": "https://greenfield-test.bn.nr",
     "audience": "test-audience.apps.googleusercontent.com"
   },
-  "livesInGcp": ["credentials", "gcp", "gcp-app"],
   "logging": {
     "pretty": true
   },

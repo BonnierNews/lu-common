@@ -26,11 +26,6 @@ describe("Get url based on where the application lives", () => {
       getUrl({ path: "/gcp-app/some-path" }).should.eql(`${config.gcpProxy.url}/gcp-app/some-path`);
     });
   });
-  describe("when getting an url with an application that doesn't yet live in gcp", () => {
-    it("we hould get the normal proxyurl", () => {
-      getUrl({ path: "/some-app/some-path" }).should.eql(`${config.proxyUrl}/some-app/some-path`);
-    });
-  });
   describe("when getting an url with a sent in baseUrl", () => {
     it("we should use the baseUrl that was sent in", () => {
       getUrl({ path: "/some-app/some-path", baseUrl: "http://some-base-url" }).should.eql(
