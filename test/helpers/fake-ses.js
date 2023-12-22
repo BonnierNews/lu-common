@@ -1,3 +1,5 @@
+/* c8 ignore start */
+// Reason: we'll soon be moving this functionaltiy to Google's smtp
 import { createSandbox } from "sinon";
 
 import * as ses from "../../lib/utils/ses.js";
@@ -51,3 +53,4 @@ function reset() {
 }
 
 export { sendEmail, sendRawEmail, reset, sent, sentRaw, sendRawEmailWithError };
+/* c8 ignore stop */
