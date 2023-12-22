@@ -10,7 +10,7 @@
   "scripts": {
     "mocha": "mocha",
     "lint": "eslint .",
-    "test": "mocha --exit --reporter ${REPORTER:-spec} && eslint . --ext .js,.json --cache && depcheck --ignores=\"prettier,test-data,csv-parse\"",
+    "test": "mocha --exit --reporter ${REPORTER:-spec} && eslint . --ext .js,.json --cache && depcheck --ignores=\"prettier,test-data\"",
     "format": "prettier {,**/,**/**,**/**/**}*.{js,json,md} --write && eslint . --fix",
     "coverage": "c8 npm test",
     "check-coverage": "c8 check-coverage"
@@ -23,7 +23,6 @@
     "aws-sdk": "^2.1512.0",
     "axios": "^1.6.2",
     "basic-ftp": "^5.0.3",
-    "csv-parse": "^5.5.2",
     "event-stream": "^4.0.1",
     "exp-config": "^4.2.1",
     "google-auth-library": "^9.4.1",
