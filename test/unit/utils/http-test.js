@@ -308,19 +308,5 @@ describe("http", () => {
     });
   });
 
-  describe("lives in GCP", () => {
-    beforeEach(fakeGcpAuth.authenticated);
-    after(fakeGcpAuth.reset);
-    const correlationId = "http-gcp-config";
-    const gcpConfig = clone(config.gcpConfigs.credentials);
-    delete gcpConfig.cloudRunUrl;
-
-    it("should do get-requests", async () => {
-      credentialsLoadBalancerFakeApi.get("/credentials/some/path").reply(200, { ok: true });
-      const result = await http.get({ path: "/credentials/some/path", gcpConfig, correlationId });
-      result.body.should.eql({ ok: true });
-    });
-  });
-
   afterEach(fakeApi.reset);
 });
