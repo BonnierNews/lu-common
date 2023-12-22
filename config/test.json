@@ -31,6 +31,7 @@
     "url": "https://greenfield-test.bn.nr",
     "audience": "test-audience.apps.googleusercontent.com"
   },
+  "ftpConfig": { "host": "some-host", "user": "some-user", "password": "some-password", "port": 21, "secure": false },
   "logging": {
     "pretty": true,
     "log": "file",
