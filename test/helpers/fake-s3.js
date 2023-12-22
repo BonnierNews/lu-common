@@ -1,3 +1,5 @@
+/* c8 ignore start */
+// Reason: we'll soon be removing this functionality
 import { Readable, Transform } from "stream";
 import es from "event-stream";
 import { createSandbox } from "sinon";
@@ -217,3 +219,4 @@ export {
   listObjects,
   listObjectsError,
 };
+/* c8 ignore stop */

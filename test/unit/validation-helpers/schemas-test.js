@@ -1,5 +1,8 @@
+import testData from "test-data";
+
 import { addressSchema, distributionFeeSchemaNand, distributionFeeSchemaXor } from "../../../lib/validation-helpers/schemas.js";
-import { addressScenarios, distributionFeeScenarios } from "../../../test-data/unit/validation-helpers/schemas-test-data.js";
+
+const { addressScenarios, distributionFeeScenarios } = await testData("/unit/validation-helpers/schemas-test-data");
 
 describe("check if address is correct", () => {
   for (const s of addressScenarios) {
