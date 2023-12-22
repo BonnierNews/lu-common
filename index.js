@@ -10,8 +10,6 @@ import * as gcpAuth from "./lib/utils/gcp-auth.js";
 import * as gcs from "./lib/utils/gcs.js";
 import http from "./lib/utils/http.js";
 import * as iterators from "./lib/utils/iterators.js";
-import PDF from "./lib/utils/pdf.js";
-import * as pdfGenerator from "./lib/utils/pdfGenerator.js";
 import * as s3 from "./lib/utils/s3.js";
 import * as ses from "./lib/utils/ses.js";
 import * as sftp from "./lib/utils/sftp.js";
@@ -58,8 +56,6 @@ export {
   json,
   parseUserId,
   parseUserIdParts,
-  PDF,
-  pdfGenerator,
   s3,
   ses,
   sftp,
