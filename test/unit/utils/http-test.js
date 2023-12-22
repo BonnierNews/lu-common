@@ -316,7 +316,7 @@ describe("http", () => {
     });
   });
 
-  describe("call other teams gcp with cloudrun url because we live in GCP, with sent-in gcpConfig", () => {
+  describe("call other teams gcp with audience because we live in GCP, with sent-in gcpConfig", () => {
     before(() => {
       config.livesIn = "GCP";
     });
