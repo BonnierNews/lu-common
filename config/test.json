@@ -11,6 +11,12 @@
       "projectId": "some-project-1234"
     }
   },
+  "gcsDataLake": {
+    "bucket": "test-data-lake-bucket",
+    "credentials": {
+      "projectId": "some-other-project-5678"
+    }
+  },
   "ses": {
     "accessKeyId": "REPLACED_BY_ENV",
     "secretAccessKey": "REPLACED_BY_ENV"
