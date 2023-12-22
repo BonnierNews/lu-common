@@ -28,7 +28,6 @@ const expectedExports = [
   "parseUserId",
   "s3",
   "ses",
-  "sftp",
   "streams",
   "swedishBankday",
   "userId",
