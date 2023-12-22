@@ -26,8 +26,6 @@ const expectedExports = [
   "json",
   "parseUserIdParts",
   "parseUserId",
-  "PDF",
-  "pdfGenerator",
   "s3",
   "ses",
   "sftp",
