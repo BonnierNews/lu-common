@@ -23,15 +23,16 @@
       "cloudRunUrl": "https://bn-credentials-test.app.run"
     }
   },
-  "proxyUrl": "http://api.example.com",
-  "awsProxyUrl": "http://api.example-aws.com",
   "gcpProxy": {
     "url": "https://greenfield-test.bn.nr",
     "audience": "test-audience.apps.googleusercontent.com"
   },
-  "livesInGcp": ["credentials", "gcp", "gcp-app"],
   "logging": {
-    "pretty": true
+    "pretty": true,
+    "log": "file",
+    "logLevel": "debug",
+    "logJson": false,
+    "truncateLog": true
   },
   "toggle": {
     "diInCommonNamespaces": true,

@@ -16,6 +16,7 @@ chai.config.includeStack = true;
 
 Object.assign(global, { should: chai.should() });
 
+/* c8 ignore start */
 process.on("unhandledRejection", (err) => {
   if (!config.boolean("silenceTestErrors")) {
     // eslint-disable-next-line no-console
@@ -25,3 +26,4 @@ process.on("unhandledRejection", (err) => {
   }
   throw err;
 });
+/* c8 ignore stop */

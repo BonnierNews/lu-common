@@ -1,6 +1,7 @@
 {
   "reporter": [
-    "text"
+    "text",
+    "html"
   ],
   "exclude": [
     "test/helpers",
