@@ -2,7 +2,7 @@
 // Reason: we'll soon be moving this functionaltiy to Google's smtp
 import { createSandbox } from "sinon";
 
-import * as ses from "../../lib/utils/ses.js";
+import { utils as ses } from "../../lib/utils/ses.js";
 
 const sandbox = createSandbox();
 

@@ -5,7 +5,7 @@ import es from "event-stream";
 import { createSandbox } from "sinon";
 import assert from "assert";
 
-import * as s3 from "../../lib/utils/s3.js";
+import { utils as s3 } from "../../lib/utils/s3.js";
 
 const sandbox = createSandbox();
 
