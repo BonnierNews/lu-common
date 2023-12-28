@@ -157,12 +157,19 @@ describe("list GCS path", () => {
   beforeEach(fakeGcs.reset);
   it("should return a list of files", async () => {
     fakeGcs.mockFile(filePath, { content: fileContent });
-    const files = await list(`gs://${gcsBucket}/${gcsDirectory}/${filename}`);
-    files.should.eql(filePath);
+    const files = await list(`gs://${gcsBucket}/${gcsDirectory}`);
+    files.should.eql([ filePath ]);
+  });
+  it("should return a list of files", async () => {
+    fakeGcs.mockFile(filePath, { content: fileContent });
+    const anotherFile = `gs://${gcsBucket}/${gcsDirectory}/some-other-file.txt`;
+    fakeGcs.mockFile(anotherFile, { content: fileContent });
+    const files = await list(`gs://${gcsBucket}/${gcsDirectory}`);
+    files.should.eql([ filePath, anotherFile ]);
   });
   it("should return an empty list when no files found", async () => {
     fakeGcs.mockFile(filePath);
-    const files = await list(`gs://${gcsBucket}/${gcsDirectory}/${filename}`);
+    const files = await list(`gs://${gcsBucket}/${gcsDirectory}`);
     files.length.should.eql(0);
   });
 });
