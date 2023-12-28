@@ -171,6 +171,7 @@ describe("list GCS path", () => {
     fakeGcs.mockFile(filePath);
     const files = await list(`gs://${gcsBucket}/${gcsDirectory}`);
     files.length.should.eql(0);
+    files.should.eql([]);
   });
 });
 
