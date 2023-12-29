@@ -429,6 +429,12 @@ describe("http", () => {
       result.should.eql({ ok: true });
     });
 
+    it("should do get-requests with a manually added Auth header", async () => {
+      gcpFakeApi.get("/gcp/some/path").reply(200, { ok: true });
+      const result = await http.asserted.get({ path: "/gcp/some/path", headers: { Authorization: "Bearer some-cool-token" }, correlationId });
+      result.should.eql({ ok: true });
+    });
+
     it("should do get-requests with query-string", async () => {
       gcpFakeApi.get("/gcp/some/path").query({ q: "some-query" }).times(2).reply(200, { ok: true });
       const result = await http.asserted.get({ path: "/gcp/some/path", correlationId, qs: { q: "some-query" } });
