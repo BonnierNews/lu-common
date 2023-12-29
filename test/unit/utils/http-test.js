@@ -107,6 +107,17 @@ describe("http", () => {
       result.body.should.eql({ ok: true });
     });
 
+    it("should do get-requests, passing in a manual token", async () => {
+      fakeApi.get("/some/path").reply(200, { ok: true });
+      const result = await http.get({
+        path: "/some/path",
+        headers: { Authorization: "Bearer some-cool-token" },
+        correlationId,
+      });
+      result.statusCode.should.eql(200);
+      result.body.should.eql({ ok: true });
+    });
+
     it("should do get-requests with another content type", async () => {
       fakeApi.get("/some/path").reply(200, "Ok", { "Content-type": "text/plain" });
       const result = await http.get({ path: "/some/path", correlationId });
