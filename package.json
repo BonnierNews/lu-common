@@ -36,9 +36,9 @@
     "urlencode": "^2.0.0"
   },
   "devDependencies": {
-    "@bonniernews/eslint-config": "^1.0.1",
-    "@bonniernews/lu-test": "^7.2.1",
-    "c8": "^8.0.1",
+    "@bonniernews/eslint-config": "^1.1.0",
+    "@bonniernews/lu-test": "^8.0.0",
+    "c8": "^9.1.0",
     "chai": "^4.3.10",
     "chai-exclude": "^2.1.0",
     "depcheck": "^1.4.7",
