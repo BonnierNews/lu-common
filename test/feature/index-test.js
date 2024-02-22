@@ -39,6 +39,7 @@ const expectedExports = [
   // other
   "namespaces",
   "titles",
+  "entitlements",
   // test helpers
   "fakeS3",
   "fakeSes",

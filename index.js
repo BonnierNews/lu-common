@@ -24,6 +24,7 @@ import stripSchemaTag from "./lib/validation-helpers/strip-schema-tag.js";
 // other
 import * as namespaces from "./lib/namespaces.js";
 import * as titles from "./lib/titles.js";
+import * as entitlements from "./lib/entitlements.js";
 // test helpers
 import * as fakeS3 from "./test/helpers/fake-s3.js";
 import * as fakeSes from "./test/helpers/fake-ses.js";
@@ -44,8 +45,8 @@ export {
   http,
   iterators,
   json,
-  parseUserId,
   parseUserIdParts,
+  parseUserId,
   s3,
   ses,
   streams,
@@ -59,6 +60,7 @@ export {
   // other
   namespaces,
   titles,
+  entitlements,
   // test helpers
   fakeS3,
   fakeSes,
