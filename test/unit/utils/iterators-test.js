@@ -3,6 +3,7 @@ import stream from "stream";
 import {
   cons,
   decorate,
+  ensureCompleteChunks,
   enumerate,
   inject,
   parse,
@@ -75,6 +76,27 @@ describe("count the records in the stream", () => {
     });
     finalOutput[0].should.eql([ 0, "line1" ]);
     finalOutput[1].should.eql([ 1, "line2" ]);
+  });
+});
+
+describe("ensureCompleteChunks", () => {
+  it("combines separated characters", async () => {
+    let finalOutput = "";
+    await pipeline(Readable.from([ 0xE2, 0x82, 0xAC ].map((c) => Buffer.from([ c ]))), ensureCompleteChunks, async (iterable) => {
+      for await (const o of iterable) {
+        finalOutput += o;
+      }
+    });
+    finalOutput.should.eql("€");
+  });
+  it("handles non-separated characters", async () => {
+    let finalOutput = "";
+    await pipeline(Readable.from(Buffer.from("fish")), ensureCompleteChunks, async (iterable) => {
+      for await (const o of iterable) {
+        finalOutput += o;
+      }
+    });
+    finalOutput.should.eql("fish");
   });
 });
 
