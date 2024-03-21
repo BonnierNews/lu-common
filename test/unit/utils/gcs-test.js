@@ -10,6 +10,7 @@ import {
   toLakeDate,
   lakeUri,
   parseUri,
+  pipeline as gcsPipeline,
   list,
   metadata,
   toPath,
@@ -47,6 +48,29 @@ describe("create read stream from GCS file", () => {
       }
       yield;
     });
+    fileData.join("\n").should.eql(fileContent);
+  });
+});
+
+describe("create pipeline", () => {
+  before(fakeGcs.reset);
+  let readStream;
+  it("should create a read stream from GCS", () => {
+    fakeGcs.mockFile(filePath, { content: fileContent });
+    readStream = createReadStream(filePath);
+    readStream.should.be.an.instanceOf(Readable);
+  });
+  it("should return the expected content", async () => {
+    const fileData = [];
+
+    await gcsPipeline(readStream, async function* (iterable) {
+      for await (const row of iterable) {
+        if (!row) continue;
+        fileData.push(row);
+      }
+      yield;
+    });
+
     fileData.join("\n").should.eql(fileContent);
   });
 });
