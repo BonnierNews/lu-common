@@ -15,6 +15,7 @@ const expectedNamespaces = [
   "di",
   "dn",
   "expressen",
+  "gotamedia",
   "paf",
 ];
 const expectedNamespacesNoDi = [
@@ -31,9 +32,10 @@ const expectedNamespacesNoDi = [
   "bnlo",
   "dn",
   "expressen",
+  "gotamedia",
   "paf",
 ];
-const expectedNamespacesNoBbm = [ "bbm-news", "bnlo", "di", "dn", "expressen", "paf" ];
+const expectedNamespacesNoBbm = [ "bbm-news", "bnlo", "di", "dn", "expressen", "gotamedia", "paf" ];
 const expectedNamespacesNoBbmNews = [
   "bbm-aktuellhallbarhet",
   "bbm-byggindustrin",
@@ -48,6 +50,7 @@ const expectedNamespacesNoBbmNews = [
   "di",
   "dn",
   "expressen",
+  "gotamedia",
   "paf",
 ];
 
