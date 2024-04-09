@@ -1,5 +1,5 @@
 import { isCommonNamespace, getCommonNamespaces } from "../../lib/namespaces.js";
-// FIXME: get rid of expectedNamespacesNoDi, expectedNamespacesNoBbm, expectedNamespacesNoBbmNews + related test once di and bbm have migrated
+// FIXME: get rid of expectedNamespacesNoDi, expectedNamespacesNoBbm, expectedNamespacesNoGotaMedia + related test once di and bbm have migrated
 const expectedNamespaces = [
   "bbm-aktuellhallbarhet",
   "bbm-byggindustrin",
@@ -35,8 +35,8 @@ const expectedNamespacesNoDi = [
   "gotamedia",
   "paf",
 ];
-const expectedNamespacesNoBbm = [ "bbm-news", "bnlo", "di", "dn", "expressen", "gotamedia", "paf" ];
-const expectedNamespacesNoBbmNews = [
+const expectedNamespacesNoBbm = [ "bnlo", "di", "dn", "expressen", "gotamedia", "paf" ];
+const expectedNamespacesNoGotaMedia = [
   "bbm-aktuellhallbarhet",
   "bbm-byggindustrin",
   "bbm-dagensmedicin",
@@ -45,12 +45,12 @@ const expectedNamespacesNoBbmNews = [
   "bbm-dam",
   "bbm-fastighetsnytt",
   "bbm-market",
+  "bbm-news",
   "bbm-res",
   "bnlo",
   "di",
   "dn",
   "expressen",
-  "gotamedia",
   "paf",
 ];
 
@@ -102,27 +102,27 @@ describe("isCommonNamespace (bbm-* toggled off)", () => {
   });
 });
 
-describe("isCommonNamespace (bbm-news toggled off)", () => {
+describe("isCommonNamespace (gotamedia toggled off)", () => {
   beforeEach(() => {
-    process.env["NODE-DISABLE-TOGGLE"] = "bbmNewsInCommonNamespaces";
+    process.env["NODE-DISABLE-TOGGLE"] = "gotamediaInCommonNamespaces";
   });
   after(() => {
     process.env["NODE-DISABLE-TOGGLE"] = undefined;
   });
-  expectedNamespacesNoBbmNews.forEach((namespace) => {
+  expectedNamespacesNoGotaMedia.forEach((namespace) => {
     it(`should confirm '${namespace}' as part of common namespace`, () => {
       const result = isCommonNamespace(namespace);
       result.should.equal(true);
     });
   });
 
-  it("should NOT confirm 'bbm-news' as part of common namespace", () => {
-    const result = isCommonNamespace("bbm-news");
+  it("should NOT confirm 'di' as part of common namespace", () => {
+    const result = isCommonNamespace("gotamedia");
     result.should.equal(false);
   });
 
   it("should give us a list of common namespaces", () => {
-    JSON.stringify(getCommonNamespaces().sort()).should.equal(JSON.stringify(expectedNamespacesNoBbmNews));
+    JSON.stringify(getCommonNamespaces().sort()).should.equal(JSON.stringify(expectedNamespacesNoGotaMedia));
   });
 });
 
