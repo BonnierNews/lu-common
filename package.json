@@ -23,7 +23,6 @@
     "aws-sdk": "^2.1512.0",
     "axios": "^1.6.2",
     "basic-ftp": "^5.0.3",
-    "event-stream": "^4.0.1",
     "exp-config": "^4.2.1",
     "google-auth-library": "^9.4.1",
     "joi": "^17.11.0",
