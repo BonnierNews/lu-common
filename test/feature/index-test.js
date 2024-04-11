@@ -16,7 +16,6 @@ const expectedExports = [
   "codeHelper",
   "toggle",
   // utils
-  "email",
   "formatAmount",
   "ftp",
   "gcpAuth",
@@ -26,9 +25,7 @@ const expectedExports = [
   "json",
   "parseUserIdParts",
   "parseUserId",
-  "s3",
   "ses",
-  "streams",
   "swedishBankday",
   "userId",
   // validation helpers
@@ -40,7 +37,6 @@ const expectedExports = [
   "namespaces",
   "titles",
   // test helpers
-  "fakeS3",
   "fakeSes",
 ];
 
