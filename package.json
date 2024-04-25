@@ -1,6 +1,6 @@
 {
   "name": "lu-common",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@bonniernews/eslint-config": "^1.1.0",
-    "@bonniernews/lu-test": "~8.0.2",
+    "@bonniernews/lu-test": "^9.1.1",
     "c8": "^9.1.0",
     "chai": "^4.3.10",
     "chai-exclude": "^2.1.0",
