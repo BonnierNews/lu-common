@@ -4,7 +4,7 @@ const scenarios = [
   {
     expected: true,
     namespace: "bnlo",
-    text: "Privata Affärer",
+    text: "Vetlanda-Posten",
   },
   {
     expected: false,
