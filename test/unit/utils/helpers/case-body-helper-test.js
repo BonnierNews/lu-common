@@ -1,6 +1,4 @@
-"use strict";
-
-const createBackOfficeCaseBody = require("../../../lib/helpers/case-body-helper");
+import createBackOfficeCaseBody from "../../../../lib/helpers/case-body-helper.js";
 
 const description = "An order is in an unresolveable state for the system",
   namespace = "dn",
@@ -12,9 +10,9 @@ const backOfficeCaseBody = {
   description,
   namespace,
   origin: "Greenfield",
-  owner: "DNBO",
+  owner: undefined,
   priority: "Medium",
-  sourceQueue: "DNBO",
+  sourceQueue: undefined,
   subject,
 };
 

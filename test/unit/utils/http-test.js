@@ -1,32 +1,23 @@
-"use strict";
+import config from "exp-config";
+import nock from "nock";
+import urlencode from "urlencode";
+import { fakeGcpAuth, fakeApi as fakeApiInit } from "@bonniernews/lu-test";
 
-const config = require("exp-config");
-const nock = require("nock");
-const fakeApi = require("../../helpers/fake-api")();
-const awsFakeApi = require("../../helpers/fake-api")(config.awsProxyUrl);
-const gcpFakeApi = require("../../helpers/fake-api")(config.gcpProxy.url);
-const credentialsFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.credentials.cloudRunUrl);
-const credentialsLoadBalancerFakeApi = require("../../helpers/fake-api")(config.gcpConfigs.credentials.url);
-const http = require("../../../lib/utils/http");
-const fakeGcpAuth = require("../../helpers/fake-gcp-auth");
+import http from "../../../lib/utils/http.js";
+
+const fakeApi = fakeApiInit();
+const credentialsFakeApi = fakeApiInit(config.gcpConfigs.credentials.url);
 
 describe("http", () => {
   beforeEach(() => {
     fakeApi.reset();
-    awsFakeApi.reset();
-    gcpFakeApi.reset();
     credentialsFakeApi.reset();
-    credentialsLoadBalancerFakeApi.reset();
     fakeGcpAuth.reset();
   });
+
   describe("asserted", () => {
-    before(() => {
-      // Mock that we live in aws and use the aws proxy
-      config.livesIn = "AWS";
-    });
-    after(() => {
-      delete config.livesIn;
-    });
+    beforeEach(fakeGcpAuth.authenticated);
+    afterEach(fakeGcpAuth.reset);
     const correlationId = "http-test-asserted";
 
     it("should do get-requests", async () => {
@@ -105,6 +96,8 @@ describe("http", () => {
   });
 
   describe("with results", () => {
+    beforeEach(fakeGcpAuth.authenticated);
+    afterEach(fakeGcpAuth.reset);
     const correlationId = "http-test-verbs";
 
     it("should do get-requests", async () => {
@@ -114,6 +107,24 @@ describe("http", () => {
       result.body.should.eql({ ok: true });
     });
 
+    it("should do get-requests, passing in a manual token", async () => {
+      fakeApi.get("/some/path").reply(200, { ok: true });
+      const result = await http.get({
+        path: "/some/path",
+        headers: { Authorization: "Bearer some-cool-token" },
+        correlationId,
+      });
+      result.statusCode.should.eql(200);
+      result.body.should.eql({ ok: true });
+    });
+
+    it("should do get-requests with another content type", async () => {
+      fakeApi.get("/some/path").reply(200, "Ok", { "Content-type": "text/plain" });
+      const result = await http.get({ path: "/some/path", correlationId });
+      result.statusCode.should.eql(200);
+      result.body.should.eql("Ok");
+    });
+
     it("should do get-requests with query-string", async () => {
       fakeApi.get("/some/path").query({ q: "some-query" }).times(2).reply(200, { ok: true });
       const result = await http.get({ path: "/some/path", correlationId, qs: { q: "some-query" } });
@@ -121,6 +132,19 @@ describe("http", () => {
       result.body.should.eql({ ok: true });
 
       const next = await http.get({ path: "/some/path?q=some-query", correlationId });
+      next.statusCode.should.eql(200);
+      next.body.should.eql({ ok: true });
+    });
+
+    it("should handle paramsSerializer", async () => {
+      const realQuery = { q: "söme/qüèry" };
+      fakeApi.get("/some/path?q=s%C3%B6me%2Fq%C3%BC%C3%A8ry").reply(200, { ok: true });
+      const result = await http.get({ path: "/some/path", correlationId, qs: realQuery });
+      result.statusCode.should.eql(200);
+      result.body.should.eql({ ok: true });
+
+      fakeApi.get("/some/path?%71=%73%F6%6D%65%2F%71%FC%E8%72%79").reply(200, { ok: true });
+      const next = await http.get({ path: "/some/path", correlationId, qs: realQuery, paramsSerializer: { encode: (val) => urlencode(val, "iso-8859-1") } });
       next.statusCode.should.eql(200);
       next.body.should.eql({ ok: true });
     });
@@ -181,9 +205,17 @@ describe("http", () => {
       result.statusCode.should.eql(200);
       result.body.should.eql({ ok: true });
     });
+    it("should allow basic auth", async () => {
+      nock("http://other-api.example.com").get("/some/path").reply(200, { ok: true });
+      const result = await http.get({ baseUrl: "http://other-api.example.com", path: "/some/path", correlationId, auth: { user: "some-user", pass: "some-password" }, timeout: 50, responseType: "json" });
+      result.statusCode.should.eql(200);
+      result.body.should.eql({ ok: true });
+    });
   });
 
   describe("get as stream", () => {
+    beforeEach(fakeGcpAuth.authenticated);
+    afterEach(fakeGcpAuth.reset);
     const data = [ "1", "2", "3" ];
     const correlationId = "http-test-with-base-url";
     it("should return a stream", async () => {
@@ -202,106 +234,43 @@ describe("http", () => {
     });
   });
 
-  describe("asserted gcp", () => {
+  describe("get as stream with opts", () => {
     beforeEach(fakeGcpAuth.authenticated);
-    after(fakeGcpAuth.reset);
-    const correlationId = "http-test-asserted";
-
-    it("should do get-requests", async () => {
-      gcpFakeApi.get("/gcp/some/path").reply(200, { ok: true });
-      const result = await http.asserted.get({ path: "/gcp/some/path", correlationId });
-      result.should.eql({ ok: true });
-    });
-
-    it("should do get-requests with query-string", async () => {
-      gcpFakeApi.get("/gcp/some/path").query({ q: "some-query" }).times(2).reply(200, { ok: true });
-      const result = await http.asserted.get({ path: "/gcp/some/path", correlationId, qs: { q: "some-query" } });
-      result.should.eql({ ok: true });
-
-      const next = await http.asserted.get({ path: "/gcp/some/path?q=some-query", correlationId });
-      next.should.eql({ ok: true });
-    });
-
-    it("should fail on 500", (done) => {
-      gcpFakeApi.get("/gcp/some/path").reply(500, { ok: false });
-      http.asserted
-        .get({ path: "/gcp/some/path", correlationId })
-        .then(() => done("should not come here"))
-        .catch(() => done());
-    });
-
-    it("should throw on 404", (done) => {
-      gcpFakeApi.get("/gcp/some/path").reply(404, { ok: true });
-      http.asserted
-        .get({ path: "/gcp/some/path", correlationId })
-        .then(() => done("should not come here"))
-        .catch(() => done());
-    });
-
-    it("should do delete-requests", async () => {
-      gcpFakeApi.delete("/gcp/some/path").reply(200, { ok: true });
-      const result = await http.asserted.del({ path: "/gcp/some/path", correlationId });
-      result.should.eql({ ok: true });
-    });
-
-    [ "PATCH", "POST", "PUT" ].forEach((method) => {
-      it(`should do ${method}-requests`, async () => {
-        gcpFakeApi[method.toLowerCase()]("/gcp/some/path", (body) => {
-          body.should.eql({ correlationId });
-          return true;
-        }).reply(200, { ok: true });
-        const result = await http.asserted[method.toLowerCase()]({
-          path: "/gcp/some/path",
-          correlationId,
-          body: { correlationId },
-        });
-        result.should.eql({ ok: true });
+    afterEach(fakeGcpAuth.reset);
+    const data = [ "1", "2", "3" ];
+    const correlationId = "http-test-with-base-url";
+    it("should return a stream", async () => {
+      fakeApi.get("/some/path").reply(200, data.join("\n"));
+      const result = await http.getAsStream({
+        path: "/some/path",
+        opts: { decompress: false },
+        timeout: 2000,
+        correlationId,
       });
-
-      [ 200, 201, 204, 301, 302 ].forEach((code) => {
-        it(`should not fail on ${code}`, async () => {
-          gcpFakeApi[method.toLowerCase()]("/gcp/some/path", (body) => {
-            body.should.eql({ correlationId });
-            return true;
-          }).reply(code, { ok: true });
-          const result = await http.asserted[method.toLowerCase()]({
-            path: "/gcp/some/path",
-            correlationId,
-            body: { correlationId },
-          });
-          result.should.eql({ ok: true });
-        });
+      const receivedData = [];
+      result.on("data", (d) => {
+        receivedData.push(d);
       });
-
-      it("should throw on 404", (done) => {
-        gcpFakeApi[method.toLowerCase()]("/gcp/some/path").reply(404, { ok: true });
-        http.asserted[method.toLowerCase()]({ path: "/gcp/some/path", correlationId })
-          .then(() => done("should not come here"))
-          .catch(() => done());
+      result.on("end", () => {
+        receivedData.toString().should.eql(data.join("\n"));
       });
     });
   });
 
-  describe("call other teams gcp with cloudrun url because we live in GCP, with sent-in gcpConfig", () => {
-    before(() => {
-      config.livesIn = "GCP";
-    });
+  describe("call other teams gcp with audience because we live in GCP, with sent-in gcpConfig", () => {
     beforeEach(fakeGcpAuth.authenticated);
-    after(() => {
-      fakeGcpAuth.reset();
-      delete config.livesIn;
-    });
+    after(fakeGcpAuth.reset);
     const correlationId = "http-gcp-config";
     const gcpConfig = config.gcpConfigs.credentials;
 
     it("should do get-requests", async () => {
-      credentialsFakeApi.get("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      credentialsFakeApi.get("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       const result = await http.get({ path: "/credentials/some/path", gcpConfig, correlationId });
       result.body.should.eql({ ok: true });
     });
 
     it("should fail on 500", (done) => {
-      credentialsFakeApi.get("/credentials/some/path").reply(500, { ok: false }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      credentialsFakeApi.get("/credentials/some/path").reply(500, { ok: false }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       http.asserted
         .get({ path: "/credentials/some/path", gcpConfig, correlationId })
         .then(() => done("should not come here"))
@@ -309,7 +278,7 @@ describe("http", () => {
     });
 
     it("should throw on 404", (done) => {
-      credentialsFakeApi.get("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      credentialsFakeApi.get("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       http.asserted
         .get({ path: "/credentials/some/path", gcpConfig, correlationId })
         .then(() => done("should not come here"))
@@ -317,7 +286,7 @@ describe("http", () => {
     });
 
     it("should do delete-requests", async () => {
-      credentialsFakeApi.delete("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+      credentialsFakeApi.delete("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
       const result = await http.asserted.del({ path: "/credentials/some/path", gcpConfig, correlationId });
       result.should.eql({ ok: true });
     });
@@ -327,7 +296,7 @@ describe("http", () => {
         credentialsFakeApi[method.toLowerCase()]("/credentials/some/path", (body) => {
           body.should.eql({ correlationId });
           return true;
-        }).reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+        }).reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
         const result = await http.asserted[method.toLowerCase()]({
           path: "/credentials/some/path",
           gcpConfig,
@@ -342,7 +311,7 @@ describe("http", () => {
           credentialsFakeApi[method.toLowerCase()]("/credentials/some/path", (body) => {
             body.should.eql({ correlationId });
             return true;
-          }).reply(code, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+          }).reply(code, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
           const result = await http.asserted[method.toLowerCase()]({
             path: "/credentials/some/path",
             gcpConfig,
@@ -354,7 +323,7 @@ describe("http", () => {
       });
 
       it("should throw on 404", (done) => {
-        credentialsFakeApi[method.toLowerCase()]("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.cloudRunUrl}`);
+        credentialsFakeApi[method.toLowerCase()]("/credentials/some/path").reply(404, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
         http.asserted[method.toLowerCase()]({ path: "/credentials/some/path", gcpConfig, correlationId })
           .then(() => done("should not come here"))
           .catch(() => done());
@@ -362,210 +331,49 @@ describe("http", () => {
     });
   });
 
-  describe("call other teams gcp with audience, because we don't live in GCP, with sent-in gcpConfig", () => {
-    before(() => {
-      config.livesIn = "NOT-GCP";
-      fakeGcpAuth.authenticated();
-      credentialsLoadBalancerFakeApi.reset();
-    });
+  describe("http errors", () => {
     beforeEach(fakeGcpAuth.authenticated);
-    after(() => {
-      fakeGcpAuth.reset();
-      delete config.livesIn;
-    });
-    const correlationId = "http-gcp-config";
-    const gcpConfig = config.gcpConfigs.credentials;
+    after(fakeGcpAuth.reset);
+    const correlationId = "http-test-errors";
 
-    it("should do get-requests", async () => {
-      credentialsLoadBalancerFakeApi.get("/credentials/some/path").reply(200, { ok: true }).matchHeader("authorization", `Bearer ${gcpConfig.audience}`);
-      const result = await http.get({ path: "/credentials/some/path", gcpConfig, correlationId });
-      result.body.should.eql({ ok: true });
-    });
-  });
-
-  describe("lives in GCP", () => {
-    beforeEach(fakeGcpAuth.authenticated);
-    after(() => {
-      fakeGcpAuth.reset();
-    });
-    const correlationId = "http-test-asserted";
-
-    it("should do get-requests", async () => {
-      gcpFakeApi.get("/gcp/some/path").reply(200, { ok: true });
-      const result = await http.asserted.get({ path: "/gcp/some/path", correlationId });
-      result.should.eql({ ok: true });
-    });
-
-    it("should do get-requests with query-string", async () => {
-      gcpFakeApi.get("/gcp/some/path").query({ q: "some-query" }).times(2).reply(200, { ok: true });
-      const result = await http.asserted.get({ path: "/gcp/some/path", correlationId, qs: { q: "some-query" } });
-      result.should.eql({ ok: true });
-
-      const next = await http.asserted.get({ path: "/gcp/some/path?q=some-query", correlationId });
-      next.should.eql({ ok: true });
-    });
-
-    it("should fail on 500", (done) => {
-      gcpFakeApi.get("/gcp/some/path").reply(500, { ok: false });
-      http.asserted
-        .get({ path: "/gcp/some/path", correlationId })
+    it("should fail when server not found", (done) => {
+      // this get will result in a getaddrinfo ENOTFOUND
+      http.get({ path: "/some/path", correlationId })
         .then(() => done("should not come here"))
         .catch(() => done());
     });
 
-    it("should throw on 404", (done) => {
-      gcpFakeApi.get("/gcp/some/path").reply(404, { ok: true });
-      http.asserted
-        .get({ path: "/gcp/some/path", correlationId })
+    it("should fail when axios throws an error", (done) => {
+      fakeApi.get("/some/path").reply(400, { ok: false });
+      http.get({
+        path: "/some/path",
+        correlationId,
+        opts: {
+          validateStatus: function (status) {
+            return status === 200;
+          },
+        },
+      })
         .then(() => done("should not come here"))
         .catch(() => done());
     });
 
-    it("should do delete-requests", async () => {
-      gcpFakeApi.delete("/gcp/some/path").reply(200, { ok: true });
-      const result = await http.asserted.del({ path: "/gcp/some/path", correlationId });
-      result.should.eql({ ok: true });
-    });
-
-    [ "PATCH", "POST", "PUT" ].forEach((method) => {
-      it(`should do ${method}-requests`, async () => {
-        gcpFakeApi[method.toLowerCase()]("/gcp/some/path", (body) => {
-          body.should.eql({ correlationId });
-          return true;
-        }).reply(200, { ok: true });
-        const result = await http.asserted[method.toLowerCase()]({
-          path: "/gcp/some/path",
+    it("should fail when axios throws an error with asserted", (done) => {
+      fakeApi.get("/some/path").reply(500, { ok: false });
+      http.asserted
+        .get({
+          path: "/some/path",
           correlationId,
-          body: { correlationId },
-        });
-        result.should.eql({ ok: true });
-      });
-
-      [ 200, 201, 204, 301, 302 ].forEach((code) => {
-        it(`should not fail on ${code}`, async () => {
-          gcpFakeApi[method.toLowerCase()]("/gcp/some/path", (body) => {
-            body.should.eql({ correlationId });
-            return true;
-          }).reply(code, { ok: true });
-          const result = await http.asserted[method.toLowerCase()]({
-            path: "/gcp/some/path",
-            correlationId,
-            body: { correlationId },
-          });
-          result.should.eql({ ok: true });
-        });
-      });
-
-      it("should throw on 404", (done) => {
-        gcpFakeApi[method.toLowerCase()]("/gcp/some/path").reply(404, { ok: true });
-        http.asserted[method.toLowerCase()]({ path: "/gcp/some/path", correlationId })
-          .then(() => done("should not come here"))
-          .catch(() => done());
-      });
-    });
-  });
-
-  describe("lives in GCP calling AWS", () => {
-    before(() => {
-      config.livesIn = "GCP";
-    });
-    const correlationId = "http-test-asserted";
-
-    it("should do get-requests", async () => {
-      awsFakeApi.get("/some/path").reply(200, { ok: true });
-      const result = await http.asserted.get({ path: "/some/path", correlationId });
-      result.should.eql({ ok: true });
-    });
-  });
-
-  describe("lives in AWS", () => {
-    before(() => {
-      config.livesIn = "AWS";
-    });
-    beforeEach(fakeGcpAuth.authenticated);
-    after(() => {
-      config.livesIn = "GCP";
-      fakeGcpAuth.reset();
-    });
-    const correlationId = "http-test-asserted";
-
-    it("should do get-requests", async () => {
-      gcpFakeApi.get("/gcp/some/path").reply(200, { ok: true });
-      const result = await http.asserted.get({ path: "/gcp/some/path", correlationId });
-      result.should.eql({ ok: true });
-    });
-
-    it("should do get-requests with query-string", async () => {
-      gcpFakeApi.get("/gcp/some/path").query({ q: "some-query" }).times(2).reply(200, { ok: true });
-      const result = await http.asserted.get({ path: "/gcp/some/path", correlationId, qs: { q: "some-query" } });
-      result.should.eql({ ok: true });
-
-      const next = await http.asserted.get({ path: "/gcp/some/path?q=some-query", correlationId });
-      next.should.eql({ ok: true });
-    });
-
-    it("should fail on 500", (done) => {
-      gcpFakeApi.get("/gcp/some/path").reply(500, { ok: false });
-      http.asserted
-        .get({ path: "/gcp/some/path", correlationId })
+          opts: {
+            validateStatus: function (status) {
+              return status === 200;
+            },
+          },
+        })
         .then(() => done("should not come here"))
         .catch(() => done());
     });
-
-    it("should throw on 404", (done) => {
-      gcpFakeApi.get("/gcp/some/path").reply(404, { ok: true });
-      http.asserted
-        .get({ path: "/gcp/some/path", correlationId })
-        .then(() => done("should not come here"))
-        .catch(() => done());
-    });
-
-    it("should do delete-requests", async () => {
-      gcpFakeApi.delete("/gcp/some/path").reply(200, { ok: true });
-      const result = await http.asserted.del({ path: "/gcp/some/path", correlationId });
-      result.should.eql({ ok: true });
-    });
-
-    [ "PATCH", "POST", "PUT" ].forEach((method) => {
-      it(`should do ${method}-requests`, async () => {
-        gcpFakeApi[method.toLowerCase()]("/gcp/some/path", (body) => {
-          body.should.eql({ correlationId });
-          return true;
-        }).reply(200, { ok: true });
-        const result = await http.asserted[method.toLowerCase()]({
-          path: "/gcp/some/path",
-          correlationId,
-          body: { correlationId },
-        });
-        result.should.eql({ ok: true });
-      });
-
-      [ 200, 201, 204, 301, 302 ].forEach((code) => {
-        it(`should not fail on ${code}`, async () => {
-          gcpFakeApi[method.toLowerCase()]("/gcp/some/path", (body) => {
-            body.should.eql({ correlationId });
-            return true;
-          }).reply(code, { ok: true });
-          const result = await http.asserted[method.toLowerCase()]({
-            path: "/gcp/some/path",
-            correlationId,
-            body: { correlationId },
-          });
-          result.should.eql({ ok: true });
-        });
-      });
-
-      it("should throw on 404", (done) => {
-        gcpFakeApi[method.toLowerCase()]("/gcp/some/path").reply(404, { ok: true });
-        http.asserted[method.toLowerCase()]({ path: "/gcp/some/path", correlationId })
-          .then(() => done("should not come here"))
-          .catch(() => done());
-      });
-    });
   });
 
-  afterEach(() => {
-    fakeApi.reset();
-    gcpFakeApi.reset();
-  });
+  afterEach(fakeApi.reset);
 });

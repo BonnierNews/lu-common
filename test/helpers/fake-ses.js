@@ -1,7 +1,10 @@
-"use strict";
+/* c8 ignore start */
+// Reason: we'll soon be moving this functionaltiy to Google's smtp
+import { createSandbox } from "sinon";
 
-const sandbox = require("sinon").createSandbox();
-const ses = require("../../lib/utils/ses");
+import { utils as ses } from "../../lib/utils/ses.js";
+
+const sandbox = createSandbox();
 
 let sendEmailStub, sendRawEmailStub;
 const sent = [];
@@ -49,4 +52,5 @@ function reset() {
   sandbox.restore();
 }
 
-module.exports = { sendEmail, sendRawEmail, reset, sent, sentRaw, sendRawEmailWithError };
+export { sendEmail, sendRawEmail, reset, sent, sentRaw, sendRawEmailWithError };
+/* c8 ignore stop */

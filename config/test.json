@@ -1,14 +1,15 @@
 {
-  "s3": {
-    "bucket": "lu-etlet-lab",
-    "accessKeyId": "REPLACED_BY_ENV",
-    "secretAccessKey": "REPLACED_BY_ENV"
-  },
+  "appName": "lu-common",
   "gcs": {
     "bucket": "test-bucket",
     "credentials": {
-      "projectId": "greenfield-prod-xyz",
-      "keyFilename": "/secrets/gcs_credentials_keyfile"
+      "projectId": "some-project-1234"
+    }
+  },
+  "gcsDataLake": {
+    "bucket": "test-data-lake-bucket",
+    "credentials": {
+      "projectId": "some-other-project-5678"
     }
   },
   "ses": {
@@ -18,22 +19,30 @@
   "gcpConfigs": {
     "credentials": {
       "url": "https://bn-credentials-test.bnu.bn.nr",
-      "audience": "credentials-test-audience",
-      "cloudRunUrl": "https://bn-credentials-test.app.run"
+      "audience": "credentials-test-audience"
     }
   },
-  "proxyUrl": "http://api.example.com",
-  "awsProxyUrl": "http://api.example-aws.com",
   "gcpProxy": {
     "url": "https://greenfield-test.bn.nr",
     "audience": "test-audience.apps.googleusercontent.com"
   },
-  "livesInGcp": [
-    "credentials",
-    "gcp",
-    "gcp-app"
-  ],
+  "ftpConfig": {
+    "host": "some-ftp-server",
+    "user": "some-user",
+    "password": "some-password",
+    "port": 21,
+    "secure": false
+  },
   "logging": {
-    "pretty": true
+    "pretty": true,
+    "log": "file",
+    "logLevel": "debug",
+    "logJson": false,
+    "truncateLog": true
+  },
+  "toggle": {
+    "diInCommonNamespaces": true,
+    "bbmInCommonNamespaces": true,
+    "gotamediaInCommonNamespaces": true
   }
 }

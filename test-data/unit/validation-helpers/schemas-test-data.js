@@ -1,8 +1,5 @@
-"use strict";
-
-const stripSchemaTag = require("../../../lib/validation-helpers/strip-joi-schema-tags");
-
-const { addressSchema } = require("../../../lib/validation-helpers/schemas");
+import stripSchemaTag from "../../../lib/validation-helpers/strip-schema-tag.js";
+import { addressSchema } from "../../../lib/validation-helpers/schemas.js";
 
 const addressScenarios = [
   {
@@ -310,7 +307,4 @@ const distributionFeeScenarios = [
   },
 ];
 
-module.exports = {
-  addressScenarios,
-  distributionFeeScenarios,
-};
+export { addressScenarios, distributionFeeScenarios };

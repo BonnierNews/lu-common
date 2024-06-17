@@ -1,6 +1,4 @@
-"use strict";
-
-const { postalDeliveryOnly } = require("../../lib/namespaces");
+import { postalDeliveryOnly } from "../../lib/namespaces.js";
 
 const scenarios = [
   {
