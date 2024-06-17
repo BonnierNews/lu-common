@@ -8,6 +8,4 @@ When we make changes in this repo, we need to update all repos below:
 
 ```bash
 lu-greenfield
-bn-subscription-api
-public-subscription-api
 ```
