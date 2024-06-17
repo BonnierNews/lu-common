@@ -86,7 +86,7 @@ function getPathExports(basePath) {
     if (stats.isDirectory()) pathExports.push(...getPathExports(path.join(basePath, file)));
     else {
       const importName = toCamelCase(file.replace(".js", ""));
-      pathExports.push(importName);
+      if (importName !== ".DS_Store") pathExports.push(importName);
     }
   });
   return pathExports;

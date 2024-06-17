@@ -13,7 +13,8 @@
     "test": "mocha --exit --reporter ${REPORTER:-spec} && eslint . --ext .js,.json --cache && depcheck --ignores=\"prettier,test-data\"",
     "format": "prettier {,**/,**/**,**/**/**}*.{js,json,md} --write && eslint . --fix",
     "coverage": "c8 npm test",
-    "check-coverage": "c8 check-coverage"
+    "check-coverage": "c8 check-coverage",
+    "local-coverage": "c8 --reporter html npm test && c8 check-coverage || open ./coverage/index.html"
   },
   "keywords": [],
   "author": "",
