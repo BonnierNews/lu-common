@@ -20,7 +20,7 @@ const addressScenarios = [
     },
   },
   {
-    text: "Valid foregin address",
+    text: "Valid foreign address",
     expected: true,
     address: {
       streetName: "Awesome street in canada",
@@ -28,6 +28,29 @@ const addressScenarios = [
       zipCode: "S0J 2Y0",
       city: "Saskatchewan",
       country: "CA",
+    },
+  },
+  {
+    text: "Valid address in obscure country (Curaçao)",
+    expected: true,
+    address: {
+      city: "Willemstad",
+      country: "CW",
+      streetName: "Telamonstraat",
+      streetNumber: "59",
+      zipCode: "0000",
+    },
+  },
+  {
+    text: "Invalid address in obscure country (Curaçao)",
+    expected: false,
+    error: '"zipCode" failed validation because Curaçao doesn\'t have postal codes, use "0000"',
+    address: {
+      city: "Willemstad",
+      country: "CW",
+      streetName: "Telamonstraat",
+      streetNumber: "59",
+      zipCode: "59",
     },
   },
   {
@@ -184,7 +207,7 @@ const addressScenarios = [
     },
   },
   {
-    text: "Invalid address cause of invalid foregin zipcode",
+    text: "Invalid address cause of invalid foreign zipcode",
     expected: false,
     error: '"zipCode" failed validation because Postal code 12 is not valid for country US',
     address: {
