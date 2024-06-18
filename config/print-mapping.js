@@ -443,11 +443,11 @@ const productConfig = {
       title: "av",
       alternativeTitles: [ "avestatidning" ],
       tsCode: "0290",
-      shortName: "",
+      shortName: "AV",
       subDirectory: "",
       type: "paper",
       productName: "Avesta Tidning",
-      diCustomerSystem: "",
+      diCustomerSystem: "AV",
     },
     {
       title: "bb",
