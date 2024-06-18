@@ -978,15 +978,6 @@ const productConfig = {
       productName: "Oskarshamnstidningen",
       diCustomerSystem: "GOT",
     },
-    {
-      title: "ot",
-      tsCode: "0301",
-      shortName: "OT",
-      subDirectory: "",
-      type: "paper",
-      productName: "Oskarshamnstidningen",
-      diCustomerSystem: "GOT",
-    },
   ],
 };
 
