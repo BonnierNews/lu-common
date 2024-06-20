@@ -571,7 +571,7 @@ const productConfig = {
     },
     {
       title: "lj",
-      alternativeTitles: [ "ljudalsposten" ],
+      alternativeTitles: [ "ljusnan" ],
       tsCode: "1230",
       shortName: "",
       subDirectory: "",
