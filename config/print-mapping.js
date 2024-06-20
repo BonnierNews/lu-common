@@ -11,6 +11,10 @@ const productConfig = {
       diTitle: "Dagens Nyheter",
       complaintSenderId: "1160",
     },
+    {
+      title: "kp",
+      productName: "Kamratposten",
+    },
   ],
   di: [
     {
@@ -56,6 +60,10 @@ const productConfig = {
       modexProducts: [ { productName: "Expressen", productCode: "EX" } ],
       diCustomerSystem: "EXPA",
       diTitle: "EX Expressen",
+    },
+    {
+      title: "sportexpressen",
+      productName: "SportExpressen",
     },
     {
       title: "gt",
@@ -460,6 +468,14 @@ const productConfig = {
       diCustomerSystem: "BARG",
     },
     {
+      title: "bblat",
+      productName: "Bbl/AT",
+    },
+    {
+      title: "bp",
+      productName: "Bandypuls",
+    },
+    {
       title: "bt",
       alternativeTitles: [ "borlangetidning" ],
       tsCode: "0380",
@@ -510,6 +526,10 @@ const productConfig = {
       diCustomerSystem: "",
     },
     {
+      title: "frp",
+      productName: "Folkracepuls",
+    },
+    {
       title: "gd",
       alternativeTitles: [ "gefledagblad" ],
       tsCode: "0720",
@@ -530,6 +550,10 @@ const productConfig = {
       diCustomerSystem: "HELD",
     },
     {
+      title: "hp",
+      productName: "Hockeypuls",
+    },
+    {
       title: "ht",
       alternativeTitles: [ "hudiksvalsstidning", "hudiksvallstidning" ],
       tsCode: "0990",
@@ -538,6 +562,10 @@ const productConfig = {
       type: "paper",
       productName: "Hudiksvalls Tidning",
       diCustomerSystem: "",
+    },
+    {
+      title: "jnytt",
+      productName: "Jnytt",
     },
     {
       title: "jp",
@@ -620,6 +648,10 @@ const productConfig = {
       diCustomerSystem: "NAA",
     },
     {
+      title: "nio",
+      productName: "Nu i Österåker",
+    },
+    {
       title: "nst",
       alternativeTitles: [ "norraskanetidning" ],
       tsCode: "1400",
@@ -658,6 +690,10 @@ const productConfig = {
       type: "paper",
       productName: "Nynäshamns Posten",
       diCustomerSystem: "NYP",
+    },
+    {
+      title: "nvp",
+      productName: "Nacka Värmdö Posten",
     },
     {
       title: "oa",
@@ -740,6 +776,10 @@ const productConfig = {
       diCustomerSystem: "",
     },
     {
+      title: "sn",
+      productName: "Skövde Nyheter",
+    },
+    {
       title: "sdt",
       alternativeTitles: [ "sodradalarnestidning" ],
       tsCode: "2030",
@@ -798,6 +838,10 @@ const productConfig = {
       type: "paper",
       productName: "Tranås Tidning",
       diCustomerSystem: "TTI",
+    },
+    {
+      title: "trp",
+      productName: "Tranås-Posten",
     },
     {
       title: "vlt",
