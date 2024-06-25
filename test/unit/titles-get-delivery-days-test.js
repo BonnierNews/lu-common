@@ -11,7 +11,7 @@ describe("get delivery days", () => {
   describe("get delivery days for title that does not have any deliverDays configured", () => {
     it("should throw an error", () => {
       try {
-        getDeliveryDays("paf", "paf");
+        getDeliveryDays("paf", "pff");
       } catch (error) {
         error.message.should.eql("No delivery days for title was found. Update product-mapping config");
       }
