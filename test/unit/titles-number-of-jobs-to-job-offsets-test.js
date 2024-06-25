@@ -110,4 +110,26 @@ describe("number of jobs to jobs offset", () => {
       sunday: 2,
     });
   });
+
+  it("should return the correct days", () => {
+    const numberOfJobs = {
+      monday: 4,
+      tuesday: 0,
+      wednesday: 0,
+      thursday: 0,
+      friday: 3,
+      saturday: 0,
+      sunday: 0,
+    };
+    const jobsOffset = numberOfJobsToJobOffsets(numberOfJobs);
+    jobsOffset.should.eql({
+      monday: 3,
+      tuesday: 1,
+      wednesday: 2,
+      thursday: 3,
+      friday: 4,
+      saturday: 1,
+      sunday: 2,
+    });
+  });
 });

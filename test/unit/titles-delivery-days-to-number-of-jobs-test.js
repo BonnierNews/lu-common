@@ -1,7 +1,7 @@
 import { deliveryDaysToNumberOfJobs } from "../../lib/titles.js";
 
 describe("delivery days to number of jobs", () => {
-  it("should return the correct days", () => {
+  it("should return the correct days: monday, tuesday, wednesday, thursday, friday, saturday, sunday", () => {
     const deliveryDays = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ];
     const numberOfJobs = deliveryDaysToNumberOfJobs(deliveryDays);
     numberOfJobs.should.eql({
@@ -15,7 +15,7 @@ describe("delivery days to number of jobs", () => {
     });
   });
 
-  it("should return the correct days", () => {
+  it("should return the correct days: tuesday, thursday, saturday", () => {
     const deliveryDays = [ "tuesday", "thursday", "saturday" ];
     const numberOfJobs = deliveryDaysToNumberOfJobs(deliveryDays);
     numberOfJobs.should.eql({
@@ -29,7 +29,7 @@ describe("delivery days to number of jobs", () => {
     });
   });
 
-  it("should return the correct days", () => {
+  it("should return the correct days: friday, saturday, sunday", () => {
     const deliverDays = [ "friday", "saturday", "sunday" ];
     const numberOfJobs = deliveryDaysToNumberOfJobs(deliverDays);
     numberOfJobs.should.eql({
@@ -42,7 +42,7 @@ describe("delivery days to number of jobs", () => {
       sunday: 0,
     });
   });
-  it("should return the correct days", () => {
+  it("should return the correct days: monday, wednesday, friday, sunday", () => {
     const numberOfJobs = deliveryDaysToNumberOfJobs([
       "monday",
       "wednesday",
