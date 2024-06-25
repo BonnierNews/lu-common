@@ -1,6 +1,6 @@
 import { numberOfJobsToJobOffsets } from "../../lib/titles.js";
 
-describe.only("_number of jobs to jobs offset", () => {
+describe("number of jobs to jobs offset", () => {
   it("should return the correct days", () => {
     const numberOfJobs = {
       monday: 1,
