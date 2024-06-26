@@ -10,6 +10,15 @@ const productConfig = {
       diCustomerSystem: "DNY",
       diTitle: "Dagens Nyheter",
       complaintSenderId: "1160",
+      deliveryDays: [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+      ],
     },
     {
       title: "kp",
@@ -38,6 +47,15 @@ const productConfig = {
       productName: "paf",
       diCustomerSystem: "",
       diTitle: "",
+      deliveryDays: [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+      ],
     },
     {
       title: "plg",
@@ -48,6 +66,15 @@ const productConfig = {
       productName: "plg",
       diCustomerSystem: "",
       diTitle: "",
+      deliveryDays: [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+      ],
     },
   ],
   expressen: [
@@ -60,6 +87,15 @@ const productConfig = {
       modexProducts: [ { productName: "Expressen", productCode: "EX" } ],
       diCustomerSystem: "EXPA",
       diTitle: "EX Expressen",
+      deliveryDays: [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+      ],
     },
     {
       title: "sportexpressen",
@@ -74,6 +110,15 @@ const productConfig = {
       modexProducts: [ { productName: "Göteborgstidningen", productCode: "GT" } ],
       diCustomerSystem: "GTI",
       diTitle: "EX Göteborgstidningen",
+      deliveryDays: [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+      ],
     },
     {
       title: "kvp",
@@ -882,6 +927,11 @@ const productConfig = {
       type: "paper",
       productName: "Vetlanda-Posten",
       diCustomerSystem: "VP",
+      deliveryDays: [
+        "tuesday",
+        "thursday",
+        "saturday",
+      ],
     },
     {
       title: "skd",
