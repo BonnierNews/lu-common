@@ -14,6 +14,7 @@ import {
   list,
   metadata,
   toPath,
+  getFileMetadata,
 } from "../../../lib/utils/gcs.js";
 
 const { Readable, Writable, promises: { pipeline } } = stream;
@@ -88,6 +89,15 @@ describe("create write stream to GCS file", () => {
       yield fileContent;
     }, writeStream);
     fakeGcs.written(filePath).should.eql(fileContent);
+  });
+});
+
+describe("get files metadata", () => {
+  before(fakeGcs.reset);
+  it("should return files metadata", async () => {
+    fakeGcs.mockFile(filePath, { content: "asd" });
+    const metaData = await getFileMetadata(filePath);
+    metaData.should.eql({ name: "some-file.json", size: 3, contentEncoding: "utf-8", contentType: "application/json" });
   });
 });
 
