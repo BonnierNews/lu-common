@@ -466,7 +466,6 @@ const productConfig = {
       type: "paper",
       productName: "Arbetarbladet",
       diCustomerSystem: "",
-      deliveryDays: [ "monday", "tuesday", "thursday", "friday", "saturday" ],
     },
     {
       title: "at",
