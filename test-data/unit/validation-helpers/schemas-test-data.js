@@ -1,23 +1,25 @@
 import stripSchemaTag from "../../../lib/validation-helpers/strip-schema-tag.js";
 import { addressSchema } from "../../../lib/validation-helpers/schemas.js";
 
+const defaultAddress = {
+  streetName: "Testgatan",
+  streetNumber: "1",
+  stairCase: "A",
+  stairs: "1",
+  apartmentNumber: "1101",
+  zipCode: "12345",
+  city: "Teststaden",
+  careOf: "Bestefar",
+  companyName: "AwesomeCompany AB",
+  country: "SE",
+  deliveryMethod: "POST",
+};
+
 const addressScenarios = [
   {
     text: "Valid address with all the fields",
     expected: true,
-    address: {
-      streetName: "Testgatan",
-      streetNumber: "1",
-      stairCase: "A",
-      stairs: "1",
-      apartmentNumber: "1101",
-      zipCode: "12345",
-      city: "Teststaden",
-      careOf: "Bestefar",
-      companyName: "AwesomeCompany AB",
-      country: "SE",
-      deliveryMethod: "POST",
-    },
+    address: defaultAddress,
   },
   {
     text: "Valid foreign address",
@@ -253,6 +255,20 @@ const addressScenarios = [
     address: {},
   },
 ];
+
+for (const key of Object.keys(addressSchema.describe().keys).filter(
+  (k) => ![ "country", "deliveryMethod" ].includes(k)
+)) {
+  const badAddress = JSON.parse(JSON.stringify(defaultAddress));
+  badAddress[key] = Buffer.alloc(500, "Hej").toString();
+  const allowedLength = key === "careOf" ? 255 : 50;
+  addressScenarios.push({
+    text: `Invalid address with long ${key}`,
+    expected: false,
+    address: badAddress,
+    error: `"${key}" length must be less than or equal to ${allowedLength} characters long`,
+  });
+}
 
 const distributionFeeScenarios = [
   {
