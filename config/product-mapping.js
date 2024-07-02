@@ -279,6 +279,7 @@ const productConfig = {
         { productName: "Zlatan", productCode: "ZLA" },
         { productName: "Hockeyallsvenskan", productCode: "HAS" },
         { productName: "Vinterstudion", productCode: "VSB" },
+        { productName: "OS Bilaga", productCode: "OSA" },
       ],
       diTitle: "Ex Sport",
     },
