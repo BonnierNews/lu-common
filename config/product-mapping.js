@@ -1,4 +1,4 @@
-const sevenDayDelivery = [
+const sevenDay = [
   "monday",
   "tuesday",
   "wednesday",
@@ -8,7 +8,7 @@ const sevenDayDelivery = [
   "sunday",
 ];
 
-const sixDayDelivery = [
+const sixDay = [
   "monday",
   "tuesday",
   "wednesday",
@@ -17,10 +17,40 @@ const sixDayDelivery = [
   "saturday",
 ];
 
-const tuesdayThursdaySaturdayDelivery = [
+const fiveDay = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+];
+
+const mondayWednesdayThursdayFriday = [
+  "monday",
+  "wednesday",
+  "thursday",
+  "friday",
+];
+
+const mondayWednesdayFriday = [
+  "monday",
+  "wednesday",
+  "friday",
+];
+
+const tuesdayThursdaySaturday = [
   "tuesday",
   "thursday",
   "saturday",
+];
+
+const tuesdayFriday = [
+  "tuesday",
+  "friday",
+];
+
+const wednesday = [
+  "wednesday",
 ];
 
 const productConfig = {
@@ -35,7 +65,7 @@ const productConfig = {
       diCustomerSystem: "DNY",
       diTitle: "Dagens Nyheter",
       complaintSenderId: "1160",
-      deliveryDays: sevenDayDelivery,
+      deliveryDays: sevenDay,
     },
     {
       title: "kp",
@@ -64,7 +94,7 @@ const productConfig = {
       productName: "paf",
       diCustomerSystem: "",
       diTitle: "",
-      deliveryDays: sevenDayDelivery,
+      deliveryDays: sevenDay,
     },
     {
       title: "plg",
@@ -75,7 +105,7 @@ const productConfig = {
       productName: "plg",
       diCustomerSystem: "",
       diTitle: "",
-      deliveryDays: sevenDayDelivery,
+      deliveryDays: sevenDay,
     },
   ],
   expressen: [
@@ -88,7 +118,7 @@ const productConfig = {
       modexProducts: [ { productName: "Expressen", productCode: "EX" } ],
       diCustomerSystem: "EXPA",
       diTitle: "EX Expressen",
-      deliveryDays: sevenDayDelivery,
+      deliveryDays: sevenDay,
     },
     {
       title: "sportexpressen",
@@ -103,7 +133,7 @@ const productConfig = {
       modexProducts: [ { productName: "Göteborgstidningen", productCode: "GT" } ],
       diCustomerSystem: "GTI",
       diTitle: "EX Göteborgstidningen",
-      deliveryDays: sevenDayDelivery,
+      deliveryDays: sevenDay,
     },
     {
       title: "kvp",
@@ -467,6 +497,7 @@ const productConfig = {
       type: "paper",
       productName: "Arbetarbladet",
       diCustomerSystem: "",
+      deliveryDays: sixDay,
     },
     {
       title: "at",
@@ -477,6 +508,7 @@ const productConfig = {
       type: "paper",
       productName: "Arboga Tidning",
       diCustomerSystem: "ARBO",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "av",
@@ -487,6 +519,7 @@ const productConfig = {
       type: "paper",
       productName: "Avesta Tidning",
       diCustomerSystem: "AV",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "bb",
@@ -497,6 +530,7 @@ const productConfig = {
       type: "paper",
       productName: "Bärgslagsbladet",
       diCustomerSystem: "BARG",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "bblat",
@@ -515,6 +549,7 @@ const productConfig = {
       type: "paper",
       productName: "Borlange Tidning",
       diCustomerSystem: "",
+      deliveryDays: sixDay,
     },
     {
       title: "dd",
@@ -525,6 +560,7 @@ const productConfig = {
       type: "paper",
       productName: "Dala-Demokraten",
       diCustomerSystem: "",
+      deliveryDays: sixDay,
     },
     {
       title: "fp",
@@ -535,6 +571,7 @@ const productConfig = {
       type: "paper",
       productName: "Fagersta-Posten",
       diCustomerSystem: "FPO",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "ft",
@@ -545,6 +582,7 @@ const productConfig = {
       type: "paper",
       productName: "Falköpings Tidning",
       diCustomerSystem: "FTI",
+      deliveryDays: tuesdayThursdaySaturday,
     },
     {
       title: "fk",
@@ -555,6 +593,7 @@ const productConfig = {
       type: "paper",
       productName: "Falu-Kuriren",
       diCustomerSystem: "",
+      deliveryDays: sixDay,
     },
     {
       title: "frp",
@@ -569,6 +608,7 @@ const productConfig = {
       type: "paper",
       productName: "Gefle Dagblad",
       diCustomerSystem: "",
+      deliveryDays: sixDay,
     },
     {
       title: "hd",
@@ -579,6 +619,7 @@ const productConfig = {
       type: "paper",
       productName: "Helsingborgs Dagblad",
       diCustomerSystem: "HELD",
+      deliveryDays: sevenDay,
     },
     {
       title: "hp",
@@ -593,6 +634,7 @@ const productConfig = {
       type: "paper",
       productName: "Hudiksvalls Tidning",
       diCustomerSystem: "",
+      deliveryDays: mondayWednesdayThursdayFriday,
     },
     {
       title: "jnytt",
@@ -607,6 +649,7 @@ const productConfig = {
       type: "paper",
       productName: "Jönköpings-Posten",
       diCustomerSystem: "JP",
+      deliveryDays: sixDay,
     },
     {
       title: "lp",
@@ -617,6 +660,7 @@ const productConfig = {
       type: "paper",
       productName: "Landskrona Posten",
       diCustomerSystem: "LAP",
+      deliveryDays: sevenDay,
     },
     {
       title: "ljp",
@@ -627,6 +671,7 @@ const productConfig = {
       type: "paper",
       productName: "Ljusdals-Posten",
       diCustomerSystem: "",
+      deliveryDays: mondayWednesdayThursdayFriday,
     },
     {
       title: "lj",
@@ -637,6 +682,7 @@ const productConfig = {
       type: "paper",
       productName: "Ljusnan",
       diCustomerSystem: "",
+      deliveryDays: mondayWednesdayThursdayFriday,
     },
     {
       title: "ltz",
@@ -647,6 +693,7 @@ const productConfig = {
       type: "paper",
       productName: "Länstidningen, Östersund",
       diCustomerSystem: "",
+      deliveryDays: sixDay,
     },
     {
       title: "lts",
@@ -657,6 +704,7 @@ const productConfig = {
       type: "paper",
       productName: "Länstidningen, Södertälje",
       diCustomerSystem: "LT",
+      deliveryDays: sixDay,
     },
     {
       title: "mt",
@@ -667,6 +715,7 @@ const productConfig = {
       type: "paper",
       productName: "Mora Tidning",
       diCustomerSystem: "",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "na",
@@ -677,6 +726,7 @@ const productConfig = {
       type: "paper",
       productName: "Nerikes Allehanda",
       diCustomerSystem: "NAA",
+      deliveryDays: sevenDay,
     },
     {
       title: "nio",
@@ -691,6 +741,7 @@ const productConfig = {
       type: "paper",
       productName: "Nordvästra Skånes Tidningar",
       diCustomerSystem: "NST",
+      deliveryDays: sevenDay,
     },
     {
       title: "nt",
@@ -701,6 +752,7 @@ const productConfig = {
       type: "paper",
       productName: "Norrtelje Tidning",
       diCustomerSystem: "NORR",
+      deliveryDays: fiveDay,
     },
     {
       title: "nlt",
@@ -711,6 +763,7 @@ const productConfig = {
       type: "paper",
       productName: "Nya Ludvika Tidning",
       diCustomerSystem: "LUD",
+      deliveryDays: tuesdayThursdaySaturday,
     },
     {
       title: "np",
@@ -721,6 +774,7 @@ const productConfig = {
       type: "paper",
       productName: "Nynäshamns Posten",
       diCustomerSystem: "NYP",
+      deliveryDays: tuesdayFriday,
     },
     {
       title: "nvp",
@@ -735,6 +789,7 @@ const productConfig = {
       type: "paper",
       productName: "Örnsköldsviks Allehanda",
       diCustomerSystem: "",
+      deliveryDays: fiveDay,
     },
     {
       title: "op",
@@ -745,6 +800,7 @@ const productConfig = {
       type: "paper",
       productName: "Östersunds-Posten",
       diCustomerSystem: "",
+      deliveryDays: sixDay,
     },
     {
       title: "sa",
@@ -755,6 +811,7 @@ const productConfig = {
       type: "paper",
       productName: "Sala Allehanda",
       diCustomerSystem: "SALA",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "sklt",
@@ -765,6 +822,7 @@ const productConfig = {
       type: "paper",
       productName: "Skaraborgs Läns Tidning",
       diCustomerSystem: "SKL",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "smd",
@@ -775,6 +833,7 @@ const productConfig = {
       type: "paper",
       productName: "Smålands Dagblad",
       diCustomerSystem: "SMD",
+      deliveryDays: tuesdayThursdaySaturday,
     },
     {
       title: "smt",
@@ -785,6 +844,7 @@ const productConfig = {
       type: "paper",
       productName: "Smålands-Tidningen",
       diCustomerSystem: "SMT",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "sml",
@@ -795,6 +855,7 @@ const productConfig = {
       type: "paper",
       productName: "Smålänningen",
       diCustomerSystem: "SMÅ",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "sk",
@@ -805,6 +866,7 @@ const productConfig = {
       type: "paper",
       productName: "Söderhamns Kuriren",
       diCustomerSystem: "",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "sn",
@@ -819,6 +881,7 @@ const productConfig = {
       type: "paper",
       productName: "Södra Dalarnes Tidning",
       diCustomerSystem: "SDT",
+      deliveryDays: tuesdayThursdaySaturday,
     },
     {
       title: "st",
@@ -829,6 +892,7 @@ const productConfig = {
       type: "paper",
       productName: "Sundsvalls Tidning",
       diCustomerSystem: "",
+      deliveryDays: sixDay,
     },
     {
       title: "sds",
@@ -839,6 +903,7 @@ const productConfig = {
       type: "paper",
       productName: "Sydsvenskan",
       diCustomerSystem: "SDS",
+      deliveryDays: sevenDay,
     },
     {
       title: "ta",
@@ -849,6 +914,7 @@ const productConfig = {
       type: "paper",
       productName: "Tidningen Ångermanland",
       diCustomerSystem: "",
+      deliveryDays: tuesdayThursdaySaturday,
     },
     {
       title: "th",
@@ -859,6 +925,7 @@ const productConfig = {
       type: "paper",
       productName: "Tidningen Härjedalen",
       diCustomerSystem: "",
+      deliveryDays: wednesday,
     },
     {
       title: "trt",
@@ -869,6 +936,7 @@ const productConfig = {
       type: "paper",
       productName: "Tranås Tidning",
       diCustomerSystem: "TTI",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "trp",
@@ -881,8 +949,9 @@ const productConfig = {
       shortName: "VLT",
       subDirectory: "",
       type: "paper",
-      productName: "VLT",
+      productName: "Vestmanlands Läns Tidning",
       diCustomerSystem: "VLT",
+      deliveryDays: sixDay,
     },
     {
       title: "vn",
@@ -893,6 +962,7 @@ const productConfig = {
       type: "paper",
       productName: "Värnamo Nyheter",
       diCustomerSystem: "VNY",
+      deliveryDays: tuesdayThursdaySaturday,
     },
     {
       title: "vb",
@@ -903,6 +973,7 @@ const productConfig = {
       type: "paper",
       productName: "Västgöta-Bladet",
       diCustomerSystem: "VB",
+      deliveryDays: mondayWednesdayFriday,
     },
     {
       title: "vp",
@@ -913,11 +984,7 @@ const productConfig = {
       type: "paper",
       productName: "Vetlanda-Posten",
       diCustomerSystem: "VP",
-      deliveryDays: [
-        "tuesday",
-        "thursday",
-        "saturday",
-      ],
+      deliveryDays: tuesdayThursdaySaturday,
     },
     {
       title: "skd",
@@ -928,6 +995,7 @@ const productConfig = {
       type: "paper",
       productName: "Skånska Dagbladet",
       diCustomerSystem: "SKD",
+      deliveryDays: tuesdayThursdaySaturday,
     },
   ],
   gotamedia: [
@@ -940,7 +1008,7 @@ const productConfig = {
       type: "paper",
       productName: "Barometern",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
     {
       title: "blt",
@@ -950,7 +1018,7 @@ const productConfig = {
       type: "paper",
       productName: "Blekinge Läns Tidning",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
     {
       title: "bti",
@@ -960,7 +1028,7 @@ const productConfig = {
       type: "paper",
       productName: "Borås Tidning",
       diCustomerSystem: "GOT",
-      deliveryDays: sevenDayDelivery,
+      deliveryDays: sevenDay,
     },
     {
       title: "so",
@@ -970,7 +1038,7 @@ const productConfig = {
       type: "paper",
       productName: "Sydöstran",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
     {
       title: "smp",
@@ -980,7 +1048,7 @@ const productConfig = {
       type: "paper",
       productName: "Smålandsposten",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
     {
       title: "kb",
@@ -990,7 +1058,7 @@ const productConfig = {
       type: "paper",
       productName: "Kristianstadsbladet",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
     {
       title: "ya",
@@ -1000,7 +1068,7 @@ const productConfig = {
       type: "paper",
       productName: "Ystads Allehanda",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
     {
       title: "tra",
@@ -1010,7 +1078,7 @@ const productConfig = {
       type: "paper",
       productName: "Trelleborgs Allehanda",
       diCustomerSystem: "GOT",
-      deliveryDays: tuesdayThursdaySaturdayDelivery,
+      deliveryDays: tuesdayThursdaySaturday,
     },
     {
       title: "ob",
@@ -1020,7 +1088,7 @@ const productConfig = {
       type: "paper",
       productName: "Ölandsbladet",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
     {
       title: "ut",
@@ -1030,7 +1098,7 @@ const productConfig = {
       type: "paper",
       productName: "Ulricehamns Tidning",
       diCustomerSystem: "GOT",
-      deliveryDays: tuesdayThursdaySaturdayDelivery,
+      deliveryDays: tuesdayThursdaySaturday,
     },
     {
       title: "klt",
@@ -1040,7 +1108,7 @@ const productConfig = {
       type: "paper",
       productName: "Kalmar Läns tidning",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
     {
       title: "vk",
@@ -1050,7 +1118,7 @@ const productConfig = {
       type: "paper",
       productName: "Växjöbladet Kronobergaren",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
     {
       title: "nsk",
@@ -1060,7 +1128,7 @@ const productConfig = {
       type: "paper",
       productName: "Norra Skåne",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
     {
       title: "ot",
@@ -1070,7 +1138,7 @@ const productConfig = {
       type: "paper",
       productName: "Oskarshamnstidningen",
       diCustomerSystem: "GOT",
-      deliveryDays: sixDayDelivery,
+      deliveryDays: sixDay,
     },
   ],
 };
