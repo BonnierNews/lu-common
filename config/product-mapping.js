@@ -1,57 +1,18 @@
-const sevenDay = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-  "sunday",
-];
+const sevenDay = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ];
 
-const sixDay = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-];
+const sixDay = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" ];
 
-const fiveDay = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-];
+const fiveDay = [ "monday", "tuesday", "wednesday", "thursday", "friday" ];
 
-const mondayWednesdayThursdayFriday = [
-  "monday",
-  "wednesday",
-  "thursday",
-  "friday",
-];
+const mondayWednesdayThursdayFriday = [ "monday", "wednesday", "thursday", "friday" ];
 
-const mondayWednesdayFriday = [
-  "monday",
-  "wednesday",
-  "friday",
-];
+const mondayWednesdayFriday = [ "monday", "wednesday", "friday" ];
 
-const tuesdayThursdaySaturday = [
-  "tuesday",
-  "thursday",
-  "saturday",
-];
+const tuesdayThursdaySaturday = [ "tuesday", "thursday", "saturday" ];
 
-const tuesdayFriday = [
-  "tuesday",
-  "friday",
-];
+const tuesdayFriday = [ "tuesday", "friday" ];
 
-const wednesday = [
-  "wednesday",
-];
+const wednesday = [ "wednesday" ];
 
 const productConfig = {
   dn: [

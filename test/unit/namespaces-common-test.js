@@ -1,4 +1,9 @@
-import { isCommonNamespace, getCommonNamespaces, carrierDeliveryOnlyNamespaces, postalDeliveryOnlyNamespaces } from "../../lib/namespaces.js";
+import {
+  isCommonNamespace,
+  getCommonNamespaces,
+  carrierDeliveryOnlyNamespaces,
+  postalDeliveryOnlyNamespaces,
+} from "../../lib/namespaces.js";
 
 const expectedNamespaces = [
   "bbm-aktuellhallbarhet",
@@ -44,6 +49,8 @@ describe("isCommonNamespace", () => {
   });
 
   it("should give us a list of postal delivery only namespaces", () => {
-    JSON.stringify(postalDeliveryOnlyNamespaces.sort()).should.equal(JSON.stringify(expectedPostalDeliveryOnlyNamespaces));
+    JSON.stringify(postalDeliveryOnlyNamespaces.sort()).should.equal(
+      JSON.stringify(expectedPostalDeliveryOnlyNamespaces)
+    );
   });
 });

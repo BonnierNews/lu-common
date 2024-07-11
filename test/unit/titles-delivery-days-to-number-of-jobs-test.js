@@ -43,12 +43,7 @@ describe("delivery days to number of jobs", () => {
     });
   });
   it("should return the correct days: monday, wednesday, friday, sunday", () => {
-    const numberOfJobs = deliveryDaysToNumberOfJobs([
-      "monday",
-      "wednesday",
-      "friday",
-      "sunday",
-    ]);
+    const numberOfJobs = deliveryDaysToNumberOfJobs([ "monday", "wednesday", "friday", "sunday" ]);
     numberOfJobs.should.eql({
       monday: 1,
       tuesday: 2,
@@ -60,11 +55,7 @@ describe("delivery days to number of jobs", () => {
     });
   });
   it("should return the correct days", () => {
-    const numberOfJobs = deliveryDaysToNumberOfJobs([
-      "monday",
-      "tuesday",
-      "thursday",
-    ]);
+    const numberOfJobs = deliveryDaysToNumberOfJobs([ "monday", "tuesday", "thursday" ]);
     numberOfJobs.should.eql({
       monday: 2,
       tuesday: 0,
@@ -77,9 +68,7 @@ describe("delivery days to number of jobs", () => {
   });
 
   it("should return the correct days", () => {
-    const numberOfJobs = deliveryDaysToNumberOfJobs([
-      "monday",
-    ]);
+    const numberOfJobs = deliveryDaysToNumberOfJobs([ "monday" ]);
     numberOfJobs.should.eql({
       monday: 4,
       tuesday: 0,
@@ -92,10 +81,7 @@ describe("delivery days to number of jobs", () => {
   });
 
   it("should return the correct days", () => {
-    const numberOfJobs = deliveryDaysToNumberOfJobs([
-      "monday",
-      "friday",
-    ]);
+    const numberOfJobs = deliveryDaysToNumberOfJobs([ "monday", "friday" ]);
     numberOfJobs.should.eql({
       monday: 3,
       tuesday: 0,

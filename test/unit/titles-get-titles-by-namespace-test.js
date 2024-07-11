@@ -20,7 +20,10 @@ describe("get titles by namespace", () => {
 
       it(`should return all print titles in namespace: ${n.namespace}`, () => {
         const titles = getPrintTitlesByNamespace(n.namespace);
-        const titlesFromConfig = productConfig[n.namespace].filter((t) => t.tsCode).map((pm) => pm.title).filter((t) => t);
+        const titlesFromConfig = productConfig[n.namespace]
+          .filter((t) => t.tsCode)
+          .map((pm) => pm.title)
+          .filter((t) => t);
         titles.should.eql(titlesFromConfig);
       });
     });
