@@ -20,6 +20,7 @@ const expectedExports = [
   "ftp",
   "gcpAuth",
   "gcs",
+  "getUrl",
   "http",
   "iterators",
   "json",

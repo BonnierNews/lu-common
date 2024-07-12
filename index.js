@@ -7,6 +7,7 @@ import * as formatAmount from "./lib/utils/format-amount.js";
 import * as ftp from "./lib/utils/ftp.js";
 import * as gcpAuth from "./lib/utils/gcp-auth.js";
 import * as gcs from "./lib/utils/gcs.js";
+import getUrl from "./lib/utils/get-url.js";
 import http from "./lib/utils/http.js";
 import * as iterators from "./lib/utils/iterators.js";
 import { utils as ses } from "./lib/utils/ses.js";
@@ -36,6 +37,7 @@ export {
   ftp,
   gcpAuth,
   gcs,
+  getUrl,
   http,
   iterators,
   json,
