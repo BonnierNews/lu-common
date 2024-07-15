@@ -1,7 +1,8 @@
+import { fakeApi as fakeApiInit, fakeGcpAuth } from "@bonniernews/lu-test";
 import config from "exp-config";
+import { debugMeta } from "lu-logger";
 import nock from "nock";
 import urlencode from "urlencode";
-import { fakeGcpAuth, fakeApi as fakeApiInit } from "@bonniernews/lu-test";
 
 import http from "../../../lib/utils/http.js";
 
@@ -372,6 +373,35 @@ describe("http", () => {
         })
         .then(() => done("should not come here"))
         .catch(() => done());
+    });
+  });
+
+  describe("correlation ID", () => {
+    beforeEach(fakeGcpAuth.authenticated);
+    after(fakeGcpAuth.reset);
+    const correlationId = "some-epic-id";
+    const middleware = debugMeta.initMiddleware((req) => req.debugMeta);
+
+    it("should take correlation ID from argument if ran without middleware", async () => {
+      fakeApi.get("/some/path").matchHeader("correlation-id", correlationId).reply(200, { ok: true });
+
+      await http.get({ path: "/some/path", correlationId });
+    });
+
+    it("should take correlation ID from logger middleware if no argument provided", () => {
+      fakeApi.get("/some/path").matchHeader("correlation-id", correlationId).reply(200, { ok: true });
+
+      middleware({ debugMeta: { correlationId } }, {}, async () => {
+        await http.get({ path: "/some/path" });
+      });
+    });
+
+    it("should take correlation ID from argument even if ran in middleware", () => {
+      fakeApi.get("/some/path").matchHeader("correlation-id", correlationId).reply(200, { ok: true });
+
+      middleware({ debugMeta: { correlationId: "some-less-epic-id" } }, {}, async () => {
+        await http.get({ path: "/some/path", correlationId });
+      });
     });
   });
 
