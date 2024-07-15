@@ -74,7 +74,7 @@ const productConfig = {
       modexProducts: [ { productName: "Expressen", productCode: "EX" } ],
       diCustomerSystem: "EXPA",
       diTitle: "EX Expressen",
-      deliveryDays: sevenDay,
+      deliveryDays: sixDay,
     },
     {
       title: "sportexpressen",
@@ -89,7 +89,7 @@ const productConfig = {
       modexProducts: [ { productName: "Göteborgstidningen", productCode: "GT" } ],
       diCustomerSystem: "GTI",
       diTitle: "EX Göteborgstidningen",
-      deliveryDays: sevenDay,
+      deliveryDays: sixDay,
     },
     {
       title: "kvp",
@@ -100,6 +100,7 @@ const productConfig = {
       modexProducts: [ { productName: "Kvällsposten", productCode: "KV" } ],
       diCustomerSystem: "KVP",
       diTitle: "EX Kvällsposten",
+      deliveryDays: sixDay,
     },
     {
       title: null,
