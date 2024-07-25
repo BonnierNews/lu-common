@@ -379,6 +379,7 @@ const productConfig = {
       subDirectory: "2638",
       type: "paper",
       modexProducts: [
+        { productName: "Allt om resor", productCode: "RES" },
         { productName: "EX GT Kvp Bilaga", productCode: "EB" },
         { productName: "Play", productCode: "NETFB" },
         { productName: "Äntligen Jul", productCode: "JUL" },
