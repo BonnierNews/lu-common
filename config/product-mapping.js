@@ -1,17 +1,10 @@
 const sevenDay = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ];
-
 const sixDay = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" ];
-
 const fiveDay = [ "monday", "tuesday", "wednesday", "thursday", "friday" ];
-
 const mondayWednesdayThursdayFriday = [ "monday", "wednesday", "thursday", "friday" ];
-
 const mondayWednesdayFriday = [ "monday", "wednesday", "friday" ];
-
 const tuesdayThursdaySaturday = [ "tuesday", "thursday", "saturday" ];
-
 const tuesdayFriday = [ "tuesday", "friday" ];
-
 const wednesday = [ "wednesday" ];
 
 const productConfig = {
@@ -27,6 +20,7 @@ const productConfig = {
       diTitle: "Dagens Nyheter",
       complaintSenderId: "1160",
       deliveryDays: sevenDay,
+      expectDiffFileEveryDeliveryDay: true,
     },
     {
       title: "kp",
@@ -43,6 +37,7 @@ const productConfig = {
       productName: "di",
       diCustomerSystem: "DI",
       diTitle: "Dagens Industri",
+      expectDiffFileEveryDeliveryDay: true,
     },
   ],
   paf: [
@@ -79,7 +74,7 @@ const productConfig = {
       modexProducts: [ { productName: "Expressen", productCode: "EX" } ],
       diCustomerSystem: "EXPA",
       diTitle: "EX Expressen",
-      deliveryDays: sevenDay,
+      deliveryDays: sixDay,
     },
     {
       title: "sportexpressen",
@@ -94,7 +89,7 @@ const productConfig = {
       modexProducts: [ { productName: "Göteborgstidningen", productCode: "GT" } ],
       diCustomerSystem: "GTI",
       diTitle: "EX Göteborgstidningen",
-      deliveryDays: sevenDay,
+      deliveryDays: sixDay,
     },
     {
       title: "kvp",
@@ -105,6 +100,7 @@ const productConfig = {
       modexProducts: [ { productName: "Kvällsposten", productCode: "KV" } ],
       diCustomerSystem: "KVP",
       diTitle: "EX Kvällsposten",
+      deliveryDays: sixDay,
     },
     {
       title: null,
