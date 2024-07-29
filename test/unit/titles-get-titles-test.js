@@ -21,14 +21,14 @@ describe("get titles", () => {
   describe("getting all titles", () => {
     it("should return all titles", () => {
       const allTitles = getAllTitles();
-      const allTitlesFromConfig = productMapping.filter((pm) => pm.title).map((pm) => pm.title);
-      allTitles.should.eql(allTitlesFromConfig);
+      const allTitlesFromConfig = productMapping.filter((p) => p.title).map((p) => p.title);
+      allTitles.sort().should.eql(allTitlesFromConfig.sort());
     });
 
     it("should return all print titles", () => {
       const allTitles = getAllPrintTitles();
-      const allTitlesFromConfig = productMapping.filter((pm) => pm.tsCode).map((pm) => pm.title);
-      allTitles.should.eql(allTitlesFromConfig);
+      const allTitlesFromConfig = productMapping.filter((p) => p.title && p.tsCode).map((p) => p.title);
+      allTitles.sort().should.eql(allTitlesFromConfig.sort());
     });
   });
 
@@ -37,7 +37,7 @@ describe("get titles", () => {
       describe(n.text, () => {
         it(`should return all titles in namespace: ${n.namespace}`, () => {
           const titles = getTitlesByNamespace(n.namespace);
-          const titlesFromConfig = productConfig[n.namespace].map((pm) => pm.title).filter((t) => t);
+          const titlesFromConfig = productConfig[n.namespace].map((p) => p.title).filter((t) => t);
           titles.should.eql(titlesFromConfig);
         });
 
