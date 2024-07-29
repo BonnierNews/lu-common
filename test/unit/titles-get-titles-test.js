@@ -1,4 +1,6 @@
 import {
+  alternativeTitleConfig,
+  allTitlesConfig,
   getAllTitles,
   getAllPrintTitles,
   getTitleConfig,
@@ -6,6 +8,7 @@ import {
   getTitlesByNamespace,
   getPrintTitlesByNamespace,
   productConfig,
+  realTitlesConfig,
 } from "../../lib/titles.js";
 
 const namespaceSafety = [
@@ -21,14 +24,14 @@ describe("get titles", () => {
   describe("getting all titles", () => {
     it("should return all titles", () => {
       const allTitles = getAllTitles();
-      const allTitlesFromConfig = productMapping.filter((pm) => pm.title).map((pm) => pm.title);
-      allTitles.should.eql(allTitlesFromConfig);
+      const allTitlesFromConfig = productMapping.filter((p) => p.title).map((p) => p.title);
+      allTitles.sort().should.eql(allTitlesFromConfig.sort());
     });
 
     it("should return all print titles", () => {
       const allTitles = getAllPrintTitles();
-      const allTitlesFromConfig = productMapping.filter((pm) => pm.tsCode).map((pm) => pm.title);
-      allTitles.should.eql(allTitlesFromConfig);
+      const allTitlesFromConfig = productMapping.filter((p) => p.title && p.tsCode).map((p) => p.title);
+      allTitles.sort().should.eql(allTitlesFromConfig.sort());
     });
   });
 
@@ -37,7 +40,7 @@ describe("get titles", () => {
       describe(n.text, () => {
         it(`should return all titles in namespace: ${n.namespace}`, () => {
           const titles = getTitlesByNamespace(n.namespace);
-          const titlesFromConfig = productConfig[n.namespace].map((pm) => pm.title).filter((t) => t);
+          const titlesFromConfig = productConfig[n.namespace].map((p) => p.title).filter((t) => t);
           titles.should.eql(titlesFromConfig);
         });
 
@@ -94,6 +97,39 @@ describe("get titles", () => {
     });
     it("should expect expressen to have so few subscriptions that there won't necessarily be a start/stop file every day", () => {
       Boolean(getTitleConfig("expressen").expectDiffFileEveryDeliveryDay).should.eql(false);
+    });
+  });
+
+  describe("title config lists", () => {
+    describe("real titles", () => {
+      it("should have the right number of products with a title", () => {
+        const numTitles = productMapping.filter((p) => p.title).length;
+        realTitlesConfig.length.should.eql(numTitles);
+      });
+      it("should have the full config of the first product with a title", () => {
+        const expectedConfig = productMapping.find((p) => p.title === realTitlesConfig[0].title);
+        realTitlesConfig[0].should.eql(expectedConfig);
+      });
+    });
+    describe("alternative titles", () => {
+      it("should have a product per alternative title", () => {
+        const numAlternativeTitles = productMapping
+          .filter((p) => p.alternativeTitles)
+          .reduce((acc, p) => acc + p.alternativeTitles.length, 0);
+        alternativeTitleConfig.length.should.eql(numAlternativeTitles);
+      });
+      it("should have the full config of the first product's alternative title", () => {
+        const expectedConfig = {
+          ...productMapping
+            .filter((p) => p.alternativeTitles)
+            .find((p) => p.alternativeTitles.includes(alternativeTitleConfig[0].title)),
+          title: alternativeTitleConfig[0].title,
+        };
+        alternativeTitleConfig[0].should.eql(expectedConfig);
+      });
+    });
+    it("should provide a list of titles including alternative titles", () => {
+      allTitlesConfig.should.eql([ ...realTitlesConfig, ...alternativeTitleConfig ]);
     });
   });
 });

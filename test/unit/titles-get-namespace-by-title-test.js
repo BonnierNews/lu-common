@@ -17,4 +17,11 @@ describe("get namespace by title", () => {
       namespace.should.eql(tc.namespace);
     });
   }
+  it("should raise an error for a title that does not exist", () => {
+    try {
+      getNamespaceByTitle("some-title");
+    } catch (error) {
+      error.message.should.eql("title some-title not found in product-mapping. Check product-mapping config");
+    }
+  });
 });
