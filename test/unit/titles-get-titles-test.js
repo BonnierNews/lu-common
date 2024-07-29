@@ -1,4 +1,6 @@
 import {
+  alternativeTitleConfig,
+  allTitlesConfig,
   getAllTitles,
   getAllPrintTitles,
   getTitleConfig,
@@ -6,6 +8,7 @@ import {
   getTitlesByNamespace,
   getPrintTitlesByNamespace,
   productConfig,
+  realTitlesConfig,
 } from "../../lib/titles.js";
 
 const namespaceSafety = [
@@ -94,6 +97,33 @@ describe("get titles", () => {
     });
     it("should expect expressen to have so few subscriptions that there won't necessarily be a start/stop file every day", () => {
       Boolean(getTitleConfig("expressen").expectDiffFileEveryDeliveryDay).should.eql(false);
+    });
+  });
+
+  describe("title lists", () => {
+    it("should provide a list of all titles with config", () => {
+      const numTitles = productMapping.filter((p) => p.title).length;
+      realTitlesConfig.length.should.eql(numTitles);
+
+      const expectedConfig = productMapping.find((p) => p.title === realTitlesConfig[0].title);
+      realTitlesConfig[0].should.eql(expectedConfig);
+    });
+    it("should provide a list of all alternative titles with config", () => {
+      const numAlternativeTitles = productMapping
+        .filter((p) => p.alternativeTitles)
+        .reduce((acc, p) => acc + p.alternativeTitles.length, 0);
+      alternativeTitleConfig.length.should.eql(numAlternativeTitles);
+
+      const expectedConfig = {
+        ...productMapping
+          .filter((p) => p.alternativeTitles)
+          .find((p) => p.alternativeTitles.includes(alternativeTitleConfig[0].title)),
+        title: alternativeTitleConfig[0].title,
+      };
+      alternativeTitleConfig[0].should.eql(expectedConfig);
+    });
+    it("should provide a list of titles including alternative titles", () => {
+      allTitlesConfig.should.eql([ ...realTitlesConfig, ...alternativeTitleConfig ]);
     });
   });
 });
