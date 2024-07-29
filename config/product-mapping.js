@@ -586,6 +586,7 @@ const productConfig = {
     {
       title: "ht",
       alternativeTitles: [ "hudiksvalsstidning", "hudiksvallstidning" ],
+      complaintSenderId: "TBD", // needed for tests, but not used in production, will be filled in when needed
       tsCode: "0990",
       shortName: "",
       subDirectory: "",
