@@ -100,27 +100,33 @@ describe("get titles", () => {
     });
   });
 
-  describe("title lists", () => {
-    it("should provide a list of all titles with config", () => {
-      const numTitles = productMapping.filter((p) => p.title).length;
-      realTitlesConfig.length.should.eql(numTitles);
-
-      const expectedConfig = productMapping.find((p) => p.title === realTitlesConfig[0].title);
-      realTitlesConfig[0].should.eql(expectedConfig);
+  describe("title config lists", () => {
+    describe("real titles", () => {
+      it("should have the right number of products with a title", () => {
+        const numTitles = productMapping.filter((p) => p.title).length;
+        realTitlesConfig.length.should.eql(numTitles);
+      });
+      it("should have the full config of the first product with a title", () => {
+        const expectedConfig = productMapping.find((p) => p.title === realTitlesConfig[0].title);
+        realTitlesConfig[0].should.eql(expectedConfig);
+      });
     });
-    it("should provide a list of all alternative titles with config", () => {
-      const numAlternativeTitles = productMapping
-        .filter((p) => p.alternativeTitles)
-        .reduce((acc, p) => acc + p.alternativeTitles.length, 0);
-      alternativeTitleConfig.length.should.eql(numAlternativeTitles);
-
-      const expectedConfig = {
-        ...productMapping
+    describe("alternative titles", () => {
+      it("should have a product per alternative title", () => {
+        const numAlternativeTitles = productMapping
           .filter((p) => p.alternativeTitles)
-          .find((p) => p.alternativeTitles.includes(alternativeTitleConfig[0].title)),
-        title: alternativeTitleConfig[0].title,
-      };
-      alternativeTitleConfig[0].should.eql(expectedConfig);
+          .reduce((acc, p) => acc + p.alternativeTitles.length, 0);
+        alternativeTitleConfig.length.should.eql(numAlternativeTitles);
+      });
+      it("should have the full config of the first product's alternative title", () => {
+        const expectedConfig = {
+          ...productMapping
+            .filter((p) => p.alternativeTitles)
+            .find((p) => p.alternativeTitles.includes(alternativeTitleConfig[0].title)),
+          title: alternativeTitleConfig[0].title,
+        };
+        alternativeTitleConfig[0].should.eql(expectedConfig);
+      });
     });
     it("should provide a list of titles including alternative titles", () => {
       allTitlesConfig.should.eql([ ...realTitlesConfig, ...alternativeTitleConfig ]);
