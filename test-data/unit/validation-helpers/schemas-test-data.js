@@ -115,6 +115,40 @@ const addressScenarios = [
     },
   },
   {
+    text: "Valid address with negative streetNumber",
+    expected: true,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "-39",
+      zipCode: "12345",
+      city: "Teststaden",
+      country: "SE",
+    },
+  },
+  {
+    text: "Valid address with only letters as streetNumber",
+    expected: true,
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "ABC",
+      zipCode: "12345",
+      city: "Teststaden",
+      country: "SE",
+    },
+  },
+  {
+    text: "Invalid address due to bad streetNumber 1A",
+    expected: false,
+    error: '"streetNumber" length must be less than or equal to 50 characters long',
+    address: {
+      streetName: "Testgatan",
+      streetNumber: "1A",
+      zipCode: "12345",
+      city: "Teststaden",
+      country: "SE",
+    },
+  },
+  {
     text: "Invalid address default country address, bad zipCode",
     expected: false,
     error: '"zipCode" failed validation because Postal code 123 is not valid for country SE',

@@ -31,19 +31,6 @@ describe("check if address is correct", () => {
   }
 });
 
-describe("check if address is NOT correct", () => {
-  it("should invalidate address with a letter in streetNumber", () => {
-    const notValidAddress = addressSchema.validate({
-      streetName: "Testgatan",
-      streetNumber: "1A",
-      zipCode: "12345",
-      city: "Teststaden",
-    });
-
-    notValidAddress.error.details[0].message.should.eql('"streetNumber" length must be less than or equal to 50 characters long');
-  });
-});
-
 describe("check if distributionFee is correct", () => {
   for (const s of distributionFeeScenarios) {
     describe(`${s.text || s.nandText} with nand schema`, () => {
