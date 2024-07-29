@@ -46,7 +46,7 @@ const titleTsCodeMapping = [
   },
 ];
 
-describe("sanity check productMapping", () => {
+describe("get tsCode test", () => {
   describe("get tsCode by title", () => {
     for (const s of titleTsCodeMapping) {
       describe(s.text, () => {
