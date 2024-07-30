@@ -12,6 +12,7 @@ describe("check if address is correct", () => {
         : addressSchema.validate(s.address);
 
       it(`is a${s.expected ? " valid " : "n invalid "} address`, () => {
+
         Boolean(!notValidAddress).should.eql(Boolean(s.expected));
       });
 
