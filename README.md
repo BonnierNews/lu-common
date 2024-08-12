@@ -1,3 +1,9 @@
+# DEPRECATED
+
+As of August 2024 this package is deprecated and will receive no further updates. 
+
+Any internal changes should be made directly in `lu-greenfield`
+
 # Lu-common
 
 ![Node.js CI](https://github.com/BonnierNews/lu-common/workflows/Node.js%20CI/badge.svg)
